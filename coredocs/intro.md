@@ -10,7 +10,7 @@ I plan to provide a broad overview of as much of .NET as I can. I do not aim to 
 
 In no particular order, topics I'd like to cover include:
 * C#
-    * Interfaces
+    * [Interfaces](interfaces.md) (incomplete!)
     * Generics
     * Static
     * [Delegates](delegates.md) (incomplete!)

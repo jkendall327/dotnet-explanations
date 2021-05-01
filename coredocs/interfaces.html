@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Interfaces</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="interfaces">Interfaces</h1>
+<p><a href="intro.html">Home</a></p>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>Interfaces let you focus on what you want your code rather than how it does it.</p>
+<h2 id="why-care-about-interfaces">Why care about interfaces?</h2>
+<p>Interfaces seem very abstract and unnecessary at first. They are, however, a very useful way to make your code more flexible and maintainable. (Buzzword counter: 2.)</p>
+<p>Don't go looking for situations where you can use interfaces. If you use an interface in every single situation where you can, you will make your project more complicated for no reason.</p>
+<p>You will end up working with interfaces a lot in .NET, if only due to LINQ. Understanding what an interface is will make the age-old question 'what is the difference between <code>IEnumerable&lt;&gt;</code> and <code>List&lt;&gt;</code>?' a lot easier to understand.</p>
+<h2 id="explanation">Explanation</h2>
+<p>Interfaces are a solution to a problem. Imagine a program that lets people register user-accounts and edit their details. You might have a method that looks like this.</p>
+<pre><code><code><div>public void ChangeUsername(int userID, string newName)
+{
+    var user = UserDetailsDatabaseLoader.Load(id);
+    user.Name = newName;
+}
+</div></code></code></pre>
+<p>...</p>
+<p>You then learn that you will also have to load user details from the filesystem, and not just a database.</p>
+<pre><code><code><div>public void ChangeUsername(int userID, string newName)
+{
+    var user = UserDetailsFilesystemLoader.Load(id);
+    user.Name = newName;
+}
+</div></code></code></pre>
+<p>Constantly going back and changing this code every time we decide on a different way to store user information is pretty annoying.</p>
+<p>This method really shouldn't care about how it gets a user's information -- all it cares about is if it has the user or not.</p>
+<p>Using an interface lets us express the 'idea' of something which gives us user details without specifying how it does it.</p>
+
+    </body>
+    </html>

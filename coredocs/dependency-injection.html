@@ -55,7 +55,7 @@
 <h2 id="using-interfaces-with-dependency-injection">USING INTERFACES WITH DEPENDENCY INJECTION</h2>
 <p>It is very common to use interfaces with dependency injection. Rather than directly asking for an instance of a class in your constructor, you ask for an interface which represents this class.</p>
 <p>In other words, MyClass asks for an IHttpClientFactory (an interface) rather than a HttpClient (a normal class).</p>
-<p>This is common because it makes your code more flexzible. By using dependency injection, MyCLass doesn't know where its web-client comes from. By using an interface instead of a concrete class, MyClass also doesn't know what specific class it's using.</p>
+<p>This is common because it makes your code more flexible. By using dependency injection, MyCLass doesn't know where its web-client comes from. By using an interface instead of a concrete class, MyClass also doesn't know what specific class it's using.</p>
 <p>This means that we can swap out whatever we give MyClass with anything that implements the IHttpClientFactory. MyClass won't know the difference.</p>
 <p>Using interfaces is not a key part of dependency injection, it's just a common combination of two useful ideas that work well together. Most of the benefits in this section are just because of using an interface, not specifically because you injected one.</p>
 <h2 id="di-containers">DI CONTAINERS</h2>
