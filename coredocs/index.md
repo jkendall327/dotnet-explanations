@@ -15,7 +15,7 @@ In no particular order, topics I'd like to cover include:
     * [Interfaces](interfaces.md) (incomplete!)
     * [Generics](generics.md) (incomplete!)
     * Static
-    * [Delegates](delegates.md) (incomplete!)
+    * [Delegates](delegates.md) (first draft complete)
       * Func and Action
       * Lambdas
       * Events

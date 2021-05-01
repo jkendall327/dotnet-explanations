@@ -130,19 +130,19 @@ Because our delegate asks for two `int`s, we have to give it two `int`s to invok
 
 ```myDelegate.Invoke(4, 5);```
 
-This will run through every method in `myDelegate`, giving them each the arguments 4 and 5. Each method will return a value (81 and 1, in this example). But we're not catching those values in a variable anywhere, so they just get lost forever. How sad! And useless.
+This will run through every method in `myDelegate`, giving them each the arguments 4 and 5. Each method will return a value (81 and 1, in this example). But we're not doing anything with those variables, so they just get lost forever. How sad! And useless.
 
 ## Multicast delegates
 
-I've used the metaphor of a `List` throughout this page because I think putting delegates in terms of something you probably have a lot of experience with makes them easier to understand.
+I've used the metaphor of a `List` throughout this page because I think it makes delegates easier to understand.
 
 It's important, however, to note the difference between a `System.Delegate` and a `System.Delegate.MulticastDelegate`.
 
-The `System.Delegate` isn't, actually, like a `List<>` at all. It can only hold one method at a time. This still lets you treat a method like a variable, but you can't build up a list of lots of methods.
+`System.Delegate` isn't, actually, like a `List<>` at all. It can only hold one method at a time. This still lets you treat a method like a variable, but you can't build up a list of lots of methods.
 
 Only the `MulticastDelegate` can build up a list of methods.
 
-I didn't explain this at the start because, in practical terms, it doesn't really matter. When you use the `delegate` keyword, it will always be the `MulticastDelegate`. You can work under the assumption that all delegates are multicast. The only reason that there is a split between `Delegate` and `MulticastDelegate` is historical. I imagine that if Microsoft could rewrite .NET from scratch, they would combine these two classes.
+I didn't explain this at the start because, in practical terms, it doesn't really matter. When you use the `delegate` keyword, it will always be the `MulticastDelegate`. The only reason that there is a split between `Delegate` and `MulticastDelegate` is historical. I imagine that if Microsoft could rewrite .NET from scratch, they would combine these two classes.
 
 It's still important (and I think interesting) to know about this difference. You might get asked about it by an interviewer who wants to feel clever.
 

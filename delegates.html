@@ -116,13 +116,13 @@
 <p><code>myDelegate</code> now contains both methods. How wonderful! And useless. To make our delegate actually do something, we need to <em>invoke</em> it. This just means calling it.
 Because our delegate asks for two <code>int</code>s, we have to give it two <code>int</code>s to invoke it. It will also give us one <code>int</code> back, as its signature says.</p>
 <p><code>myDelegate.Invoke(4, 5);</code></p>
-<p>This will run through every method in <code>myDelegate</code>, giving them each the arguments 4 and 5. Each method will return a value (81 and 1, in this example). But we're not catching those values in a variable anywhere, so they just get lost forever. How sad! And useless.</p>
+<p>This will run through every method in <code>myDelegate</code>, giving them each the arguments 4 and 5. Each method will return a value (81 and 1, in this example). But we're not doing anything with those variables, so they just get lost forever. How sad! And useless.</p>
 <h2 id="multicast-delegates">Multicast delegates</h2>
-<p>I've used the metaphor of a <code>List</code> throughout this page because I think putting delegates in terms of something you probably have a lot of experience with makes them easier to understand.</p>
+<p>I've used the metaphor of a <code>List</code> throughout this page because I think it makes delegates easier to understand.</p>
 <p>It's important, however, to note the difference between a <code>System.Delegate</code> and a <code>System.Delegate.MulticastDelegate</code>.</p>
-<p>The <code>System.Delegate</code> isn't, actually, like a <code>List&lt;&gt;</code> at all. It can only hold one method at a time. This still lets you treat a method like a variable, but you can't build up a list of lots of methods.</p>
+<p><code>System.Delegate</code> isn't, actually, like a <code>List&lt;&gt;</code> at all. It can only hold one method at a time. This still lets you treat a method like a variable, but you can't build up a list of lots of methods.</p>
 <p>Only the <code>MulticastDelegate</code> can build up a list of methods.</p>
-<p>I didn't explain this at the start because, in practical terms, it doesn't really matter. When you use the <code>delegate</code> keyword, it will always be the <code>MulticastDelegate</code>. You can work under the assumption that all delegates are multicast. The only reason that there is a split between <code>Delegate</code> and <code>MulticastDelegate</code> is historical. I imagine that if Microsoft could rewrite .NET from scratch, they would combine these two classes.</p>
+<p>I didn't explain this at the start because, in practical terms, it doesn't really matter. When you use the <code>delegate</code> keyword, it will always be the <code>MulticastDelegate</code>. The only reason that there is a split between <code>Delegate</code> and <code>MulticastDelegate</code> is historical. I imagine that if Microsoft could rewrite .NET from scratch, they would combine these two classes.</p>
 <p>It's still important (and I think interesting) to know about this difference. You might get asked about it by an interviewer who wants to feel clever.</p>
 <h2 id="further-learning">Further learning</h2>
 <p>You now understand the basic idea of delegates. They are a way to put methods of the same signature in a variable. This lets us pass methods around, manipulate them, or invoke them all at once.</p>
