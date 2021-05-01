@@ -1,4 +1,4 @@
-# Properties
+# Properties / getter-setters
 
 [Home](index.md)
 
