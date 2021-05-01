@@ -1,4 +1,4 @@
-#Simple explanations for .NET concepts
+# Simple explanations for .NET concepts
 
 ## What is this site?
 This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone in the same position as me -- someone interested in .NET as a general concept but is confused bby the large amounts of unfamiliar names, project types and terminology.
@@ -12,8 +12,12 @@ In no particular order, topics I'd like to cover include:
 * C#
     * Interfaces
     * Generics
-    * Lambdas
     * Static
+    * Delegates
+      * Func and Action
+      * Lambdas
+      * Events
+    * Async/await
 * The .NET runtime
     * The CLR
     * The execution model
@@ -29,7 +33,7 @@ In no particular order, topics I'd like to cover include:
 * Common .NET programming patterns
     * Logging
     * Unit testing
-    * Dependency injection
+    * [Dependency injection](dependency-injection.md)
 
 ## Who is responsible for this?
 My name is Jack Kendall. You can contact me at this address. Please get in touch if you have any questions about the site or improvements -- especially if you notice any factual errors.

@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Jack Kendall -- writing and design
 
 # THANKS
 
-    <name>
+    Creators of the HTML5 Boilerplate pack
 
 # TECHNOLOGY COLOPHON
 

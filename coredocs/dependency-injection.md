@@ -4,6 +4,7 @@
 
 Dependency injection is when you pass stuff in through a class's constructor rather than creating that stuff in the class itself. Here is an example of dependency injection:
 
+```
 public class MyClass
 {
 	private readonly IHttpClientFactory _client;
@@ -18,6 +19,7 @@ public class MyClass
 		_client.DownloadAsync("www.example.com");
 	}
 }
+```
 
 This is all that dependency injection is. The IHttpClientFactory is passed in through MyCLass's constructor, rather than the class creating a HttpClient of its own with the 'new' keyword.
 
@@ -40,7 +42,7 @@ It is very common to use interfaces with dependency injection. Rather than direc
 
 In other words, MyClass asks for an IHttpClientFactory (an interface) rather than a HttpClient (a normal class).
 
-This is common because it makes your code more flexzible. By using dependency injection, MyCLass doesn't know where its web-client comes from. By using an interface instead of a concrete class, MyClass also doesn't know what specific class it's using.
+This is common because it makes your code more flexible. By using dependency injection, MyCLass doesn't know where its web-client comes from. By using an interface instead of a concrete class, MyClass also doesn't know what specific class it's using.
 
 This means that we can swap out whatever we give MyClass with anything that implements the IHttpClientFactory. MyClass won't know the difference.
 
