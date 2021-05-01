@@ -18,6 +18,16 @@ In no particular order, topics I'd like to cover include:
       * Lambdas
       * Events
     * Async/await
+* .NET project types
+    * Desktop
+      * Winforms
+      * WPF
+      * MAUI 
+    * Web
+      * Webforms
+      * ASP.NET / ASP.NET Core
+      * Blazor
+      * SignalR 
 * The .NET runtime
     * The CLR
     * The execution model
