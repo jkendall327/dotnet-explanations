@@ -8,6 +8,8 @@ My goal is to write in a direct and simple manner that gets you the 'essential c
 ## What topics will you cover?
 I plan to provide a broad overview of as much of .NET as I can. I do not aim to provide technical or authoritative explanations on any one topic. My hope is that a newcomer to the field can read my page on a topic that seems interesting to them, get a good rough understanding of what it's all about, and then jump into more formal sources (like Microsoft's official documentation or a Manning Press book) with confidence.
 
+This is intended to cover topics which I think are commonly or easily misunderstood, so I won't explain fundamental programming concepts like variables or for-loops.
+
 In no particular order, topics I'd like to cover include:
 * C#
     * [Interfaces](interfaces.md) (incomplete!)
@@ -18,6 +20,7 @@ In no particular order, topics I'd like to cover include:
       * Lambdas
       * Events
     * Async/await
+    * [Properties](properties.md) (incomplete!)
 * .NET project types
     * Desktop
       * Winforms
