@@ -36,11 +36,12 @@ In no particular order, topics I'd like to cover include:
     * [Dependency injection](dependency-injection.md)
 
 ## Who is responsible for this?
+
 My name is Jack Kendall. You can contact me at this address. Please get in touch if you have any questions about the site or improvements -- especially if you notice any factual errors.
 
 ## Credits and thanks
 
-Yu Zhang for the lovely Markdown All in One extension that makes writing these pages easy and fun.
-The HTML5 Boilerplate team for providing tools I will integrate at some point in this project.
-Github Pages for hosting this site.
-Microsoft for developing .NET.
+* Yu Zhang for the lovely Markdown All in One extension that makes writing these pages easy and fun.
+* The HTML5 Boilerplate team for providing tools I will integrate at some point in this project.
+* Github Pages for hosting this site.
+* Microsoft for developing .NET.
