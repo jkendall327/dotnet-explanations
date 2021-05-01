@@ -13,7 +13,7 @@ In no particular order, topics I'd like to cover include:
     * Interfaces
     * Generics
     * Static
-    * Delegates
+    * [Delegates](delegates.md) (incomplete!)
       * Func and Action
       * Lambdas
       * Events
