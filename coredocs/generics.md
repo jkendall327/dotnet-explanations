@@ -1,0 +1,46 @@
+# Generics
+
+[Home](index.md)
+
+## In a nutshell
+
+Generics let you write a function that doesn't care about the type of its arguments.
+You can also use generics to make classes that 'wrap' other classes, like `List<>`.
+
+## Why care about generics?
+
+Generics mostly exist so you don't have to write duplicate code. Imagine seeing these functions in a file:
+
+```
+public int Add(int x, int y)
+{
+    return x + y;
+}
+
+public double Add(double x, double y)
+{
+    return x + y;
+}
+
+public float Add(float x, float y)
+{
+    return x + y;
+}
+```
+
+Something is clearly wrong here. The actual logic of these functions is all the same. The only difference is the type of their arguments.
+
+We can write a generic function to simplify this:
+
+```
+public T Add<T>(T x, T y)
+{
+    return x + y;
+}
+```
+
+We can now use this one function for `int`s, `double`s, `float`s, and many other types as well.
+
+The part that makes this function generic is the angle-brackets after its name (the '<' and '>').
+
+It's useful, however, to provide a stand-in for a type. By convention, this is T. There is nothing special about this; you can name it whatever you like.
