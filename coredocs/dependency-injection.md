@@ -1,15 +1,15 @@
 # Dependency injection
 
-## IN A NUTSHELL
+## In a nutshell
 
-Dependency injection is when you pass stuff in through a class's constructor rather than creating that stuff in the class itself. Here is an example of dependency injection:
+Dependency injection is when you ask for something in a class's constructor rather than creating it in the class itself.
 
 ```
 public class MyClass
 {
-	private readonly IHttpClientFactory _client;
+	private readonly HttpClient _client;
 
-	public MyClass(IHttpClientFactory client)
+	public MyClass(HttpClient client)
 	{
 		_client = client;
 	}
@@ -21,43 +21,149 @@ public class MyClass
 }
 ```
 
-This is all that dependency injection is. The IHttpClientFactory is passed in through MyCLass's constructor, rather than the class creating a HttpClient of its own with the 'new' keyword.
+This is dependency injection. Rather than creating a HttpClient with the 'new' keyword, one is passed in through the constructor.
 
-If dependency injection ever starts feeling complicated, remember that at the end of the day it's nothing more than this. Lots of tools and patterns have been created to make doing this easier or more powerful, but everything relies on the basic idea of passing stuff in through a class's constructor.
+If dependency injection ever feels complicated, remember that this is all it really is. Lots of tools and patterns have been created to make it powerful, but everything relies on just asking for something in a class's constructor.
 
-## SO WHAT?
+## So what?
 
-There are several reasons why doing this might be useful.
+There are several reasons why dependency injection is useful.
 
-* MyCLass doesn't know where the IHttpClientFactory has come from. This is good, because it *shouldn't* know -- it's none of its concern. All MYClass should care about is that it has one.
-* MyClass isn't cluttered up with lots of code for creating the IhttpClientFactory.
-* You can see that MyClass requires an IHttpClientFactory just by looking at its constructor. You don't need to look through the class to see that. You won't be surprised by a sudden reference to it halfway through the file.
-* Because MyCLass asks for the IHttpClientFactory in its constructor, it's impossible to create the class without giving it one. If there was a separate method for giving MyCLass the factory, you could forget to call it. If MyClass created the factory itself, it could do it wrong and mess everything up.
+* MyClass isn't cluttered with code for creating the HttpClient.
+* MyClass doesn't know where the HttpClient has come from. This is good, because it *shouldn't* know -- all MyClass should care about is that it has one.
+* You can see that MyClass requires an HttpClient by looking at its constructor. You won't be surprised by a sudden reference to one halfway through the file.
+* It's impossible to create an instance of `MyClass` without giving it a `HttpClient`. If MyClass created the client, it could do it wrong. If this wasn't in the constructor, you could forget to call it. 
 
-You can stop reading here and you would have a pretty good idea of what dependency injection is. 
+When a class asks for everything it needs to work (its 'dependencies') in the constructor, our code is simpler and more predictable.
 
-## USING INTERFACES WITH DEPENDENCY INJECTION
+You know understand dependency injection. You can stop reading here if you like. The rest of the page explains ways to build on this pattern.
 
-It is very common to use interfaces with dependency injection. Rather than directly asking for an instance of a class in your constructor, you ask for an interface which represents this class.
+## Using interfaces with dependency injection
+Interfaces are not part of dependency injection. But they are two useful ideas that work well together, so it's very common to ask for an interface in a class's constructor, rather than a concrete class.
 
-In other words, MyClass asks for an IHttpClientFactory (an interface) rather than a HttpClient (a normal class).
+This makes your code more flexible. When you use dependency injection, MyClass doesn't know where its HttpClient comes from. If we asked for an interface instead of a concrete class, MyClass also wouldn't know what specific class it was using.
 
-This is common because it makes your code more flexible. By using dependency injection, MyCLass doesn't know where its web-client comes from. By using an interface instead of a concrete class, MyClass also doesn't know what specific class it's using.
+We could then swap out what we give MyClass with anything else that implements the interface. MyClass wouldn't know the difference.
 
-This means that we can swap out whatever we give MyClass with anything that implements the IHttpClientFactory. MyClass won't know the difference.
+(Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)
 
-Using interfaces is not a key part of dependency injection, it's just a common combination of two useful ideas that work well together. Most of the benefits in this section are just because of using an interface, not specifically because you injected one.
+## Dependency injection all the way up
 
-## DI CONTAINERS
+MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.
 
-Because MyCLass asks for something in its constructor, we have to give it an instance of that thing whenever we create an instance of MyCLass. 
+```
+class MyOtherClass
+{
+	public void MyMethod()
+	{
+		// create what we need
+		var client = new HttpClient();
+		var myClass = new MyClass(client);
 
-In essence, we have moved things up one level. Rather than MyClass creating an IHttpClientFactory itself, now whatever bit of code that creates a MyClass has to do it instead.
+		// actually do something
+		myClass.MyFunction();
+	}
+}
+```
 
-This might seem pointless by itself. The secret that makes DI really useful is that we can repeat this process.Whatever class that creates MyClass can simply ask for an IHttpClientFactory in *its* constructor. This process can spiral upwards and upwards until you eventually reach the top of your program (the 'entry-point'().
+We have moved things up one level. MyClass doesn't create its HttpClient, but whatever bit of code that creates a MyClass has to create one instead.
 
-Now, you can create all of your classes in one place and simply feed them in to one another. When all of your object creation is in one place, it's much easier to see how different classes depend on each other.
+This might seem pointless. We have made MyClass easier to understand, at the cost of making the rest of our code busier. 
 
-It can be boring to manually pass instances of your classes into each other. Many people have created tools to automate this process, known as DI containers.
+It would be nice if we could take *all* the code where we create dependencies (like our HttpClient) and put it in one place. That way, it would at least be easier to think about.
 
-All a DI container does is sit at the start of your program, keep a big list of all the classes you're going to use, and feed them into each other.
+We can do this by repeating the process of dependency injection.
+
+```
+class MyOtherClass
+{
+	private HttpClient _client;
+
+	public MyOtherClass(HttpClient client)
+	{
+		_client = client;
+	}
+
+	public void MyMethod()
+	{
+		var myClass = new MyClass(_client);
+	}
+}
+```
+
+We have moved things up one more level. Now whatever creates an instance of `MyOtherClass` can deal with creating the `HttpClient`.
+
+We can repeat this process over and over, until eventually we reach the highest level of our program (which is called the 'entry-point'). This is usually in your program's `Main()` method, or close to it.
+
+```
+class Program
+{
+	public static void Main(string[] args)
+	{
+		var client = new HttpClient();
+		var myOtherClass = new MyOtherClass(client);
+	}
+}
+```
+
+Now all of our code for creating dependencies is in one place.
+
+Once you start thinking this way, you can make your classes a lot simpler. `MyOtherClass`, for instance, doesn't need to know about `HttpClient` at all.
+
+```
+class MyOtherClass
+{
+	private MyClass _service;
+
+	public MyOtherClass(MyClass service)
+	{
+		_service = service;
+	}
+
+	public void MyMethod()
+	{
+		_service.MyFunction();
+	}
+}
+```
+
+`Main()` can create the instance of `MyClass`, get it ready, and then feed it into `MyOtherClass` whenever it likes.
+
+## DI containers
+
+People have created tools to automate this process, called *DI containers*.
+
+A DI container sits at the start of your program, usually in `Main()`. You 'register' classes with the container, and it will automatically figure out which classes depend on each other. You then 'resolve' these dependencies to start using your classes and get the program running.
+
+```
+class Program
+{
+	public static void Main(string[] args)
+	{
+		// create a container
+		var container = new ExampleDIContainer();
+
+		// register our classes with it
+		container.Register<MyOtherClass>();
+		container.Register<MyClass>();
+
+		// usually you can specify specific variables as things you want to be passed into classes that ask for things of that type
+		var client = new HttpClient();
+		container.Instance<HttpClient>(client);
+
+		// the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance
+		var otherClass = container.Resolve<MyOtherClass>();
+
+		// we can now use our classes as we like
+		otherClass.MyMethod();
+	}
+}
+```
+
+The code here is just an example. Actual DI containers all do things in slightly different ways. But they all work off of the same principles.
+
+## The end-goal of dependency injection
+
+The end-goal of dependency injection is to have a program where all of your classes ask for their dependencies in their constructor, and where all dependencies are created in one place at the start of the program.
+
+You no longer have a complicated web of classes that all depend on each other in confusing ways. Now your classes are more modular and lightweight.
