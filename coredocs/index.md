@@ -19,7 +19,7 @@ In no particular order, topics I'd like to cover include:
       * Func and Action
       * Lambdas
       * Events
-    * Async/await
+    * [Async/await](async-await.md)
     * [Properties](properties.md)
 * .NET project types
     * Desktop
