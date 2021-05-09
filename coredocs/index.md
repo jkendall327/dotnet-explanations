@@ -20,7 +20,7 @@ In no particular order, topics I'd like to cover include:
       * Lambdas
       * Events
     * Async/await
-    * [Properties](properties.md) (incomplete!)
+    * [Properties](properties.md)
 * .NET project types
     * Desktop
       * Winforms
