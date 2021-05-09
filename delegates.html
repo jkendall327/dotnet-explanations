@@ -26,18 +26,16 @@
         <h1 id="delegates">Delegates</h1>
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>A delegate is like a <code>List&lt;&gt;</code> for methods.</p>
-<h2 id="why-care-about-delegates">Why care about delegates?</h2>
-<p>You probably won't create many delegates yourself when writing C#. There are only a few common use cases for them, so Microsoft created convenient shortcuts for us: lambda expressions, events, <code>Action&lt;&gt;</code> and <code>Func&lt;&gt;</code>. It's still important to understand delegates, however. It makes understanding those shortcuts a lot easier. Delegates are the backbone of functional programming in C#.</p>
 <h2 id="explanation">Explanation</h2>
-<p>Think about a <code>List&lt;int&gt;</code>. You have probably used one like this before:</p>
+<p>Think about a <code>List&lt;int&gt;</code>:</p>
 <pre><code><code><div>var myList = new List&lt;int&gt;() {4, 6, 1, 10, 11};
 </div></code></code></pre>
-<p>Using Lists lets you group several values together into one variable. This makes it easy to do things to all of them at once -- with a <code>List&lt;int&gt;</code>, for example, you can <code>Sum()</code> up the entire list.</p>
-<p>But the really useful thing about a <code>List&lt;int&gt;</code> is that you can only put <code>ints</code> in it. If you try to put a <code>double</code> or a <code>string</code> or anything else in one, it won't work. The C# compiler will tell you that you've made a mistake right away. This is called type-safety and stops you from making a lot of silly mistakes.</p>
+<p>Using Lists lets you group several values together into one variable. This lets you do things to all of them at once -- with a <code>List&lt;int&gt;</code>, you can <code>Sum()</code> the list with a single command.</p>
+<p>An important thing about a <code>List&lt;int&gt;</code> is that you can only put <code>ints</code> in it. If you put in a <code>double</code> or a <code>string</code>, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making a lot of silly mistakes.</p>
 <p>A delegate is like a <code>List&lt;&gt;</code> for methods.</p>
-<p>With a delegate, you can group as many methods as you want into one variable. This lets you do things with all of them at once -- usually, this is 'invoking' them (which just means to call them).</p>
-<p>A delegate is type-safe in exactly the same way that a <code>List&lt;int&gt;</code> is. When you make a delegate, you have to say right away what kind of methods you want to put in it. If you then try to put another kind of method in there, the C# compiler will tell you that you've made a mistake right away.</p>
-<p>But how do you decide what 'kind' of methods this list should contain? What does that even mean? To understand that, we need to understand method signatures.</p>
+<p>With a delegate, you can group methods into one variable. This lets you do things with all of them at once.</p>
+<p>A delegate is type-safe, like a <code>List&lt;&gt;</code> is. When you make a delegate, you have to say what kind of methods it accepts. If you then put in another kind of method, the C# compiler will tell you that you've made a mistake right away.</p>
+<p>But how do you decide what 'kind' of methods this list should contain? To understand that, we need to understand method signatures.</p>
 <h2 id="method-signatures">Method signatures</h2>
 <p>Consider the following method.</p>
 <pre><code><code><div>public int AddThenSquare(int x, int y)
@@ -46,30 +44,30 @@
     return sum * sum;
 }
 </div></code></code></pre>
-<p>When you're learning C#, you probably spend most of your time focusing on the stuff between the {}, which actually does stuff. This is called the <em>body</em> of the method.</p>
-<p>The signature, on the other hand, is the bit at the top.</p>
+<p>When you're learning C#, you focus on what's between the {}. This is the <em>body</em> of the method.</p>
+<p>The signature is the bit at the top.</p>
 <p><code>public int AddThenSquare(int x, int y)</code></p>
 <p>The name of the method and its visibility (whether it's <code>public</code> or <code>private</code>) aren't important.</p>
-<p>Only two parts of this matter for delegates:</p>
+<p>Only two parts of the signature for delegates:</p>
 <ul>
 <li>The arguments.</li>
 <li>The return type.</li>
 </ul>
-<p>The <em>arguments</em> are the variables the method takes in. More specifically, we only care about the types of the arguments. It doesn't matter that <code>AddThenSquare</code> calls one argument 'x' and the other 'y'. All that matters is that it takes in two <code>int</code>s.</p>
-<p>The return type is what the method gives back. In this case, it's also an <code>int</code>. But it could just as easily be <code>void</code> or anything else.</p>
 <p>For two methods to go in the same delegate, they need to have the same arguments and return type.</p>
+<p>The <em>arguments</em> are the variables the method asks for. More specifically, we only care about the types of the arguments. It doesn't matter that <code>AddThenSquare</code> calls one argument 'x' and the other 'y'. All that matters is that it takes two <code>int</code>s.</p>
+<p>The return type is what the method gives back. In this case, it's also an <code>int</code>. But it could be <code>void</code>, or anything else.</p>
 <p>(Advanced note: the CLR can differentiate methods based on just their return type, but C# chooses not to support this.)</p>
-<p>If we want to add <code>AddThenSquare</code> to a delegate, then, we need a delegate that says 'I will take in any method that accepts two <code>int</code>s and gives back one <code>int</code>'.</p>
+<p>If we want to add <code>AddThenSquare</code> to a delegate, we need a delegate that says 'I will take in any method that accepts two <code>int</code>s and gives back one <code>int</code>'.</p>
 <h2 id="using-delegates">Using delegates</h2>
-<p>We have to define the kind of methods a delegate can accept before we actually use it. This is the syntax for that.</p>
+<p>We have to define the methods a delegate accepts before we actually use it.</p>
 <pre><code><code><div>    delegate int ExampleDelegate(int x, int y);
 </div></code></code></pre>
 <p>This looks very similar to defining a method. There are two differences:</p>
 <ul>
 <li>We use the <code>delegate</code> keyword at the start.</li>
-<li>Instead of adding a method body with {}, we just add a <code>;</code> after the arguments.</li>
+<li>Instead of adding a method body, we put a <code>;</code> after the arguments.</li>
 </ul>
-<p>Once we have done this, we can use our delegate like a <code>List&lt;&gt;</code> and start adding methods to it. Here is an example.</p>
+<p>Once we have done this, we can start using our delegate.</p>
 <pre><code><code><div>class MyExampleClass
 {
     public int AddThenSquare(int x, int y)
@@ -87,8 +85,11 @@
 }
 
 </div></code></code></pre>
-<p>(Advanced note: we can actually define a delegate outside of <code>MyExampleClass</code>. This is because behind the scenes, all delegates are actually classes themselves.)</p>
-<p><code>myDelegate</code> now contains <code>AddThenSquare</code>. Because delegates are like lists, we can actually add as many methods as we want to it. Let's think up another method with the same signature.</p>
+<p>This class has a method, <code>AddThenSquare</code>, a delegate, and another method which uses them both.</p>
+<p>The line <code>delegate int ExampleDelegate(int x, int y);</code> defines a <em>kind</em> of delegate.
+The line <code>var myDelegate = new ExampleDelegate(AddThenSquare);</code> creates an <em>instance</em> of the delegate we defined.</p>
+<p>(Advanced note: we could actually define our delegate outside of <code>MyExampleClass</code>. This is because behind the scenes, all delegates are actually classes.)</p>
+<p><code>myDelegate</code> now contains <code>AddThenSquare</code>. Because delegates are like <code>List&lt;&gt;</code>s, we can add multiple methods to it.</p>
 <pre><code><code><div>class MyExampleClass
 {
     public int AddThenSquare(int x, int y)
@@ -113,20 +114,54 @@
 }
 
 </div></code></code></pre>
-<p><code>myDelegate</code> now contains both methods. How wonderful! And useless. To make our delegate actually do something, we need to <em>invoke</em> it. This just means calling it.
+<p><code>myDelegate</code> now contains both methods. You can remove a method from a delegate by using <code>-=</code>.</p>
+<h2 id="actually-using-a-delegate">Actually using a delegate</h2>
+<p>Nothing happens when you just add methods to a delegate.</p>
+<p>To make our delegate actually do something, we need to <em>invoke</em> it. We do this with the delegate's <code>Invoke</code> method.
 Because our delegate asks for two <code>int</code>s, we have to give it two <code>int</code>s to invoke it. It will also give us one <code>int</code> back, as its signature says.</p>
 <p><code>myDelegate.Invoke(4, 5);</code></p>
-<p>This will run through every method in <code>myDelegate</code>, giving them each the arguments 4 and 5. Each method will return a value (81 and 1, in this example). But we're not doing anything with those variables, so they just get lost forever. How sad! And useless.</p>
+<p>This will run through every method in <code>myDelegate</code>, giving them each the arguments 4 and 5. We're not doing anything with the return values (81 and 1, in this example).</p>
+<h2 id="treating-methods-like-variables">Treating methods like variables</h2>
+<p>People care about delegates because they let us treat methods like variables. More specifically, we can pass a method into another method.</p>
+<pre><code><code><div>    delegate void ExampleDelegate(int x);
+
+    public void DoTheMethodTwice(ExampleDelegate method, int argument)
+    {
+        method.Invoke(argument);
+        method.Invoke(argument);
+    }
+
+</div></code></code></pre>
+<p>This method does something with a delegate, without any knowledge of what methods the delegate actually contains.</p>
+<p>(Advanced note: in fact, the delegate might be <code>null</code> and not contain any methods at all. If so, calling <code>Invoke</code> will crash the program.)</p>
+<p>Delegates let us write <em>methods about methods</em>.</p>
+<h2 id="other-syntax-that-you-might-see">Other syntax that you might see</h2>
+<p>Writing <code>.Invoke()</code> all the time is annoying, so C# has a shorthand.</p>
+<pre><code><code><div>    delegate void ExampleDelegate(int x);
+
+    public void DoTheMethodTwice(ExampleDelegate method, int argument)
+    {
+        method(argument);
+        method(argument);
+    }
+
+</div></code></code></pre>
+<p>I don't use this syntax. It looks identical to calling a normal method, and delegates should be treated differently than methods.
+You are welcome to use this syntax, just be careful with it.</p>
+<p>You will also see something like this often.
+<code>method?.Invoke(argument);</code>
+The question mark is the null-forgiving operator, a topic of its own. Basically, it avoids your program crashing if you try to use a delegate while it's empty.
+You have to use <code>.Invoke</code> if you use the null-forgiving operator.</p>
 <h2 id="multicast-delegates">Multicast delegates</h2>
-<p>I've used the metaphor of a <code>List</code> throughout this page because I think it makes delegates easier to understand.</p>
-<p>It's important, however, to note the difference between a <code>System.Delegate</code> and a <code>System.Delegate.MulticastDelegate</code>.</p>
-<p><code>System.Delegate</code> isn't, actually, like a <code>List&lt;&gt;</code> at all. It can only hold one method at a time. This still lets you treat a method like a variable, but you can't build up a list of lots of methods.</p>
-<p>Only the <code>MulticastDelegate</code> can build up a list of methods.</p>
-<p>I didn't explain this at the start because, in practical terms, it doesn't really matter. When you use the <code>delegate</code> keyword, it will always be the <code>MulticastDelegate</code>. The only reason that there is a split between <code>Delegate</code> and <code>MulticastDelegate</code> is historical. I imagine that if Microsoft could rewrite .NET from scratch, they would combine these two classes.</p>
-<p>It's still important (and I think interesting) to know about this difference. You might get asked about it by an interviewer who wants to feel clever.</p>
+<p>I've used the metaphor of a <code>List</code> throughout this page. But there's a difference between a <code>System.Delegate</code> and a <code>System.Delegate.MulticastDelegate</code>.</p>
+<p><code>System.Delegate</code> can only hold one method at a time. Only the <code>MulticastDelegate</code> can build up a list of methods.
+The reason for this split is historical. When you use the <code>delegate</code> keyword, it will always be the <code>MulticastDelegate</code>.</p>
+<h2 id="why-care-about-delegates">Why care about delegates?</h2>
+<p>One reason delegates are hard to understand is because it's hard to imagine where they would be useful.</p>
+<p>In truth, you probably won't create many delegates when writing C#. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, <code>Action&lt;&gt;</code> and <code>Func&lt;&gt;</code>. Learning about those topics will probably make delegates easier to understand in retrospect.</p>
+<p>More broadly, delegates are the basis of functional programming in C#. This page isn't the place to explain functional programming, but just know that it's an important topic.</p>
 <h2 id="further-learning">Further learning</h2>
-<p>You now understand the basic idea of delegates. They are a way to put methods of the same signature in a variable. This lets us pass methods around, manipulate them, or invoke them all at once.</p>
-<p>The best explanatory source for delegates I have ever found is <a href="https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54">Jamie King's YouTube playlist</a> on them. I cannot reccomend watching this entire playlist strongly enough.</p>
+<p>The best explanation of delegates is <a href="https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54">Jamie King's YouTube playlist</a>. You should watch this entire playlist.</p>
 
     </body>
     </html>
