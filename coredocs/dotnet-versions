@@ -1,0 +1,15 @@
+# .NET versions
+
+[Home](index.md)
+
+## In a nutshell
+
+.NET is the general name for Microsoft's programming platform. .NET Framework, .NET Core and .NET 5 are all sub-projects within .NET.
+
+## History
+
+.NET began in the late 1990s.
+
+...
+
+.NET Core began in XXX. Its biggest differences were that it was open-source from the start, and cross-platform.
