@@ -18,7 +18,7 @@ In no particular order, topics I'd like to cover include:
     * [Delegates](delegates.md)
       * [Func<> and Action<>](func-and-action.md)
       * Lambdas
-      * Events
+      * [Events](events.md)
     * [Async/await](async-await.md)
     * [Properties](properties.md)
 * .NET project types
