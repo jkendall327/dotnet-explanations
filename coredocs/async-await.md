@@ -144,7 +144,13 @@ We can now 'call' the `async` event handler by invoking an event in synchronous 
 ## Making your own asynchronous functions
 The easiest way to write an async function is to use the methods in C#'s standard library which are already async, like `HttpClient`'s `GetAsync`.
 
-You may want to implement a 'true' async method of your own -- not just one that slots together methods pre-written by Microsoft. You should not attempt this. If you look at the source code for these methods, you will quickly find that it gets very complex and deals with raw calls out to the operating system. There is almost certainly a better way to solve your problem than to go down this road.
+However, you will probably at some point want to make some already-existing synchronous method asynchronous.
+
+You may try to do this by implementing a 'true' async method of your own -- not just one that slots together methods from the standard library. You should not attempt this. If you look at the source code for these methods, you will quickly find that it gets very complex and deals with raw calls out to the operating system. There is almost certainly a better way to solve your problem than to go down this road.
 
 ### Task.Run()
-The `Task` class contains a static method, `Task.Run()`, which lets you basically make any method or lambda expression asynchronous.
+The `Task` class contains a static method, `Task.Run()`, which lets you essentially make any bit of code asynchronous. It does this by returning a `Task`, which you can `await`.
+
+`Task.Run()` takes either an `Action` or a `Func<>` delegate, which you can read more about **here**.
+
+Until I finish this section, I'm going to refer you to [this page on Pluralsight](https://www.pluralsight.com/guides/using-task-run-async-await) which is a fairly clear explanation of `Task.Run()`.

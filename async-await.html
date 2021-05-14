@@ -134,9 +134,12 @@ Async methods return either <code>Task</code> or <code>Task&lt;&gt;</code>. <cod
 <p>We can now 'call' the <code>async</code> event handler by invoking an event in synchronous code. Making the event-handler for a UI element (such as the user clicking on a button) return async void is a common pattern.</p>
 <h2 id="making-your-own-asynchronous-functions">Making your own asynchronous functions</h2>
 <p>The easiest way to write an async function is to use the methods in C#'s standard library which are already async, like <code>HttpClient</code>'s <code>GetAsync</code>.</p>
-<p>You may want to implement a 'true' async method of your own -- not just one that slots together methods pre-written by Microsoft. You should not attempt this. If you look at the source code for these methods, you will quickly find that it gets very complex and deals with raw calls out to the operating system. There is almost certainly a better way to solve your problem than to go down this road.</p>
+<p>However, you will probably at some point want to make some already-existing synchronous method asynchronous.</p>
+<p>You may try to do this by implementing a 'true' async method of your own -- not just one that slots together methods from the standard library. You should not attempt this. If you look at the source code for these methods, you will quickly find that it gets very complex and deals with raw calls out to the operating system. There is almost certainly a better way to solve your problem than to go down this road.</p>
 <h3 id="taskrun">Task.Run()</h3>
-<p>The <code>Task</code> class contains a static method, <code>Task.Run()</code>, which lets you basically make any method or lambda expression asynchronous.</p>
+<p>The <code>Task</code> class contains a static method, <code>Task.Run()</code>, which lets you essentially make any bit of code asynchronous. It does this by returning a <code>Task</code>, which you can <code>await</code>.</p>
+<p><code>Task.Run()</code> takes either an <code>Action</code> or a <code>Func&lt;&gt;</code> delegate, which you can read more about <strong>here</strong>.</p>
+<p>Until I finish this section, I'm going to refer you to <a href="https://www.pluralsight.com/guides/using-task-run-async-await">this page on Pluralsight</a> which is a fairly clear explanation of <code>Task.Run()</code>.</p>
 
     </body>
     </html>
