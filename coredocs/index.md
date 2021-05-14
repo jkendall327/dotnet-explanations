@@ -16,7 +16,7 @@ In no particular order, topics I'd like to cover include:
     * [Generics](generics.md) (incomplete!)
     * The 'static' keyword
     * [Delegates](delegates.md)
-      * Func and Action
+      * [Func<> and Action<>](func-and-action.md)
       * Lambdas
       * Events
     * [Async/await](async-await.md)
