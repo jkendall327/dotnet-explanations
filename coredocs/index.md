@@ -43,7 +43,7 @@ In no particular order, topics I'd like to cover include:
     * The history of .NET
 * Common .NET programming patterns
     * Logging
-    * Unit testing
+    * [Unit testing](unit-testing.md)
     * [Dependency injection](dependency-injection.md)
 
 ## Who is responsible for this?
