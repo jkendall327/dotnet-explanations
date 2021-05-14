@@ -41,7 +41,7 @@ In no particular order, topics I'd like to cover include:
     * MSBuild
     * A tour of visual studio
 * .NET as a concept
-    * The difference between .NET Framework, .NET Core, .NET 5/6
+    * [The difference between .NET Framework, .NET Core, .NET 5/6]
     * The history of .NET
 * Common .NET programming patterns
     * Logging
