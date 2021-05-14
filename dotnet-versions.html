@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>&period;NET versions</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="net-versions">.NET versions</h1>
+<p><a href="index.html">Home</a></p>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>.NET is the general name for Microsoft's programming platform. .NET Framework, .NET Core and .NET 5 are all different 'versions' of .NET.</p>
+<h2 id="warning">Warning</h2>
+<p>This page describes the different versions of .NET. It doesn't explain what .NET 'really' is, how it's different from C#, or what the CLR is.</p>
+<h2 id="history">History</h2>
+<p>.NET began in the late 1990s as Microsoft's response to Java.</p>
+<p>Rather than just releasing their version of Java as a product, they decide to make it a <em>standard</em>. A standard is just a description of what a system 'should' look like -- not a concrete implementation of it you can actually use. You can find some of <a href="https://www.mono-project.com/docs/about-mono/languages/ecma/">the .NET standards here</a>.</p>
+<p>The first implementation of the .NET specification was .NET Framework. Its key characteristics were that it was closed-source and Windows-only.</p>
+<p>.NET Core was the second implementation, released in 2016. It was open-source from the start and cross-platform.</p>
+<p>In the meantime, there was also the <a href="https://www.mono-project.com/">Mono project</a>, which reimplemented .NET framework in an open-source way. This was the entire point of making .NET a <em>standard</em> -- anyone could come along and make their own implementation of it. .NET Core took a lot of influence from Mono.</p>
+<p>.NET Core is very similar to .NET Framework in most ways. However, there are some differences.</p>
+<p>This matters mostly in terms of <a href="https://www.nuget.org/">Nuget packages</a> -- little add-on libraries you can download to use in your projects. A Nuget package made for .NET Framework wouldn't be guaranteed to work on .NET Core.</p>
+<p>In response, Microsoft created the very confusingly-named .NET Standard. This was a set of libraries that all official (i.e. made by Microsoft) implementations of .NET would be guaranteed to have. So if your Nuget package targeted .NET Standard, you'd know it would work pretty much anywhere.</p>
+<p>We now have three official implementations of .NET: .NET Framework, .NET Core, .NET Standard.</p>
+<p>Microsoft recognised that this situation was confusing, and in 2020/2021 brought in the new 'one .NET' campaign.</p>
+<p>This meant three things:</p>
+<ul>
+<li>There would be no new work on .NET Framework, except bugfixes and security patches.</li>
+<li>.NET Standard would be discontinued.</li>
+<li>The next version of .NET Core would be named .NET 5.0.</li>
+</ul>
+<p>From now on (assuming Microsoft doesn't change their minds), there will be only one official implementation of .NET, and its versions will just be named things like .NET 6, .NET 7, .NET 8, etc.</p>
+<p>To put it clearly: .NET 5 is just .NET Core with a different name. As a result, it's also open-source and cross-platform.</p>
+
+    </body>
+    </html>

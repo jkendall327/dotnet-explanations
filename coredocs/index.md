@@ -14,7 +14,7 @@ In no particular order, topics I'd like to cover include:
 * C#
     * [Interfaces](interfaces.md) (incomplete!)
     * [Generics](generics.md) (incomplete!)
-    * Static
+    * The 'static' keyword
     * [Delegates](delegates.md)
       * Func and Action
       * Lambdas
@@ -33,15 +33,13 @@ In no particular order, topics I'd like to cover include:
       * SignalR 
 * The .NET runtime
     * The CLR
-    * The execution model
     * The JIT
-    * Bytecode
     * MSIL
 * The developer experience
     * MSBuild
-    * A tour of visual studio
+    * A tour of Visual Studio
 * .NET as a concept
-    * [The difference between .NET Framework, .NET Core, .NET 5/6]
+    * [The difference between .NET Framework, .NET Core, .NET 5/6](dotnet-versions.md)
     * The history of .NET
 * Common .NET programming patterns
     * Logging
@@ -50,7 +48,7 @@ In no particular order, topics I'd like to cover include:
 
 ## Who is responsible for this?
 
-My name is Jack Kendall. You can contact me at this address. Please get in touch if you have any questions about the site or improvements -- especially if you notice any factual errors.
+My name is Jack Kendall. You can contact me through [the GitHub page for this site](https://github.com/jkendall327/dotnet-explanations). Feel free to make pull requests for any improvements (especially factual errors!).
 
 ## Credits and thanks
 
