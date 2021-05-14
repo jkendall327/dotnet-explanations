@@ -19,33 +19,33 @@ Async/await is a convenient syntax for letting your program jump out of a method
 
 ## Warning
 
-Async/await is probably the most difficult concept to grasp in 'regular' C# (except maybe [generic coinvariance/contravariance](https://docs.microsoft.com/en-us/dotnet/standard/generics/covariance-and-contravariance), which is much less important).
-
-It's hard to learn about for a few reasons.
+Async/await is hard to learn about for a few reasons.
 
 * Asynchronicity is inherently complicated.
 * The terminology is often ambiguous.
-* It's hard to tell how other topics, like threads and the Task Parallel Library, are related to async/await.
+* Because the terminology is ambiguous, it's hard to tell what specific problem async/await solves.
+
+### Terminology 
+In programming, it is very hard to find clear-cut definitions of words like 'asynchronous', 'concurrent' or 'parallel'. All of these terms are about *multiple things happening at once*, but they express it in different ways. Because people use these words differently, you should focus on the ideas that the words represent, rather than the words themselves.
 
 ### Threads
+When you learn about asynchronicity, you will eventually hear about threads.
 
-When you learn about async/await and asynchronicity, you will eventually hear about threads.
+Many beginners think that async/await is 'really' just a convenient way to work with threads. This is not accurate. Async/await has no simple relation to threads.
 
-Threads are important to know about, but you should ignore them while learning about async/await. Thinking that async/await is 'really' just about threads will give you the wrong idea about how it works. Async/await has no simple relation to threads.
+Very often, in fact, [there is no thread at all](https://blog.stephencleary.com/2013/11/there-is-no-thread.html).
 
-## What is asynchronicity?
+You should still learn about threads and the threadpool at some point, because they are a part of C# and the operating system you're using. But you should ignore them while learning about async/await. **Async/await has no simple relation to threads.**
 
-In programming, it is very hard to find a clear-cut definition of words like 'asynchronous', 'concurrent' or 'parallel'. All of these terms are about *multiple things happening at once*, but they express it in different ways. People use these words differently, so it's important to focus on the ideas that the words represent, rather than the words themselves.
+### The problem async/await solves
+When you say you want part of a program to be asynchronous, there are usually two things you can mean.
 
-There are two main kinds of asynchronicity to worry about.
-
-1. You have several operations (like complicated mathematical equations) that you want to run at the same time so they finish faster.
-2. You have a long-running operation (like opening a file or downloading a webpage) that you want to run in the background and let you know when it's finished.
+1. You have several operations that you want to run at the same time so that you can get through them all faster.
+2. You have a slow operation (like writing to a file or downloading a webpage) that you want to run in the background and let you know when it's finished.
 
 Async/await is desgined for the second kind of asynchronicity. For the first, you want the [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl).
 
 ## What happens when an async method runs
-
 Let's track what happens when you run an `async` method.
 
 ```
@@ -59,38 +59,37 @@ Let's track what happens when you run an `async` method.
 
 When your program runs this method, the following things will happen.
 
-1. At first, everything is normal. The `HttpClient` is created.
-2. Your program jumps to the end of the second line and calls the `GetAsync` method.
-3. Your program starts working backwards through the second line, and sees the `await` keyword.
-4. Your program immediately jumps out of `DownloadGoogleAsync` to whatever method it was in before.
-5. Your program continues as normal going through whatever method it was in before `DownloadGoogleAsync`.
-6. Eventually, the file download finishes. 
-7. Your program jumps back into `DownloadGoogleAsync` where it left off.
-8. Your program assigns the result of the `GetAsync` method to the `html` variable.
-9. The `return` statement is executed as normal.
+1. Everything is normal on the first line. The `HttpClient` is created and then assigned to the `client` variable.
+2. On the second line, the program starts at the end and works backwards.
+3. Your program calls the `GetAsync` method.
+4. Your program sees the `await` keyword.
+5. Your program immediately jumps out of `DownloadGoogleAsync` to whereever it was before.
+6. `DownloadGoogleAsync` is 'frozen' in place as your program does work elsewhere.
+7. Eventually, the download finishes. 
+8. Your program immediately jumps back into `DownloadGoogleAsync` where it left off.
+9.  Your program assigns the result of the `GetAsync` method to the `html` variable.
+10. The final line is executed as normal.
 
 ## Questions
-
-You should still have several questions. What does the `async` keyword do? Why is the return-type of the method `Task<string>`, and not just `string`? What does 'the program jumps back to whatever method it was in before' mean?
-
-Let's answer those questions one by one.
+You should have several questions. 
+* What does the `async` keyword do?
+* Why is the return-type of the method `Task<string>`, and not just `string`? 
+* What does 'the program jumps back to whereever it was before' mean?
 
 ### The async keyword
-
-The only thing the async keyword does is let you use the `await` keyword inside that method. If you use an `await` statement in a method that isn't `async`, the compiler will report an error.
+The only thing the async keyword does is let you use the `await` keyword inside that method. If you use an `await` statement in a method that isn't `async`, your program won't compile.
 
 (Advanced note: `async` also tells the compiler to generate a state-machine for your method. But without any `await` statements you won't notice any difference.)
 
-You might wonder why we need this `async` keyword at all. The answer is historical. Before async/await was invented, people might have used variables called 'await' in their code. Microsoft didn't want to break existing code, so you have to explicitly opt-in to async/await with `async`.
+We need the `async` keyword for historical reasons. Before async/await was invented, people might have used variables called 'await' in their code. Microsoft didn't want to break existing code, so you have to opt-in to async/await by using the `async` keyword.
 
 ### Task<>
+Normal C# methods return either `void` or some value (`string`, `int`, `MyObject`).
+Async methods return either `Task` or `Task<>`. `Task<>` is generic, so you can have `Task<string>`, `Task<int>`, `Task<MyObject>`.
 
-Normal C# methods return either `void` or some value (`string`, `int`, an instance of a class, etc.).
-Async methods return either `Task` or `Task<>`. `Task<>` is generic, so you can have `Task<string>`, `Task<int>`, `Task<MyObject>`, etc.
+A `Task` represents an incomplete operation. You return a `Task` from an async method to indicate that the operation won't be finished right away.
 
-`Task`s represent an operation that isn't complete yet. You return a `Task` from an async method to indicate that the operation won't be complete right away.
-
-You can't get the value out of a `Task<>` directly. If you try, you'll make the program synchronous, defeating the point of using async/await.
+Don't try to get the `int` out of something like a `Task<int>` directly. If you do, you'll make the method synchronous, defeating the point of using async/await.
 
 You use the `await` keyword to 'complete' a `Task`. Consider this line from the example.
 
@@ -99,23 +98,24 @@ You use the `await` keyword to 'complete' a `Task`. Consider this line from the 
 The `GetAsync` method returns a [Task<HttpResponseMessage>](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.getasync?view=net-5.0). We use the `await` keyword to 'get' the `HttpResponseMessage` inside the task and assign it to a variable.
 
 ### The calling context
-Understanding where your program 'goes' when it hits an `await` statement is complicated, and depends on the kind of program you're making. If your program has a GUI (like in Windows Forms or WPF), the program will go back to updating the UI and listening for user input. If you didn't use an async method for something like downloading a file, the program's interface would 'freeze' and not respond until the file had downloaded.
+Understanding where your program 'goes' when it hits an `await` statement is complicated, and depends on the kind of program you're making. If your program has a GUI (like in Windows Forms or WPF), the program will go back to updating the UI. If you didn't use an async method for a long-running operation, the program's interface would 'freeze' until the operation was done.
 
-## Async all the way down
-
+## Integrating async into the rest of your program
 Recall these three facts:
 
-* An `async` method returns a `Task` of some kind.
+* An `async` method returns a `Task` or `Task<>`.
 * You use the `await` keyword to 'complete' a `Task`.
 * You can only use the `await` keyword in an `async` method.
 
-Combined, these facts mean that async methods can only call (or be called by) other async methods. This makes integrating async code with the rest of your program difficult. There are two main solutions that I know about.
+These facts mean that async methods can only call, or be called by, other async methods. This makes integrating async code with the rest of your program difficult. This is called [the coloured functions problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). As a result, you should think carefully before making a part of your program async.
 
-https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/
+There are two main solutions to this.
 
-The first is just making your entire program asynchronous. If one bit of code is async, everything has to be async. Since C# 7.1, [`Main` can be async](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-7.1/async-main), making this possible.
+The first is to make your entire program asynchronous. If one method is async, everything is async. Since C# 7.1, [`Main()` can be async](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-7.1/async-main), making this cleaner to implement.
 
-The second solution is to use async event handlers. (I will assume you know how events work for this section.) I lied, earlier, when I said that an `async` method only returns `Task` or `Task<>`. They can also return `void`. There are several good reasons why you should not write `async void` methods most of the time. The only time where it is a good idea is in event handlers, because event handlers only ever return void.
+The second solution is to use async event handlers. (I will assume you know how events work for this section.)
+
+I lied when I said that an `async` method can only return `Task` or `Task<>`. They can also return `void`. Generally, [you should not write `async void` methods](https://www.informit.com/articles/article.aspx?p=2832590&seqNum=2). Only use `async void` in event handlers. Here is an example:
 
 ```
         public async Task<string> DownloadGoogleAsync()
@@ -139,4 +139,12 @@ The second solution is to use async event handlers. (I will assume you know how 
         }
 ```
 
-We can now 'call' the `async` event handler by invoking an event in synchronous code. This works because events are inherently async. This approach only really works for 'fire-and-forget' scenarios.
+We can now 'call' the `async` event handler by invoking an event in synchronous code. Making the event-handler for a UI element (such as the user clicking on a button) return async void is a common pattern.
+
+## Making your own asynchronous functions
+The easiest way to write an async function is to use the methods in C#'s standard library which are already async, like `HttpClient`'s `GetAsync`.
+
+You may want to implement a 'true' async method of your own -- not just one that slots together methods pre-written by Microsoft. You should not attempt this. If you look at the source code for these methods, you will quickly find that it gets very complex and deals with raw calls out to the operating system. There is almost certainly a better way to solve your problem than to go down this road.
+
+### Task.Run()
+The `Task` class contains a static method, `Task.Run()`, which lets you basically make any method or lambda expression asynchronous.
