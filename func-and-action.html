@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Func&lt;&gt; and Action&lt;&gt;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="func-and-action">Func&lt;&gt; and Action&lt;&gt;</h1>
+<p><a href="index.html">Home</a></p>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p><code>Func&lt;&gt;</code> and <code>Action&lt;&gt;</code> are convenient shortcuts for common <a href="delegates.html">delegates</a> use-cases.
+<code>Func&lt;&gt;</code> is for methods that return a value. <code>Action&lt;&gt;</code> is for methods that return void.</p>
+<h2 id="the-problem-that-func-and-action-solve">The problem that <code>Func&lt;&gt;</code> and <code>Action&lt;&gt;</code> solve</h2>
+<p>Delegates are a very powerful tool that let us put methods into variables and pass them to other methods as arguments.</p>
+<p>The issue is that the syntax for delegates is quite heavy:</p>
+<pre><code><code><div>delegate void MyDelegate(string message);
+
+public class MyClass
+{
+   public void UseADelegate()
+   {
+      MyDelegate messageTarget = WriteMessage;
+      messageTarget(&quot;Hello, World!&quot;);
+   }
+
+   private void WriteMessage(string message)
+   {
+      Console.WriteLine(message);
+   }
+}
+</div></code></code></pre>
+<p>For this very simple example, we have to</p>
+<ul>
+<li>Define the method signatures the delegate accepts. (The <code>delegate void MyDelegate...</code> line)</li>
+<li>Create an instance of the delegate.</li>
+<li>Assign a method to the delegate.</li>
+<li>Invoke the delegate.</li>
+</ul>
+<p><code>Func&lt;&gt;</code> and <code>Action&lt;&gt;</code> remove the first step by pre-defining a method signature for us.</p>
+<h2 id="action">Action&lt;&gt;</h2>
+<p><code>Action&lt;string&gt;</code> is the same as <code>delegate void DelegateName(string argumentName)</code>.
+Because <code>WriteMessage</code> returns <code>void</code>, we use <code>Action&lt;&gt;</code> rather than <code>Func&lt;&gt;</code>.</p>
+<pre><code><code><div>public class MyClass
+{
+   public void UseADelegate()
+   {
+      Action&lt;string&gt; messageTarget = WriteMessage;
+      messageTarget(&quot;Hello, World!&quot;);
+   }
+
+   private void WriteMessage(string message)
+   {
+      Console.WriteLine(message);
+   }
+}
+</div></code></code></pre>
+<p>If you need more than one parameter, you just write them between the angle brackets.</p>
+<pre><code><code><div>public class MyClass
+{
+   public void UseADelegate()
+   {
+      Action&lt;string, bool&gt; messageTarget = WriteMessage;
+      messageTarget(&quot;Hello, World!&quot;, true);
+   }
+
+   private void WriteMessage(string message, bool shouldWrite)
+   {
+    if (!shouldWrite) return;
+
+      Console.WriteLine(message);
+   }
+}
+</div></code></code></pre>
+<p>You can <a href="https://docs.microsoft.com/en-us/dotnet/api/system.action-16?view=net-5.0">go up to sixteen arguments</a> this way. (But if you ever get that high, you should probably do things differently.)</p>
+<h2 id="func">Func&lt;&gt;</h2>
+<p><code>Func&lt;&gt;</code> is like <code>Action&lt;&gt;</code> for methods that return a value. The final generic argument is the result.</p>
+<pre><code><code><div>public class MyClass
+{
+   public void UseADelegate()
+   {
+       // bool is the final generic argument
+      Func&lt;string, bool&gt; messageTarget = WriteMessage;
+
+      // and so messageTarget returns a bool
+      var result = messageTarget(&quot;Hello, World!&quot;);
+   }
+
+   // messageTarget takes methods that accept a string and return a bool
+   private bool WriteMessage(string message)
+   {
+      Console.WriteLine(message);
+      return true;
+   }
+}
+</div></code></code></pre>
+<p>Again, you can <a href="https://docs.microsoft.com/en-us/dotnet/api/system.func-17?view=net-5.0">go up to sixteen arguments this way</a>, not counting the result.</p>
+<h2 id="predicate">Predicate&lt;&gt;</h2>
+<p>There is also a <code>Predicate&lt;&gt;</code>, but I don't understand it well enough to explain it here :)
+It's mainly used in LINQ.</p>
+
+    </body>
+    </html>

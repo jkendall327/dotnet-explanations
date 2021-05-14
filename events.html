@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Events</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="events">Events</h1>
+<p><a href="index.html">Home</a></p>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>Events are <a href="delegates.html">delegates</a> with a few extra safety features built-in. They are used to implement the 'observer' design pattern.</p>
+<h2 id="the-observer-design-pattern">The observer design pattern</h2>
+<p>We often want one part of our program to respond to something happening elsewhere in our program.</p>
+<p>Imagine we have a counter that starts at zero and goes up by one every minute. When it hits ten, we want to print a celebratory message to the screen.</p>
+<p>We could simply add a line of code in the counter that checks if it's at ten, then print the message.
+But imagine we also want to save the current count to a file every time it's a prime number.
+And that we want to shut down the user's PC when the count hits one hundred.</p>
+<p>We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do -- count.</p>
+<p>A better model would be if our counter could 'send out' messages describing what its current count was. Then other parts of the program could do whatever they liked with that information, and it wouldn't affect the counter. It wouldn't even have to know who's listening to its messages. Think of it like a radio-tower sending out music to radios.</p>
+<p>This is called the observer pattern, or the publisher-subscriber pattern.</p>
+<p>You can implement this pattern with delegates. But they aren't the best choice for it in C#.</p>
+<h2 id="why-delegates-are-bad-for-the-observer-design-pattern">Why delegates are bad for the observer design pattern</h2>
+<p>With delegates it is easy to break encapsulation and crash your program.</p>
+<pre><code><code><div>        // define a delegate
+        public delegate void MyDelegate();
+
+        // give a class an instance of the delegate
+        public class MyClass
+        {
+            // our 'publisher'
+            public MyDelegate ListOfMethods;
+        }
+
+        public class MyOtherClass
+        {
+            public void DoThingsBadly()
+            {
+                var myClass = new MyClass();
+
+                // fill the delegate with 'subscribers' -- so far, so good
+                // i can't be bothered writing multiple fake methods, so we'll just use the same one three times
+                myClass.ListOfMethods += WriteMessage;
+                myClass.ListOfMethods += WriteMessage;
+                myClass.ListOfMethods += WriteMessage;
+
+                // invoke the delegate
+                // this will print &quot;hello world&quot; three times
+                myClass.ListOfMethods();
+
+                // uh-oh!
+                myClass.ListOfMethods = null;
+
+                // this will crash your program
+                myClass.ListOfMethods();
+            }
+
+            // the example method we fill the delegate with
+            // has to match the method signature of the delegate
+            private void WriteMessage()
+            {
+                Console.WriteLine(&quot;hello world&quot;);
+            }
+        }
+</div></code></code></pre>
+<p>We should not be able to set the subscriber of another class to <code>null</code>. This doesn't just break things for <code>MyOtherClass</code>, but any part of the program that subscribed to <code>ListOfMethods</code>.
+Instead of setting it to <code>null</code>, we could also clear the list of methods, set it to an entirely new list, or any number of other dangerous actions.
+We also shouldn't be able to invoke the delegate whenever we want, either.</p>
+<p>We need a special kind of delegate that can only be invoked or set in the class that created it. These are events.</p>
+<h2 id="what-events-change">What events change</h2>
+<p>Events have the following restrictions.</p>
+<ul>
+<li>You can only directly assign values to them in the class where they were declared.</li>
+<li>Outside of the class where they were declared, you can only use the += and -= syntax to change their subscribers.</li>
+<li>You can only invoke an event in the class it was declared.</li>
+</ul>
+<p>Here is the previous example rewritten to use events.</p>
+<pre><code><code><div>        // we still declare a method signature through a delegate
+        public delegate void MyDelegate();
+
+        public class MyClass
+        {
+            // the 'event' keyword is where the magic happens
+            public event MyDelegate MyEvent;
+        }
+
+        public class MyOtherClass
+        {
+            public void DoThingsBadly()
+            {
+                var myClass = new MyClass();
+
+                myClass.MyEvent += WriteMessage; // this is fine
+                myClass.MyEvent += WriteMessage; // this is fine
+                myClass.MyEvent += WriteMessage; // this is fine
+
+                myClass.MyEvent(); // this breaks -- can't invoke an event from another class
+                myClass.MyEvent = null; // this breaks -- can't set the value of an event from another class
+            }
+
+            private void WriteMessage()
+            {
+                Console.WriteLine(&quot;hello world&quot;);
+            }
+        }
+</div></code></code></pre>
+<p>Our program is now a lot safer. We can't break everything by accidentally setting a delegate to <code>null</code>.</p>
+<p>However, it's still a bit ugly that we have to declare <code>MyDelegate</code>. Thankfully, there is a more convenient way to do things.</p>
+<h2 id="eventhandler-and-eventargs">EventHandler and EventArgs</h2>
+<p>In C# there is a very clearly-defined pattern for writing events. Much like how <a href="func-and-action.html">Func&lt;&gt; and Action&lt;&gt;</a> were made as shorthand for common delegate use-cases, <code>EventHandler</code> and <code>EventArgs</code> were created for common event use-cases.</p>
+<p>Here is the previous example re-written with these useful constructs.</p>
+<pre><code><code><div>        public class MyClass
+        {
+            // declares the event and its method signature in one line
+            public event EventHandler MyEvent;
+        }
+
+        public class MyOtherClass
+        {
+            public void DoThingsBadly()
+            {
+                var myClass = new MyClass();
+
+                myClass.MyEvent += WriteMessage;
+            }
+
+            // subscribers to the event now need to follow a special format
+            private void WriteMessage(object sender, EventArgs e)
+            {
+                Console.WriteLine(&quot;hello world&quot;);
+            }
+        }
+</div></code></code></pre>
+<p>I've removed lines that wouldn't compile for simplicity.</p>
+<p><code>EventHandler</code> is a delegate that looks like this: <code>delegate void EventHandler(object sender, EventArgs e)</code>. It just saves us from declaring a separate delegate every time.</p>
+<p>Returning <code>void</code> is simple. It doesn't make much sense for an event to return anything.</p>
+<p><code>object sender</code> is generally meant to be whatever class invoked the event. This lets subscribers query it for information.
+<code>EventArgs</code> is a dummy class meant for carrying additional information. You typically use <code>EventArgs.Empty</code>, to represent no data being sent.</p>
+<p>Here is what it would like like if <code>MyClass</code> wanted to invoke <code>MyEvent</code>.</p>
+<pre><code><code><div>        public class MyClass
+        {
+            public event EventHandler MyEvent;
+
+            public void InvokeTheEvent()
+            {
+                MyEvent(this, EventArgs.Empty);
+            }
+        }
+</div></code></code></pre>
+<p>The <code>this</code> keyword passes in the current instance of <code>MyClass</code>. Because <code>EventHandler</code> asks for an <code>object</code>, you could, of course, send anything that you wanted.</p>
+<h2 id="passing-along-our-own-data">Passing along our own data</h2>
+<p>There are two ways for an event to carry along data to its subscribers. One, using a generic EventHandler, is simple but limited. The other, defining your EventArgs, is more involved but also more powerful.</p>
+<h3 id="generic-eventhandler">Generic EventHandler</h3>
+<p>The <code>EventHandler</code> class is generic, so we can have an <code>EventHandler&lt;&gt;</code> of any type. This lets us pass along a single value when our event is invoked.
+<code>EventHandler</code> will always ask for an <code>object sender</code> along with the generic type.</p>
+<pre><code><code><div>        public class MyClass
+        {
+            // EventHandler now wants a string as well as an object
+            public event EventHandler&lt;string&gt; MyEvent;
+
+            public void InvokeTheEvent()
+            {
+                // pass in an object (this class) and a string
+                MyEvent(this, &quot;hello&quot;);
+            }
+        }
+
+        public class MyOtherClass
+        {
+            public void DoThingsBadly()
+            {
+                var myClass = new MyClass();
+
+                myClass.MyEvent += WriteMessage;
+            }
+
+            // subscribers still need to match the method signature of the EventHandler
+            private void WriteMessage(object sender, string text)
+            {
+                // subscribers can now access information from the event
+                Console.WriteLine(text);
+            }
+        }
+</div></code></code></pre>
+<p>This approach is good when you only want to send out simple information, like a number or a name. But if you want to send out more than one value, you need to define your own EventArgs.</p>
+<h3 id="defining-your-own-eventargs">Defining your own EventArgs</h3>
+<p>To define your own event arguments, inherit from <code>EventArgs</code>.</p>
+<pre><code><code><div>        public class PersonEventArgs : EventArgs
+        {
+            string Name;
+            int Age;
+            bool IsAProgrammer;
+
+            public PersonEventArgs(string name, int age, bool isAProgrammer)
+            {
+                Name = name;
+                Age = age;
+                IsAProgrammer = isAProgrammer;
+            }
+        }
+</div></code></code></pre>
+<p>It's convention to have <em>EventArgs</em> at the end of the name of your new class.
+You typically define a constructor to make it easier to get information into the class when you're invoking your event:</p>
+<pre><code><code><div>            public void InvokeTheEvent()
+            {
+                MyEvent(this, new PersonEventArgs(&quot;Jack&quot;, 24, true));
+            }
+</div></code></code></pre>
+<p>Subscribers can now access this information.</p>
+<pre><code><code><div>            private void WriteMessage(object sender, PersonEventArgs e)
+            {
+                // subscribers can now access information from the event
+                Console.WriteLine(&quot;The name is:&quot; + e.Name);
+                Console.WriteLine(&quot;The age is:&quot; + e.Age);
+                Console.WriteLine(&quot;Are they a programmer? &quot; + e.IsAProgrammer);
+
+            }
+</div></code></code></pre>
+
+    </body>
+    </html>
