@@ -1,16 +1,12 @@
 # Simple explanations for .NET concepts
 
-## What is this site?
-This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone in the same position as me -- someone interested in .NET as a general concept but is confused bby the large amounts of unfamiliar names, project types and terminology.
+This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone who was in the same position as me -- interested in .NET as a general concept but confused by unfamiliar names, project types and terminology.
 
-My goal is to write in a direct and simple manner that gets you the 'essential core' of a topic without bogging you down in theoretical jargon or extraneous details. On the other hand, I'm going to try and avoid the kinds of wild and crazy metaphors you sometimes see in discourse about .NET, because I never found them useful for truly understanding a topic.
+My goal is to give you the 'eureka moment' needed to appreciate more detailed resources, like the [MSDN](https://docs.microsoft.com/en-us/dotnet/) or a [Manning Press](https://www.manning.com/) book. I try to write as directly and clearly as possible. If you read a page and think 'well, that's pretty simple, why did he feel the need to explain that?' -- I'm happy.
 
-## What topics will you cover?
-I plan to provide a broad overview of as much of .NET as I can. I do not aim to provide technical or authoritative explanations on any one topic. My hope is that a newcomer to the field can read my page on a topic that seems interesting to them, get a good rough understanding of what it's all about, and then jump into more formal sources (like Microsoft's official documentation or a Manning Press book) with confidence.
+This page isn't a programming tutorial, so I won't explain fundamental concepts like variables or for-loops.
 
-This is intended to cover topics which I think are commonly or easily misunderstood, so I won't explain fundamental programming concepts like variables or for-loops.
-
-In no particular order, topics I'd like to cover include:
+## Topics
 * C#
     * [Interfaces](interfaces.md) (incomplete!)
     * [Generics](generics.md) (incomplete!)
