@@ -47,12 +47,9 @@ In no particular order, topics I'd like to cover include:
     * [Dependency injection](dependency-injection.md)
 
 ## Who is responsible for this?
-
 My name is Jack Kendall. You can contact me through [the GitHub page for this site](https://github.com/jkendall327/dotnet-explanations). Feel free to make pull requests for any improvements (especially factual errors!).
 
 ## Credits and thanks
-
-* Yu Zhang for the lovely Markdown All in One extension that makes writing these pages easy and fun.
-* The HTML5 Boilerplate team for providing tools I will integrate at some point in this project.
+* Yu Zhang for the lovely [Markdown All in One extension](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) that makes writing these pages easy and fun.
 * Github Pages for hosting this site.
 * Microsoft for developing .NET.
