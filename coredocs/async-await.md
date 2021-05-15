@@ -1,9 +1,21 @@
-# Async/await
+# Async/await - [Home](index.md)
 
-[Home](index.md)
+- [Async/await - Home](#asyncawait---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [Warning](#warning)
+    - [Terminology](#terminology)
+    - [Threads](#threads)
+    - [The problem async/await solves](#the-problem-asyncawait-solves)
+  - [What happens when an async method runs](#what-happens-when-an-async-method-runs)
+  - [Questions](#questions)
+    - [The async keyword](#the-async-keyword)
+    - [Task<>](#task)
+    - [The calling context](#the-calling-context)
+  - [Integrating async into the rest of your program](#integrating-async-into-the-rest-of-your-program)
+  - [Making your own asynchronous functions](#making-your-own-asynchronous-functions)
+    - [Task.Run()](#taskrun)
 
 ## In a nutshell
-
 Async/await is a convenient syntax for letting your program jump out of a method while it's doing something that takes a long time (like opening a file or downloading a webpage) and then jumping back into that method once the task is completed. Here is an example of async/await:
 
 ```
@@ -18,7 +30,6 @@ Async/await is a convenient syntax for letting your program jump out of a method
 (Advanced note: you shouldn't use `HttpClient` like this. This is just an example.)
 
 ## Warning
-
 Async/await is hard to learn about for a few reasons.
 
 * Asynchronicity is inherently complicated.

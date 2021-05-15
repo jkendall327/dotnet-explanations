@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Async&sol;await</title>
+        <title>Async&sol;await - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,8 +23,35 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="asyncawait">Async/await</h1>
-<p><a href="index.html">Home</a></p>
+        <h1 id="asyncawait---home">Async/await - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#asyncawait---home">Async/await - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#warning">Warning</a>
+<ul>
+<li><a href="#terminology">Terminology</a></li>
+<li><a href="#threads">Threads</a></li>
+<li><a href="#the-problem-asyncawait-solves">The problem async/await solves</a></li>
+</ul>
+</li>
+<li><a href="#what-happens-when-an-async-method-runs">What happens when an async method runs</a></li>
+<li><a href="#questions">Questions</a>
+<ul>
+<li><a href="#the-async-keyword">The async keyword</a></li>
+<li><a href="#task">Task&lt;&gt;</a></li>
+<li><a href="#the-calling-context">The calling context</a></li>
+</ul>
+</li>
+<li><a href="#integrating-async-into-the-rest-of-your-program">Integrating async into the rest of your program</a></li>
+<li><a href="#making-your-own-asynchronous-functions">Making your own asynchronous functions</a>
+<ul>
+<li><a href="#taskrun">Task.Run()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>Async/await is a convenient syntax for letting your program jump out of a method while it's doing something that takes a long time (like opening a file or downloading a webpage) and then jumping back into that method once the task is completed. Here is an example of async/await:</p>
 <pre><code><code><div>        public async Task&lt;string&gt; DownloadGoogleAsync()

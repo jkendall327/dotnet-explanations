@@ -1,7 +1,14 @@
-# Dependency injection
+# Dependency injection - [Home](index.md)
+
+- [Dependency injection - Home](#dependency-injection---home)
+	- [In a nutshell](#in-a-nutshell)
+	- [So what?](#so-what)
+	- [Using interfaces with dependency injection](#using-interfaces-with-dependency-injection)
+	- [Dependency injection all the way up](#dependency-injection-all-the-way-up)
+	- [DI containers](#di-containers)
+	- [The end-goal of dependency injection](#the-end-goal-of-dependency-injection)
 
 ## In a nutshell
-
 Dependency injection is when you ask for something in a class's constructor rather than creating it in the class itself.
 
 ```
@@ -26,7 +33,6 @@ This is dependency injection. Rather than creating a HttpClient with the 'new' k
 If dependency injection ever feels complicated, remember that this is all it really is. Lots of tools and patterns have been created to make it powerful, but everything relies on just asking for something in a class's constructor.
 
 ## So what?
-
 There are several reasons why dependency injection is useful.
 
 * MyClass isn't cluttered with code for creating the HttpClient.
@@ -48,7 +54,6 @@ We could then swap out what we give MyClass with anything else that implements t
 (Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)
 
 ## Dependency injection all the way up
-
 MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.
 
 ```
@@ -130,7 +135,6 @@ class MyOtherClass
 `Main()` can create the instance of `MyClass`, get it ready, and then feed it into `MyOtherClass` whenever it likes.
 
 ## DI containers
-
 People have created tools to automate this process, called *DI containers*.
 
 A DI container sits at the start of your program, usually in `Main()`. You 'register' classes with the container, and it will automatically figure out which classes depend on each other. You then 'resolve' these dependencies to start using your classes and get the program running.
@@ -163,7 +167,6 @@ class Program
 The code here is just an example. Actual DI containers all do things in slightly different ways. But they all work off of the same principles.
 
 ## The end-goal of dependency injection
-
 The end-goal of dependency injection is to have a program where all of your classes ask for their dependencies in their constructor, and where all dependencies are created in one place at the start of the program.
 
 You no longer have a complicated web of classes that all depend on each other in confusing ways. Now your classes are more modular and lightweight.
