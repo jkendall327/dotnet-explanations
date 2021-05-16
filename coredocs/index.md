@@ -32,6 +32,8 @@ In no particular order, topics I'd like to cover include:
       * Blazor
       * SignalR 
 * The .NET runtime
+    * [Reference types and value types](reference-types-and-value-types.md)
+    * [The garbage collector](garbage-collector.md)
     * The CLR
     * The JIT
     * MSIL
