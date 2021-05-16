@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>The garbage collector - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="the-garbage-collector---home">The garbage collector - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#the-garbage-collector---home">The garbage collector - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#programs-need-memory">Programs need memory</a></li>
+<li><a href="#the-garbage-collector-in-action">The garbage collector in action</a>
+<ul>
+<li><a href="#a-myth-about-null">A myth about <code>null</code></a></li>
+</ul>
+</li>
+<li><a href="#other-approaches-to-managing-memory">Other approaches to managing memory</a></li>
+<li><a href="#the-stack-and-the-heap">The stack and the heap</a></li>
+<li><a href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>The .NET garbage collector lets our programs act as if they have infinite memory to work with.</p>
+<h2 id="programs-need-memory">Programs need memory</h2>
+<p>When you run a program, the operating system (Windows, Linux, Mac) controls how much memory it can access.</p>
+<p>Imagine you write a program that only ever needs 20 megabytes of memory. If the operating system gives you 30 megabytes, well, everything is great. You don't need to worry about memory at all. You effectively have infinite memory.</p>
+<p>The issue is if your program needs more memory than the operating system is willing to give you. If your program runs out of memory, it'll crash. To get around this, we ask the operating system for memory only when we need it, and then give it back when we're done with it.</p>
+<p>The garbage collector automates this and makes it seem like we have infinite memory.</p>
+<h2 id="the-garbage-collector-in-action">The garbage collector in action</h2>
+<p>You almost never have to think about the garbage collector when you're writing a program. You should only think about it if performance is very important or in a few specific scenarios (like <a href="https://docs.microsoft.com/en-us/dotnet/framework/performance/performance-tips">concatenating strings</a>).</p>
+<p>You can think of the <code>new</code> keyword as invoking the garbage collector.</p>
+<pre><code><code><div>public void MakeSomeObjects()
+{
+    var sb = new StringBuilder();
+}
+</div></code></code></pre>
+<p>The <code>new</code> keyword tells the garbage collector (or more accurately, the .NET runtime) to ask the operating system for enough memory to hold a <code>StringBuilder</code>.</p>
+<p>When it decides your program needs to give some memory back, the garbage collector will look through all the objects in your program. If there any objects that it can safely get rid of, it will deallocate that object's memory and give it back to the operating system.</p>
+<p>What does 'safely get rid of' mean? <a href="https://stackoverflow.com/questions/2257563/what-are-the-generations-in-garbage-collection">It's complicated</a>, but essentially the garbage collector will check if any part of your program is currently using that object, or <em>could</em> use that object. It builds a big graph of all the objects in your program, and if any are left on their own, they can be safely removed.</p>
+<h3 id="a-myth-about-null">A myth about <code>null</code></h3>
+<p>Some people think that when you're done with an object, you should set it to <code>null</code> so the garbage collector knows it's OK to collect it.</p>
+<p>This is <a href="https://stackoverflow.com/questions/3903878/c-should-object-variables-be-assigned-to-null">pointless and potentially dangerous</a>. The point of the garbage collector is that you don't have to think about memory. Microsoft has spent a lot of money and  time on engineering the garbage collector - you don't need to help it along.</p>
+<p>For the same reason, you also almost never need to call the <code>GC.Collect()</code> method to manually invoke the garbage collector.</p>
+<h2 id="other-approaches-to-managing-memory">Other approaches to managing memory</h2>
+<p>.NET's garbage collector makes coding easier and less error-prone than other languages.</p>
+<p>However:</p>
+<ul>
+<li>Garbage collection is relatively slow.</li>
+<li>You can't predict when garbage collection will happen.</li>
+</ul>
+<p>As a result, garbage collection doesn't work well in embedded systems or other places where performance is critical.</p>
+<p>There are two main alternatives to garbage collection:</p>
+<ul>
+<li>Manual memory management. You have to explicitly ask the operating system for memory and give it back when you're done with it. This is very fast but it's easy to make mistakes. Languages like C and C++ use this.</li>
+<li>A borrow-checker. <a href="https://www.rust-lang.org/">Rust</a> allocates and deallocates memory for you, but you have to follow very strict rules to make it work. This is also fast.</li>
+</ul>
+<p>None of these options are better or worse than using a garbage collector. There is a basic trade-off between convenience and reliability/speed. If you have a solution with the best of both worls, please let the world know :)</p>
+<h2 id="the-stack-and-the-heap">The stack and the heap</h2>
+<p>The stack and the heap are not relevant to garbage collection. The garbage collector simulates a machine with infinite memory. Whether the program splits that memory into a heap and a stack is an implementation detail.</p>
+<p>I highly recommend <a href="https://devblogs.microsoft.com/oldnewthing/20100809-00/?p=13203">Raymond Chen's article on the garbage collector</a> for more on this.</p>
+<h2 id="further-reading">Further reading</h2>
+<p>Microsoft's <a href="https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/fundamentals">introduction to the garbage collector</a> is a good in-depth read.</p>
+
+    </body>
+    </html>
