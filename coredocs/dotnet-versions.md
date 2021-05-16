@@ -1,6 +1,9 @@
-# .NET versions
+# .NET versions - [Home](index.md)
 
-[Home](index.md)
+- [.NET versions - Home](#net-versions---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [Warning](#warning)
+  - [History](#history)
 
 ## In a nutshell
 .NET is the general name for Microsoft's programming platform. .NET Framework, .NET Core and .NET 5 are all different 'versions' of .NET.

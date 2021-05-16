@@ -1,6 +1,14 @@
-# Events
+# Events - [Home](index.md)
 
-[Home](index.md)
+- [Events - Home](#events---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [The observer design pattern](#the-observer-design-pattern)
+  - [Why delegates are bad for the observer design pattern](#why-delegates-are-bad-for-the-observer-design-pattern)
+  - [What events change](#what-events-change)
+  - [EventHandler and EventArgs](#eventhandler-and-eventargs)
+  - [Passing along our own data](#passing-along-our-own-data)
+    - [Generic EventHandler](#generic-eventhandler)
+    - [Defining your own EventArgs](#defining-your-own-eventargs)
 
 ## In a nutshell
 

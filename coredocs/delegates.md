@@ -1,11 +1,21 @@
-# Delegates
+# Delegates - [Home](index.md)
+
+- [Delegates - Home](#delegates---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [Explanation](#explanation)
+  - [Method signatures](#method-signatures)
+  - [Using delegates](#using-delegates)
+  - [Actually using a delegate](#actually-using-a-delegate)
+  - [Treating methods like variables](#treating-methods-like-variables)
+  - [Other syntax that you might see](#other-syntax-that-you-might-see)
+  - [Multicast delegates](#multicast-delegates)
+  - [Why care about delegates?](#why-care-about-delegates)
+  - [Further learning](#further-learning)
 
 ## In a nutshell
-
 A delegate is like a `List<>` for methods.
 
 ## Explanation
-
 Think about a `List<int>`:
 
 ```
@@ -25,7 +35,6 @@ A delegate is type-safe, like a `List<>`. When you make a delegate, you have to 
 But how do you decide what 'kind' of methods this list should contain? To understand that, we need to understand method signatures.
 
 ## Method signatures
-
 Consider the following method.
 
 ```
@@ -58,7 +67,6 @@ The return type is what the method gives back. In this case, it's also an `int`.
 If we want to add `AddThenSquare` to a delegate, we need a delegate that says 'I will take in any method that accepts two `int`s and gives back one `int`'. 
 
 ## Using delegates
-
 We have to define the methods our delegate accepts before we can use it.
 
 ```
@@ -129,7 +137,6 @@ class MyExampleClass
 (Advanced note: the `+=` syntax is shorthand for the [Delegate.Combine](https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0) method.)
 
 ## Actually using a delegate
-
 Nothing happens when you just add methods to a delegate, in the same way nothing happens when you add numbers to a `List<int>`.
 
 To make our delegate do something, we use the delegate's `Invoke` method.
@@ -140,7 +147,6 @@ We defined our delegate as taking two `int`s, so we have to give it two `int`s t
 This will run through every method in `myDelegate`, giving them each the arguments 4 and 5. We're not doing anything with the return values (81 and 1, in this example), but we could if we wanted.
 
 ## Treating methods like variables
-
 People care about delegates because they let us treat methods like variables. More specifically, we can pass a method into another method.
 
 ```
@@ -160,7 +166,6 @@ This method does something with a delegate, without any knowledge of what method
 Delegates let us write *methods about methods*.
 
 ## Other syntax that you might see
-
 Writing `.Invoke()` all the time is annoying, so C# has a shorthand.
 
 ```
@@ -190,7 +195,6 @@ The reason it's called 'multicast' is because when you add a delegate to one, it
 The reason for this split is historical. When you use the `delegate` keyword, it will always be the `MulticastDelegate`.
 
 ## Why care about delegates?
-
 When you first learn about them, it's hard to imagine where delegates would be useful.
 
 You won't create many delegates yourself. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, `Action<>` and `Func<>`. Learning about those topics will  make delegates easier to understand in retrospect. 
@@ -198,5 +202,4 @@ You won't create many delegates yourself. Microsoft has created convenient short
 More broadly, delegates are the basis of functional programming in C#. This page isn't the place to explain functional programming, but just know that it's an important topic.
 
 ## Further learning
-
 The best explanation of delegates is [Jamie King's YouTube playlist](https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54). You should watch this entire playlist.

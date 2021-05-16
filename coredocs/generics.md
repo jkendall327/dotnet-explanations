@@ -1,6 +1,8 @@
-# Generics
+# Generics - [Home](index.md)
 
-[Home](index.md)
+- [Generics - Home](#generics---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [Why care about generics?](#why-care-about-generics)
 
 ## In a nutshell
 

@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Interfaces</title>
+        <title>Interfaces - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,64 +23,71 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="interfaces">Interfaces</h1>
-<p><a href="intro.html">Home</a></p>
+        <h1 id="interfaces---home">Interfaces - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#interfaces---home">Interfaces - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#the-problem">The problem</a></li>
+<li><a href="#what-is-an-interface">What is an interface?</a></li>
+<li><a href="#implementing-an-interface">Implementing an interface</a></li>
+<li><a href="#fixing-the-original-problem">Fixing the original problem</a></li>
+<li><a href="#dependency-injection">Dependency injection</a></li>
+<li><a href="#when-to-use-interfaces">When to use interfaces</a></li>
+<li><a href="#where-to-go-from-here">Where to go from here</a></li>
+</ul>
+</li>
+</ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>Interfaces let you say what you want your code to do without specifying how it does it.</p>
-<h2 id="why-care-about-interfaces">Why care about interfaces?</h2>
-<p>Interfaces seem very abstract and unnecessary at first. They are, however, a very useful way to make your code more flexible and maintainable. (Buzzword counter: 2.)</p>
-<p>Don't go looking for situations where you can use interfaces. If you use an interface in every single situation where you can, you will make your project more complicated for no reason.</p>
-<p>You will end up working with interfaces a lot in .NET, if only due to LINQ. Understanding what an interface is will make the age-old question 'what is the difference between <code>IEnumerable&lt;&gt;</code> and <code>List&lt;&gt;</code>?' a lot easier to understand.</p>
 <h2 id="the-problem">The problem</h2>
-<p>Interfaces are a solution to a problem. I will explain this problem to explain interfaces.</p>
-<p>Imagine a program that lets people register user-accounts and edit their details. You might have a method that looks like this.</p>
+<p>Imagine a program that lets people register accounts and edit their username.</p>
 <pre><code><code><div>public void ChangeUsername(int userID, string newName)
 {
-    var user = UserDetailsDatabaseLoader.Load(id);
+    var user = new UserDetailsDatabaseLoader.Load(id);
     user.Name = newName;
 }
 </div></code></code></pre>
-<p>We use some kind of class named <code>UserDetailsDatabaseLoader</code> to get the user's details, presumably from a database. How <code>UserDetailsDatabaseLoader</code> works doesn't matter. The important idea is that it's a 'service': it does something useful for us.</p>
-<p>Now imagine that your boss comes into the office and says 'we're not using databases anymore; we're loading all user information from the filesystem'. OK, this won't be hard to change.</p>
+<p>We use <code>DatabaseLoader</code>, which we've made elsewhere in our program, to get the user's details from a database. How <code>DatabaseLoader</code> works doesn't matter. What matters is that it's a 'service': it does something useful for us.</p>
+<p>Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to do two things:</p>
+<ul>
+<li>Create a new service that gets the information you want from the filesystem.</li>
+<li>Change every part of your program that used the <code>DatabaseLoader</code> to now use a <code>FilesystemLoader</code>.</li>
+</ul>
 <pre><code><code><div>public void ChangeUsername(int userID, string newName)
 {
-    var user = UserDetailsFilesystemLoader.Load(id);
+    var user = new FilesystemLoader.Load(id);
     user.Name = newName;
 }
 </div></code></code></pre>
-<p>We now have a different service, <code>UserDetailsFilesystemLoader</code>. It does the same thing (gets us a user's details) but does it in a different way (loading them from the filesystem, rather than a database).</p>
-<p>Now imagine that your boss comes into the office and says 'we're not using the filesystem anymore; we're getting all user information from <a href="https://en.wikipedia.org/wiki/Homing_pigeon">carrier pigeons</a>'.</p>
+<p>Changing your program like this isn't too annoying when you only have to change one line. But imagine that this is a real project, and you end up having to move lots of code over to the new <code>FilesystemLoader</code>. Now imagine that instead of the filesystem, you realise you need to get user information from <a href="https://en.wikipedia.org/wiki/Homing_pigeon">carrier pigeons</a> instead.</p>
 <pre><code><code><div>public void ChangeUsername(int userID, string newName)
 {
-    var user = UserDetailsHomingPigeonLoader.Load(id);
+    var user = CarrierPigeonLoader.Load(id);
     user.Name = newName;
 }
 </div></code></code></pre>
-<p>This is getting annoying. All of these <code>Loader</code>s have done the same thing - get user information. If there was a way to express just that idea, without specifying how it's done, we wouldn't have to change <code>ChangeUsername</code> in the future.</p>
-<p>This is the problem that interfaces solve.</p>
-<h2 id="the-solution">The solution</h2>
-<p>An interface is a list of method signatures. If you don't know what a method signature is, I talk about them in the explanation on <a href="delegates.html">delegates</a>.</p>
-<p>Here is an example of an interface.</p>
+<p>All of these <code>Loader</code> classes have done the same thing - get user information. They did this in different ways, but in our <code>ChangeUsername</code> method, we don't care about how the service got the information - we just want the information. We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon).
+If we can do this, it means we won't need to update <code>ChangeUsername</code> in the future if we come up with another way of completing this task.</p>
+<p>This is what interfaces do.</p>
+<h2 id="what-is-an-interface">What is an interface?</h2>
+<p>An interface is a list of method signatures. Read the explanation on <a href="delegates.html">delegates</a> for an explanation of method signatures.</p>
+<p>Here is an interface with one method signature, named <code>Load</code>.</p>
 <pre><code><code><div>interface ILoader
 {
     public User Load(int id);
 }
 </div></code></code></pre>
-<p>An interface looks very similar to a class. There are two main differences:</p>
+<p>An interface looks similar to a class, with three differences:</p>
 <ul>
 <li>You use the <code>interface</code> keyword.</li>
 <li>You only define method signatures. You cannot define fields or method bodies in an interface.</li>
 </ul>
 <p>(Advanced note: you can actually define <a href="https://www.infoq.com/articles/default-interface-methods-cs8/">interface method bodies</a> from C# 8.0 onwards. You should not do this until you understand why the feature is available.)</p>
-<p>By themselves, interfaces are useless. You can't use the <code>new</code> keyword to create an interface in your code.</p>
-<p>Classes, however, can 'implement' an interface. The syntax for doing this is very similar to class-inheritance.</p>
-<pre><code><code><div>class UserDetailsHomingPigeonLoader : ILoader
-{
-    // class implementation...
-}
-</div></code></code></pre>
-<p>When a class implements an interface, it has to include all of the interface's method signatures. Because <code>ILoader</code> defines a method called 'Load' that takes an <code>int</code> and returns a <code>User</code>, that means <code>UserDetailsHomingPigeonLoader</code> has to do the same thing.</p>
-<pre><code><code><div>class UserDetailsHomingPigeonLoader : ILoader
+<h2 id="implementing-an-interface">Implementing an interface</h2>
+<p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes -- not something concrete you can actually use. You can't use the <code>new</code> keyword to create an instance of an interface, for instance.</p>
+<p>Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.</p>
+<pre><code><code><div>class CarrierPigeonLoader : ILoader
 {
     // Without this method, your program will no longer compile.
     public User Load(int id)
@@ -89,13 +96,34 @@
     }
 }
 </div></code></code></pre>
-<p>Imagine that you modified the other classes for getting user information in the same way, so that they all implemented <code>ILoader</code>.</p>
-<p>We can now return to our original method and make an important change.</p>
+<p><code>ILoader</code> defines a method called 'Load' that takes an <code>int</code> and returns a <code>User</code>.
+Because <code>CarrierPigeonLoader</code> implements <code>ILoader</code>, it has to have a method that matches that signature.</p>
+<h2 id="fixing-the-original-problem">Fixing the original problem</h2>
+<p>Imagine that you modified <code>DatabaseLoader</code>, <code>FilesystemLoader</code> and <code>CarrierPigeonLoader</code> to all implement <code>ILoader</code>.</p>
+<p>We now know that whenever we use <em>any</em> of those classes, they <strong>will</strong> have a method named 'Load' that takes an <code>int</code> and returns a <code>User</code>. They will likely do this in different ways. That's OK. All we care about is the input (our <code>int</code>) and what we get back (the <code>User</code>).</p>
+<p>Let's modify our original method.</p>
 <p>public void ChangeUsername(int userID, string newName)
 {
-var user = ILoader.Load(id);
+ILoader loader = new CarrierPigeonLoader();
+var user = loader.Load(id);
 <a href="http://user.Name">user.Name</a> = newName;
 }</p>
+<p>When we declare a variable that has an interface as its type, it means 'I can be any of the classes that implement me'. If you are familiar with polymorphism, think of how a parent class can stand in for any class that inherits from it. In the second line, where we call <code>loader.Load()</code>, <code>loader</code> could be any class that implements our interface.</p>
+<h2 id="dependency-injection">Dependency injection</h2>
+<p>So far, this likely seems quite pointless. We have done a lot of extra work for nothing. We've created an interface, but we still say <code>new CarrierPigeonLoader()</code> in our method. We would have to update that every time we wanted to get user information in a new way.</p>
+<p>The magic trick which makes interfaces actually useful is <a href="dependency-injection.html">dependency injection</a>.</p>
+<p>public void ChangeUsername(ILoader loader, int userID, string newName)
+{
+var user = loader.Load(id);
+<a href="http://user.Name">user.Name</a> = newName;
+}</p>
+<p>Our method no longer has any idea what <code>loader</code> 'really' is. As a result, we wouldn't have to update this method if we created a <code>MorseCodeLoader</code> or a <code>SignLanguageLoader</code>. Whatever code that calls <code>ChangeUsername</code> can swap out different implementations of <code>ILoader</code>, and the method won't notice that anything's changed.</p>
+<p>But this still isn't great. Now the code that calls <code>ChangeUsername</code> has to be updated instead.</p>
+<p>It is good by itself for lower-level parts of our programs to use interfaces and higher-level parts deal with concrete types. But if we use a DI framework (as I explain in the page on <a href="dependency-injection.html">dependency injection</a>), we can centralise all of our service-creation in just one place. This means we could change our implementation of <code>ILoader</code> throughout our entire program by updating a few lines of code in just one place.</p>
+<h2 id="when-to-use-interfaces">When to use interfaces</h2>
+<p>You should consider creating an interface when you need to call on another class to get something done, but you don't care how it does it.</p>
+<h2 id="where-to-go-from-here">Where to go from here</h2>
+<p>You will end up working with interfaces a lot in .NET, if only due to LINQ. Understanding interfaces will make the question 'what is the difference between <code>IEnumerable&lt;&gt;</code> and <code>List&lt;&gt;</code>?' a lot easier to understand.</p>
 
     </body>
     </html>

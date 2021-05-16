@@ -1,13 +1,17 @@
-# Properties / getter-setters
+# Properties / getter-setters - [Home](index.md)
 
-[Home](index.md)
+- [Properties / getter-setters - Home](#properties--getter-setters---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [Explanation](#explanation)
+  - [Convenient syntax](#convenient-syntax)
+    - [Explaining the syntax](#explaining-the-syntax)
+    - [A common bug](#a-common-bug)
+    - [An even more convenient syntax](#an-even-more-convenient-syntax)
 
 ## In a nutshell
-
 Properties are a kind of method that make the `public` and `private` keywords more powerful.
 
 ## Explanation
-
 In object-oriented programming, a class can hide its internal operations from the outside world. This is called 'encapsulation'.
 
 This is what you are doing when you use the `public` or `private` keyword in C#. If a class has a `public` field, any other part of the program can read that data, or edit it. If the field is `private`, only the class itself can see it.
@@ -58,7 +62,6 @@ Other parts of the program can now edit `importantInformation`. Our new method, 
 You now understand the idea behind properties in C#. Everything else is just convenient syntax for making these kinds of methods.
 
 ## Convenient syntax
-
 If you open up Visual Studio, type the word `propfull` and then hit the tab key twice, VS will write this chunk of code for you:
 
 ```
@@ -74,7 +77,6 @@ public string ImportantInformation
 This should look similar to the examples above. We have a private field, `importantInformation`, and a public *property* beneath which controls access to it.
 
 ### Explaining the syntax
-
 When the compiler sees the above example, it simply replaces it with two normal methods, called `get` and `set`. That's all properties are -- methods.
 
 The `value` keyword is unique to properties. It's whatever your field is going to be set to. You can do validation checks on it, for example,
@@ -82,7 +84,6 @@ The `value` keyword is unique to properties. It's whatever your field is going t
 `if (string.IsNullOrEmpty(value)) { ... }`
 
 ### A common bug
-
 Note that `importantInformation` and `ImportantInformation` aren't the same. It's convention to use lowercase for the field, and pascalcase for the property.
 
 If you mix up the names of the field and the property, you can cause serious bugs. The most common is to use the name of the property in the property itself.
@@ -100,7 +101,6 @@ public string ImportantInformation
 This will crash your program whenever anything tries to access `ImportantInformation`. Because the `set` method refers to the property itself, the program will get stuck in an endless loop. You will quickly run out of memory and crash without even a stacktrace.
 
 ### An even more convenient syntax
-
 You might have noticed that in the examples above, we don't actually do anything interesting to keep the field safe. We don't have any validation checks.
 
 If this is the case, there's actually an even simpler syntax for writing a property.

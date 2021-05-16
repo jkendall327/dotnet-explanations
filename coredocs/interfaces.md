@@ -1,6 +1,14 @@
-# Interfaces
+# Interfaces - [Home](index.md)
 
-[Home](intro.md)
+- [Interfaces - Home](#interfaces---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [The problem](#the-problem)
+  - [What is an interface?](#what-is-an-interface)
+  - [Implementing an interface](#implementing-an-interface)
+  - [Fixing the original problem](#fixing-the-original-problem)
+  - [Dependency injection](#dependency-injection)
+  - [When to use interfaces](#when-to-use-interfaces)
+  - [Where to go from here](#where-to-go-from-here)
 
 ## In a nutshell
 Interfaces let you say what you want your code to do without specifying how it does it.
