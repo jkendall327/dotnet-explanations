@@ -8,7 +8,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
 
 ## Topics
 * C#
-    * [Interfaces](interfaces.md) (incomplete!)
+    * [Interfaces](interfaces.md)
     * [Generics](generics.md) (incomplete!)
     * The 'static' keyword
     * [Delegates](delegates.md)
