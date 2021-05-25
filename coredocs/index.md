@@ -10,7 +10,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
 * C#
     * [Interfaces](interfaces.md)
     * [Generics](generics.md) (incomplete!)
-    * The 'static' keyword
+    * [The 'static' keyword](static.md)
     * [Delegates](delegates.md)
       * [Func<> and Action<>](func-and-action.md)
       * Lambdas
