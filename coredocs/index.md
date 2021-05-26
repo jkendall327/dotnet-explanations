@@ -31,7 +31,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
     * [The difference between .NET Framework, .NET Core, .NET 5/6](dotnet-versions.md)
     * The history of .NET
 * Common .NET programming patterns
-    * Logging
+    * [Logging](logging.md)
     * [Unit testing](unit-testing.md)
     * [Dependency injection](dependency-injection.md)
 
