@@ -23,9 +23,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
 * The .NET runtime
     * [Reference types and value types](reference-types-and-value-types.md)
     * [The garbage collector](garbage-collector.md)
-    * The CLR
-    * The JIT
-    * MSIL
+    * [How your source code turns into a program](source-to-execution.md)
 * The developer experience
     * MSBuild
     * A tour of Visual Studio
