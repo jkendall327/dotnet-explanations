@@ -1,6 +1,11 @@
-# Func<> and Action<>
+# Func<> and Action<> - [Home](index.md)
 
-[Home](index.md)
+- [Func<> and Action<> - Home](#func-and-action---home)
+  - [In a nutshell](#in-a-nutshell)
+  - [The problem that `Func<>` and `Action<>` solve](#the-problem-that-func-and-action-solve)
+  - [Action<>](#action)
+  - [Func<>](#func)
+  - [Predicate<>](#predicate)
 
 ## In a nutshell
 

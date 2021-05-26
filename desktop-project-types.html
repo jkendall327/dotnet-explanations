@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Desktop project types - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="desktop-project-types---home">Desktop project types - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#desktop-project-types---home">Desktop project types - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#which-project-type-should-i-choose">Which project type should I choose?</a></li>
+<li><a href="#winforms">Winforms</a></li>
+<li><a href="#wpf">WPF</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>There are several ways to create .NET programs that run on desktop computers:</p>
+<ul>
+<li>Winforms is outdated and Windows-only, but simple to use</li>
+<li>WPF is more complicated than Winforms and Windows-only, but very powerful</li>
+<li>Xamarin Forms is similar to WPF that targets Windows and mobile devices</li>
+<li>MAUI is an evolution of Xamarin Forms that targets more platforms but isn't fully released yet</li>
+<li>Avalonia is like a cross-platform WPF, but it's not created by Microsoft</li>
+</ul>
+<h2 id="which-project-type-should-i-choose">Which project type should I choose?</h2>
+<p>If you are new to C# and want to move on from making console apps, Winforms is simple to work with.</p>
+<p>If you are frustrated with Winforms' limitations or want to get familiar with one of the other desktop project types, study WPF.</p>
+<p>Use Xamarin Forms or MAUI if you want to create mobile apps.</p>
+<p>Use Avalonia if you want to make a WPF-style app on multiple platforms right now.</p>
+<h2 id="winforms">Winforms</h2>
+<h2 id="wpf">WPF</h2>
+<p>The most important thing about WPF is that it introduced something called XAML, which would be used in most desktop project types from then on.</p>
+<p>XAML is basically a form of XML that you use to describe the interface of your app.</p>
+<pre><code><code><div>&lt;Button&gt;
+    &lt;Button.FontWeight&gt;Bold&lt;/Button.FontWeight&gt;
+    &lt;Button.Content&gt;
+        &lt;WrapPanel&gt;
+            &lt;TextBlock Foreground=&quot;Blue&quot;&gt;Multi&lt;/TextBlock&gt;
+            &lt;TextBlock Foreground=&quot;Red&quot;&gt;Color&lt;/TextBlock&gt;
+            &lt;TextBlock&gt;Button&lt;/TextBlock&gt;
+        &lt;/WrapPanel&gt;
+    &lt;/Button.Content&gt;
+&lt;/Button&gt;
+</div></code></code></pre>
+<p>(Example taken from <a href="https://wpf-tutorial.com/xaml/basic-xaml/">this very useful website</a>.)</p>
+
+    </body>
+    </html>

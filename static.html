@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Static - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="static---home">Static - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#static---home">Static - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#a-note-on-terminology">A note on terminology</a></li>
+<li><a href="#how-things-work-without-static">How things work without static</a></li>
+<li><a href="#a-demonstration-of-static">A demonstration of static</a></li>
+<li><a href="#methods-and-classes-can-also-be-static">Methods and classes can also be static</a></li>
+<li><a href="#static-classes">Static classes</a></li>
+<li><a href="#misconceptions-about-static">Misconceptions about static</a></li>
+<li><a href="#when-to-use-static">When to use static</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>C# is an object-oriented language. Almost everything you work with is tied to an instance of a type. When you use the static keyword, things are tied to <em>the type itself</em>.</p>
+<h2 id="a-note-on-terminology">A note on terminology</h2>
+<p>It is important to understand these two terms:</p>
+<ul>
+<li>Type</li>
+<li>Class</li>
+</ul>
+<p>In C#, (almost) every value has a type. For example, the value 'hello' has type <code>string</code>, and the value '34' has type <code>int</code> or <code>double</code>.</p>
+<p>The compiler can use a 'type system' to check if we do something that isn't allowed for a type. This is why we can't multiply two <code>string</code>s together.</p>
+<p>C# has several built-in types, but we can also define our own. Every time we create a class, we create a new type.</p>
+<p>We can also define new types in other ways, like creating structs or interfaces. I use classes in this page because they make the best example, but be aware that types and classes aren't the same thing.</p>
+<h2 id="how-things-work-without-static">How things work without static</h2>
+<p>You can use the <code>new</code> keyword to create an instance of a class.</p>
+<pre><code><code><div>var sb = new StringBuilder();
+</div></code></code></pre>
+<p>This creates an instance of <code>StringBuilder</code> (a random example of a class).</p>
+<pre><code><code><div>var sb = new StringBuilder();
+sb.Length = 23;
+</div></code></code></pre>
+<p>Here, we are modifying the instance. The <code>StringBuilder</code> type is not changed at all: just the <code>Length</code> property of the instance.</p>
+<h2 id="a-demonstration-of-static">A demonstration of static</h2>
+<p>Consider this class.</p>
+<pre><code><code><div>class MyClass
+{
+    public static int Counter = 0;
+}
+</div></code></code></pre>
+<p>By declaring this class, we define a type called <code>MyClass</code>. Because <code>Counter</code> is static, we can access it from anywhere we can access MyClass. We do this with dot-notation:</p>
+<pre><code><code><div>class Program
+{
+  public void Main()
+  {
+    Console.WriteLine(MyClass.Counter); // prints &quot;0&quot;
+
+    MyClass.Counter = 6;
+
+    Console.WriteLine(MyClass.Counter); // prints &quot;7&quot;
+
+  }
+}
+</div></code></code></pre>
+<p>Because Counter is part of the type itself, you can't access it through an instance of the type.</p>
+<pre><code><code><div>class Program
+{
+  public void Main()
+  {
+    var instance = new MyClass();
+
+    Console.WriteLine(instance.Counter); // this will not compile
+    instance.Counter = 6; // this will also not compile
+
+    Console.WriteLine(MyClass.Counter); // this will compile
+    MyClass.Counter = 6; // this will also compile
+  }
+}
+</div></code></code></pre>
+<h2 id="methods-and-classes-can-also-be-static">Methods and classes can also be static</h2>
+<p>So far, we've only seen <code>static</code> used on a variable (<code>Counter</code>).</p>
+<p>We can also define static methods:</p>
+<pre><code><code><div>class MyClass
+{
+    public static int DoMathematics(int x, int y)
+    {
+      return (x + 16 % 2) * (y - 11 + 2 * x);
+    }
+}
+</div></code></code></pre>
+<p>You can only make a method static if it doesn't touch any instance data. Instance data basically means 'anything in a type that isn't static'.</p>
+<pre><code><code><div>class MyClass
+{
+  public int Counter = 0;
+
+  public static void IncreaseCounter()
+  {
+    Counter++;
+  }
+}
+</div></code></code></pre>
+<p>This example won't compile, because <code>IncreaseCounter</code> is static and <code>Counter</code> isn't.</p>
+<p>As a general rule, static parts of a class can only touch other static code. Static methods usually get data from their arguments.</p>
+<p>Non-static code can touch whatever it wants, so it's OK to call a static method from a non-static piece of code.</p>
+<p>You access static methods with dot-notation, like static variables.</p>
+<pre><code><code><div>class Program
+{
+  public void Main()
+  {
+    MyClass.ComplicatedStaticMethodThatDoesSomething();
+  }
+}
+</div></code></code></pre>
+<p>An example of a class with lots of <code>static</code> methods is the built-in <code>Math</code> class.</p>
+<h2 id="static-classes">Static classes</h2>
+<p>You can declare an entire class as <code>static</code>.</p>
+<p>This just means that everything in the class has to be <code>static</code> itself. It doesn't do anything special besides that. This can be useful if you want to stop yourself (or someone else) from forgetting to make a variable or method <code>static</code>.</p>
+<h2 id="misconceptions-about-static">Misconceptions about static</h2>
+<p>Static has an unfortunate name which makes a lot of people think it means 'immutable'. This is not true.</p>
+<p>When you declare something static, you can still change it.</p>
+<p>If you want to make something immutable, declare it as either <code>readonly</code> or <code>const</code>. I will explain the difference between these two terms in another article.</p>
+<h2 id="when-to-use-static">When to use static</h2>
+<p>There is a better solution to most problems than using static.</p>
+<p>Static lets you work with methods and data without learning how classes and instances work. This is convenient, but also dangerous. It is very hard to keep track of the state of a static variable when almost everywhere in your program can access it. If you want to use static variables, consider making them <code>readonly</code>.</p>
+<p>There are other ways you can hurt yourself by using static:</p>
+<ul>
+<li>Static constructors are complicated and can crash your program</li>
+<li>Using static variables in a multi-threaded program can lead to wrong results</li>
+</ul>
+<p>Static methods are slightly faster than non-static methods. This difference is minor and you should not worry about it.</p>
+<p>You should use static if:</p>
+<ul>
+<li>A method doesn't work on any instance data</li>
+</ul>
+
+    </body>
+    </html>

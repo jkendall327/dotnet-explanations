@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Reference types and value types - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="reference-types-and-value-types---home">Reference types and value types - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#reference-types-and-value-types---home">Reference types and value types - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#the-basics">The basics</a></li>
+<li><a href="#in-net-reference-and-value-types-are-pre-determined">In .NET, reference and value types are pre-determined</a></li>
+<li><a href="#why-do-reference-types-exist">Why do reference types exist?</a></li>
+<li><a href="#the-ref-and-out-keywords">The <code>ref</code> and <code>out</code> keywords</a></li>
+<li><a href="#the-stack-and-the-heap">The stack and the heap</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>Consider this quote from Ben Klemens' book <em><a href="https://www.amazon.co.uk/21st-Century-Tips-New-School/dp/1449327141">21st Century C: C Tips from the New School</a></em>.</p>
+<p><img src="file:///c:\Users\Jack\source\explanatory-website\images\ref-types-and-val-types.png" alt="image"></p>
+<p>Reference types and value types are how .NET handle this problem.</p>
+<h2 id="the-basics">The basics</h2>
+<p>There are two kinds of values in .NET: value types and reference types.</p>
+<p>Value types follow the first bulletpoint in Klemens' quote.</p>
+<pre><code><code><div>var a = 10;
+var b = a;
+
+Console.WriteLine(b); // outputs '10'
+
+a++;
+
+Console.WriteLine(b); // still outputs '10'
+</div></code></code></pre>
+<p>At the end of this codeblock, the value of <code>b</code> is still 10. When you set <code>b</code> to <code>a</code>, the value of <code>a</code> was copied over. There is no secret, invisible connection between the two variables: they are separate. If you do something to <code>a</code> - like increment it - <code>b</code> won't change.</p>
+<p>Reference types follow the second bulletpoint in Klemens' quote.</p>
+<pre><code><code><div>Person John = new Person { Age = 20, Height = 5.6 };
+
+Person Jane = John;
+
+Console.WriteLine(Jane.Age); // outputs '20'
+
+John.Age = 28;
+
+Console.WriteLine(Jane.Age); // outputs '28'
+</div></code></code></pre>
+<p>When we set <code>Jane</code> equal to <code>John</code>, we are making it an <em>alias</em> for <code>John</code>.
+When you change something in <code>John</code>, <code>Jane</code> also changes. If you changed something in <code>Jane</code>, then <code>John</code> would change too.</p>
+<h2 id="in-net-reference-and-value-types-are-pre-determined">In .NET, reference and value types are pre-determined</h2>
+<p>In some languages, like C++, you can treat any variable as a value or a reference type at any time.</p>
+<p>In C#, you can't. This decision is already made for you in the type itself. An <code>int</code> will always be a value type. A <code>StringBuilder</code> will always be a reference type.</p>
+<p>(Advanced note: there are ways to 'box' a value type so it becomes a reference type, like with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</a>. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.)</p>
+<p>As a rough guide, the following things are value types:</p>
+<ul>
+<li>Primitives (<code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>)</li>
+<li>Structs</li>
+<li>Tuples</li>
+<li>Enums</li>
+</ul>
+<p>Everything else is a reference type:</p>
+<ul>
+<li>Classes</li>
+<li>Interfaces</li>
+<li>Delegates</li>
+<li>Records</li>
+</ul>
+<p>You have to memorise this.</p>
+<p>Incidentally, <code>string</code> is a <a href="https://stackoverflow.com/questions/636932/in-c-why-is-string-a-reference-type-that-behaves-like-a-value-type">reference type that acts like a value type</a>. This is interesting to know about but has little impact on real-world coding.</p>
+<h2 id="why-do-reference-types-exist">Why do reference types exist?</h2>
+<p>Reference types are confusing to most beginners. The idea of having multiple variables that all share the same information seems somewhat pointless.</p>
+<p>(If you believe this very strongly, you might enjoy learning a language like <a href="https://www.rust-lang.org/">Rust</a>.)</p>
+<p>Reference types let methods change objects without having to return a new version of that object.</p>
+<pre><code><code><div>public void ClampAge(User user)
+{
+    if (user.Age &lt; 0)
+    {
+        user.Age = 0;
+    }
+    if (user.Age &gt; 100)
+    {
+        user.Age = 100;
+    }
+}
+
+public void CreateUser(int age, string name)
+{
+    var user = new User(age, name);
+    ClampAge(user);
+    SaveUserToDatabase(user);
+}
+</div></code></code></pre>
+<p>Because <code>User</code> is a reference type, the <code>ClampAge</code> can directly modify the same object that <code>CreateUser</code> is working on. If <code>User</code> was a value type, our code would look like this:</p>
+<pre><code><code><div>public User ClampAge(User user)
+{
+    if (user.Age &lt; 0)
+    {
+        user.Age = 0;
+    }
+    if (user.Age &gt; 100)
+    {
+        user.Age = 100;
+    }
+
+    return user;
+}
+
+public void CreateUser(int age, string name)
+{
+    var user = new User(age, name);
+    user = ClampAge(user);
+    SaveUserToDatabase(user);
+}
+</div></code></code></pre>
+<p>This adds meaningless complexity.</p>
+<p>Reference types let us easily work on the same object across different pieces of code without having to pass it back and forth as much.</p>
+<h2 id="the-ref-and-out-keywords">The <code>ref</code> and <code>out</code> keywords</h2>
+<p>These keywords let you treat the arguments to a method like reference types, even if they're actually a value type. This lets you modify an <code>int</code> and have your changes affect the code that called the method in the first place.</p>
+<p>If you think these keywords are the best way to solve a problem, you are probably wrong. They are not used very often. The most common place you will see them is a method like <a href="https://docs.microsoft.com/en-us/dotnet/api/system.int32.tryparse?view=net-5.0">Int.TryParse</a>.</p>
+<p>Most of the time, if you want a value type to act like a reference type, you should just create a new reference type instead.</p>
+<p>The difference between <code>ref</code> and <code>out</code> is subtle and not very important.</p>
+<h2 id="the-stack-and-the-heap">The stack and the heap</h2>
+<p>You may have heard something like this before:</p>
+<p><em>&quot;Reference types live on the heap, value types live on the stack.&quot;</em></p>
+<p>This is mostly correct, but I have avoided talking about the stack and the heap so far.</p>
+<p>The stack and the heap are <em>implementation details</em>. They are not hard and fast rules of the universe. .NET happens to use these abstractions, but it could have also implemented reference types and value types in a completely different way.</p>
+<p>I highly recommend reading Raymond Chen's article <a href="https://docs.microsoft.com/en-us/archive/blogs/ericlippert/the-stack-is-an-implementation-detail-part-one"><em>The Stack is an Implementation Detail</em></a> for more information on this.</p>
+<p>I will explain the stack and the heap in another page.</p>
+
+    </body>
+    </html>
