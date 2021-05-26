@@ -21,9 +21,9 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
     * [Desktop](desktop-project-types.md)
     * [Web](web-project-types.md)
 * The .NET runtime
+    * [How your source code turns into a program](source-to-execution.md)
     * [Reference types and value types](reference-types-and-value-types.md)
     * [The garbage collector](garbage-collector.md)
-    * [How your source code turns into a program](source-to-execution.md)
 * The developer experience
     * MSBuild
     * A tour of Visual Studio

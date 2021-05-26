@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>How your source code turns into a program - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="how-your-source-code-turns-into-a-program---home">How your source code turns into a program - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#how-your-source-code-turns-into-a-program---home">How your source code turns into a program - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#the-problem-this-solves">The problem this solves</a></li>
+<li><a href="#the-common-language-runtime">The Common Language Runtime</a></li>
+<li><a href="#the-jit">The JIT</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>When you run a .NET program, it's like booting up a very small <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machine</a> made just for running your code.</p>
+<h2 id="the-problem-this-solves">The problem this solves</h2>
+<p>The reason .NET works this way - by running your code in a small virtual machine - is because <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java works this way</a>.</p>
+<p>The main reason Java does it that way is for portability.</p>
+<p>Different kinds of computers have different <em>architectures</em>, meaning their processors work with different sets of instructions.</p>
+<p>If you want a program to run on different architectures, you need a compiler that 'targets' them. Targeting seven architectures means writing seven separate compilers, which is obviously not ideal.</p>
+<p>Java responded to this by abstracting the machine your code runs on. Rather than running on any specific architecture, your code compiles to an imaginary architecture. This is usually called bytecode.</p>
+<p>When a new kind of architecture comes out, you can now support it by just porting over the virtual machine. Existing code will work on new platforms 'for free', and won't have to be recompiled.</p>
+<p>Here is the idea in simpler terms:</p>
+<ol>
+<li>You write a program.</li>
+<li>Your code is compiled to an 'intermediate' language.</li>
+<li>When a user opens the program, the virtual machine turns the intermediate code into real machine instructions the computer can understand.</li>
+</ol>
+<p>.NET works in a very similar way.</p>
+<h2 id="the-common-language-runtime">The Common Language Runtime</h2>
+<p>The Common Language Runtime, also informally called the '.NET runtime', is the virtual machine that your C# code targets.</p>
+<p>There is another advantage to using an intermediate language: multiple languages can compile down to it. In .NET, for instance, C# and F# both compile to CIL. As a result, you can think of those languages as 'really' just being versions of CIL that are easier to use. You can write CIL directly, if you want.</p>
+<h2 id="the-jit">The JIT</h2>
+<p>The Just-in-Time compiler is what turns CIL into real machine instructions when you run a .NET program.</p>
+
+    </body>
+    </html>
