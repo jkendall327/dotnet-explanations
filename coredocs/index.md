@@ -18,15 +18,8 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
     * [Async/await](async-await.md)
     * [Properties](properties.md)
 * .NET project types
-    * Desktop
-      * Winforms
-      * WPF
-      * MAUI 
-    * Web
-      * Webforms
-      * ASP.NET / ASP.NET Core
-      * Blazor
-      * SignalR 
+    * [Desktop](desktop-project-types.md)
+    * [Web](web-project-types.md)
 * The .NET runtime
     * [Reference types and value types](reference-types-and-value-types.md)
     * [The garbage collector](garbage-collector.md)
