@@ -26,7 +26,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
     * [The garbage collector](garbage-collector.md)
 * The developer experience
     * MSBuild
-    * A tour of Visual Studio
+    * [A tour of Visual Studio](vs-tour.md)
 * .NET as a concept
     * [The difference between .NET Framework, .NET Core, .NET 5/6](dotnet-versions.md)
     * The history of .NET
