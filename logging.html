@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Logging - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="logging---home">Logging - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#logging---home">Logging - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#why-use-logging">Why use logging?</a></li>
+<li><a href="#an-example">An example</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>Logging is when your program records messages during runtime to show what it's doing.</p>
+<h2 id="why-use-logging">Why use logging?</h2>
+<p>Programs are complicated. We use several design patterns and coding styles to manage this, but there is a basic amount of complexity that we can't get rid of.</p>
+<p>As a result, it is very difficult to understand what a program is doing at any given moment through logic alone. The gap between what we think a program does and what it actually does is the cause of almost all bugs.</p>
+<p>Logging is a way for programs to tell us what they are doing.</p>
+<h2 id="an-example">An example</h2>
+<p>The simplest form of logging is to write messages to the console, or 'standard output', when the program runs.</p>
+<pre><code><code><div>public int MyMethod(int x)
+{
+    Console.WriteLine(&quot;The value of the argument is: &quot; + x);
+
+    x = x * x;
+
+    Console.WriteLine(&quot;The value of the argument squared is: &quot; + x);
+
+    return x;
+}
+</div></code></code></pre>
+<p>This is a form of logging.</p>
+
+    </body>
+    </html>

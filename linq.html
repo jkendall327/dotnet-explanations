@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>LINQ - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <style>
+</style>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        
+        
+        
+    </head>
+    <body class="vscode-body vscode-light">
+        <h1 id="linq---home">LINQ - <a href="index.html">Home</a></h1>
+<ul>
+<li><a href="#linq---home">LINQ - Home</a>
+<ul>
+<li><a href="#in-a-nutshell">In a nutshell</a></li>
+<li><a href="#terms-you-will-hear-used-to-describe-linq">Terms you will hear used to describe LINQ</a>
+<ul>
+<li><a href="#linq-is-about-building-definitions">LINQ is about building definitions</a></li>
+</ul>
+</li>
+<li><a href="#declarative-programming">Declarative programming</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="in-a-nutshell">In a nutshell</h2>
+<p>LINQ is a set of extension methods that make working on lists of data more convenient.</p>
+<h2 id="terms-you-will-hear-used-to-describe-linq">Terms you will hear used to describe LINQ</h2>
+<p>LINQ looks and feels quite different from most other C# code. These differences are often explained through vague terms that are unhelpful for beginners. I will explain them.</p>
+<h3 id="linq-is-about-building-definitions">LINQ is about building definitions</h3>
+<p>People often say that LINQ uses 'deferred execution' or 'lazy evaluation', which are two names for the same idea.</p>
+<p>The idea is that with LINQ, you build up a definition of the thing you want to do, which you can then deploy whenever you like.</p>
+<pre><code><code><div>var myFavouriteNumbers = new List&lt;int&gt;() { 4, 1, 12, 18 };
+
+IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
+</div></code></code></pre>
+<p>The second line of this example <em>does not do anything</em>. No calculation is performed. No numbers are squared, no list is reversed. <code>result</code> is just a definition of various things we want to do to <code>myFavouriteNumbers</code> at a later time.</p>
+<p>To actually make anything happen, we need to 'trigger' the evaluation. We do this by calling one of a few extension methods on our <code>IEnumerable</code>. The most common is <code>.ToList()</code>.</p>
+<pre><code><code><div>result = result.ToList();
+</div></code></code></pre>
+<p><code>result</code> will now contain the values 324, 144, 1 and 16. By transforming the <code>IEnumerable</code> into a <code>List</code>, we put our definition to work and made it actually evaluate the contents of <code>myFavouriteNumbers</code>.</p>
+<p>We can re-use the definitions we create with LINQ as much as we want. A result of this is that we can get different results from the same <code>IEnumerable</code> if the underlying source of data has changed.</p>
+<pre><code><code><div>var myFavouriteNumbers = new List&lt;int&gt;() { 4, 1, 8, 2 };
+
+IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
+
+var firstCalculation = result.ToList(); // 4, 64, 1, 16
+
+myFavouriteNumbers.Add(3);
+myFavouriteNumbers.Add(9);
+myFavouriteNumbers.Add(1);
+
+var secondCalculation = result.ToList(); // 1, 81, 9, 4, 64, 1, 16
+</div></code></code></pre>
+<p>Each time we called <code>.ToList()</code>, it used the values currently in <code>myFavouriteNumbers</code> at that exact moment.</p>
+<h2 id="declarative-programming">Declarative programming</h2>
+<p>Declarative programming means that our code only talks about what we want to happen, not how it gets done.</p>
+<p><code>IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();</code></p>
+<p>In this line, we simply call <code>Reverse()</code> and - by some magic - our list of numbers comes back in the opposite order. We don't have to manually create a new list and iterate over the old one with a for-loop counting backwards.</p>
+<p>Declarative programming is an imprecise, stylistic term. You have probably written declarative code before without realising it.</p>
+
+    </body>
+    </html>
