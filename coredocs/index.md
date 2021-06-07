@@ -17,6 +17,7 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
       * [Events](events.md)
     * [Async/await](async-await.md)
     * [Properties](properties.md)
+    * [LINQ](linq.md)
 * .NET project types
     * [Desktop](desktop-project-types.md)
     * [Web](web-project-types.md)
