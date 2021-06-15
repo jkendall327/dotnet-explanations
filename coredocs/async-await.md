@@ -70,19 +70,19 @@ Let's track what happens when you run an `async` method.
 
 When your program runs this method, the following things will happen.
 
-1. Everything is normal on the first line. The `HttpClient` is created and then assigned to the `client` variable.
-2. On the second line, the program starts at the end and works backwards.
-3. Your program calls the `GetAsync` method.
-4. Your program sees the `await` keyword.
-5. Your program immediately jumps out of `DownloadGoogleAsync` to whereever it was before.
-6. `DownloadGoogleAsync` is 'frozen' in place as your program does work elsewhere.
-7. Eventually, the download finishes. 
-8. Your program immediately jumps back into `DownloadGoogleAsync` where it left off.
-9.  Your program assigns the result of the `GetAsync` method to the `html` variable.
-10. The final line is executed as normal.
+1. Everything is normal on the first line. The `HttpClient` is created and then assigned to the `client` variable. For statements like these, where you assign a value to a variable, .NET actually starts at the end of the line and works backwards. Memory is allocated for the `HttpClient`, and then assigned to the `client` variable.
+2. On the second line, your program starts at the end by calling the `GetAsync` method.
+3. Your program then sees the `await` keyword. This triggers it to immediately jump out of `DownloadGoogleAsync` and go back to where it was before.
+4. `DownloadGoogleAsync` is 'frozen' in place as your program does work elsewhere. Eventually, the download finishes. 
+5. This makes your program jump back into `DownloadGoogleAsync`, where it left off.
+6.  Your program assigns the result of the `GetAsync` method to the `html` variable.
+7.  The final line is executed as normal.
+
+Async methods execute normally until your program hits an `await` keyword. When it sees an `await`, it jumps out of the method until the operation the `await` represents completes. Then your program returns to that method and works synchronously until it hits another `await` or finishes the method.
 
 ## Questions
 You should have several questions. 
+
 * What does the `async` keyword do?
 * Why is the return-type of the method `Task<string>`, and not just `string`? 
 * What does 'the program jumps back to whereever it was before' mean?
@@ -96,20 +96,22 @@ We need the `async` keyword for historical reasons. Before async/await was inven
 
 ### Task<>
 Normal C# methods return either `void` or some value (`string`, `int`, `MyObject`).
-Async methods return either `Task` or `Task<>`. `Task<>` is generic, so you can have `Task<string>`, `Task<int>`, `Task<MyObject>`.
+Async methods return either `Task` (the equivalent to `void`) or `Task<>`. `Task<>` is generic, so it can 'wrap' other types. You can have `Task<string>`, `Task<int>`, `Task<MyObject>`, etc.
 
 A `Task` represents an incomplete operation. You return a `Task` from an async method to indicate that the operation won't be finished right away.
 
 Don't try to get the `int` out of something like a `Task<int>` directly. If you do, you'll make the method synchronous, defeating the point of using async/await.
 
-You use the `await` keyword to 'complete' a `Task`. Consider this line from the example.
+You use the `await` keyword to 'unwrap' a `Task`. Consider this line from the example.
 
 `var html = await client.GetAsync("www.google.com");`
 
 The `GetAsync` method returns a [Task<HttpResponseMessage>](https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient.getasync?view=net-5.0). We use the `await` keyword to 'get' the `HttpResponseMessage` inside the task and assign it to a variable.
 
 ### The calling context
-Understanding where your program 'goes' when it hits an `await` statement is complicated, and depends on the kind of program you're making. If your program has a GUI (like in Windows Forms or WPF), the program will go back to updating the UI. If you didn't use an async method for a long-running operation, the program's interface would 'freeze' until the operation was done.
+Understanding where your program 'goes' when it hits an `await` statement is complicated, and depends on the kind of program you're making. 
+
+If your program has a GUI (like in Windows Forms or WPF), the program will usually go back to updating the UI. If you didn't use an async method for a long-running operation, the program's interface would 'freeze' until the operation was done.
 
 ## Integrating async into the rest of your program
 Recall these three facts:
@@ -118,11 +120,11 @@ Recall these three facts:
 * You use the `await` keyword to 'complete' a `Task`.
 * You can only use the `await` keyword in an `async` method.
 
-These facts mean that async methods can only call, or be called by, other async methods. This makes integrating async code with the rest of your program difficult. This is called [the coloured functions problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). As a result, you should think carefully before making a part of your program async.
+These facts mean that async methods can only call, or be called by, other async methods. This makes integrating async code with the rest of your program difficult. This is called [the coloured functions problem](https://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/). As a result, async code can spread rapidly throughout your entire program from a single method.
 
 There are two main solutions to this.
 
-The first is to make your entire program asynchronous. If one method is async, everything is async. Since C# 7.1, [`Main()` can be async](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-7.1/async-main), making this cleaner to implement.
+The first is to give in and make your entire program asynchronous. If one method is async, everything is async. Since C# 7.1, [`Main()` can be async](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-7.1/async-main), making this cleaner to implement.
 
 The second solution is to use async event handlers. (I will assume you know how events work for this section.)
 
