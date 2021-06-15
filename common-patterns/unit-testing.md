@@ -1,6 +1,7 @@
-# Func<> and Action<> - [Home](../index.md)
+<!-- title: Unit testing -->
+# Unit testing - [Home](../index.md)
 
-- [Func<> and Action<> - Home](#func-and-action---home)
+- [Unit testing - Home](#unit-testing---home)
   - [In a nutshell](#in-a-nutshell)
   - [Explanation](#explanation)
 

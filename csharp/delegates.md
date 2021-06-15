@@ -1,3 +1,4 @@
+<!-- title: Delegates -->
 # Delegates - [Home](../index.md)
 
 - [Delegates - Home](#delegates---home)

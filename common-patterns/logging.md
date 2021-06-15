@@ -1,3 +1,4 @@
+<!-- title: Logging -->
 # Logging - [Home](../index.md)
 
 - [Logging - Home](#logging---home)

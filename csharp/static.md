@@ -1,3 +1,4 @@
+<!-- title: Static -->
 # Static - [Home](../index.md)
 
 - [Static - Home](#static---home)

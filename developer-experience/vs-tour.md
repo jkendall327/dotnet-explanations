@@ -1,6 +1,7 @@
-# A tour of Visual Studio - [Home]((../index.md)
+<!-- title: A tour of Visual Studio -->
+# A tour of Visual Studio - [Home](../index.md)
 
-- [A tour of Visual Studio - Home](#a-tour-of-visual-studio---homeindexmd)
+- [A tour of Visual Studio - Home](#a-tour-of-visual-studio---home)
   - [In a nutshell](#in-a-nutshell)
   - [Visual Studio versus Visual Studio Code](#visual-studio-versus-visual-studio-code)
   - [Installing Visual Studio](#installing-visual-studio)

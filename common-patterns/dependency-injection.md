@@ -1,12 +1,13 @@
+<!-- title: Dependency injection -->
 # Dependency injection - [Home](../index.md)
 
 - [Dependency injection - Home](#dependency-injection---home)
-	- [In a nutshell](#in-a-nutshell)
-	- [So what?](#so-what)
-	- [Using interfaces with dependency injection](#using-interfaces-with-dependency-injection)
-	- [Dependency injection all the way up](#dependency-injection-all-the-way-up)
-	- [DI containers](#di-containers)
-	- [The end-goal of dependency injection](#the-end-goal-of-dependency-injection)
+  - [In a nutshell](#in-a-nutshell)
+  - [So what?](#so-what)
+  - [Using interfaces with dependency injection](#using-interfaces-with-dependency-injection)
+  - [Dependency injection all the way up](#dependency-injection-all-the-way-up)
+  - [DI containers](#di-containers)
+  - [The end-goal of dependency injection](#the-end-goal-of-dependency-injection)
 
 ## In a nutshell
 

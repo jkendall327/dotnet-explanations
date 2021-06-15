@@ -1,3 +1,4 @@
+<!-- title: The garbage collector -->
 # The garbage collector - [Home](../index.md)
 
 - [The garbage collector - Home](#the-garbage-collector---home)

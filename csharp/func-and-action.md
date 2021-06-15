@@ -1,3 +1,4 @@
+<!-- title: Func<> and Action<> -->
 # Func<> and Action<> - [Home](../index.md)
 
 - [Func<> and Action<> - Home](#func-and-action---home)

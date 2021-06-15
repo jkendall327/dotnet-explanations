@@ -1,3 +1,4 @@
+<!-- title: Interfaces -->
 # Interfaces - [Home](../index.md)
 
 - [Interfaces - Home](#interfaces---home)

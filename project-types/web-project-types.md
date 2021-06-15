@@ -1,3 +1,4 @@
+<!-- title: Web project types -->
 # Web project types - [Home](../index.md)
 
 - [Web project types - Home](#web-project-types---home)

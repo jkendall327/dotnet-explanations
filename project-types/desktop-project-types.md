@@ -1,3 +1,4 @@
+<!-- title: Desktop project types -->
 # Desktop project types - [Home](../index.md)
 
 - [Desktop project types - Home](#desktop-project-types---home)

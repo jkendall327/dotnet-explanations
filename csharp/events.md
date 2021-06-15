@@ -1,3 +1,4 @@
+<!-- title: Events -->
 # Events - [Home](../index.md)
 
 - [Events - Home](#events---home)

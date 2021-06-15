@@ -1,3 +1,4 @@
+<!-- title: LINQ -->
 # LINQ - [Home](../index.md)
 
 - [LINQ - Home](#linq---home)

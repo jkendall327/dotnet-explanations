@@ -1,3 +1,4 @@
+<!-- title: Generics -->
 # Generics - [Home](../index.md)
 
 - [Generics - Home](#generics---home)
