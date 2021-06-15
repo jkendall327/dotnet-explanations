@@ -16,7 +16,7 @@ This page will give an overview of its main features and how to use them effecti
 
 Visual Studio is entirely different from Visual Studio Code (or as it's more commonly called, VSCode).
 
-VSCode is a lightweight text editoralong the lines of Notepad++ or Atom. While it supports plugins that give it advanced features - like syntax highlighting or code debugging.
+VSCode is a lightweight text editor along the lines of Notepad++ or Atom. While it supports plugins that give it advanced features - like syntax highlighting or code debugging.
 
 If you're unsure which program to use to write C#, you are probably best off with Visual Studio. It handles more things for you by default.
 

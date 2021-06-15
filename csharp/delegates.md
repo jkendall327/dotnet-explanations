@@ -27,7 +27,7 @@ var myList = new List<int>() {4, 6, 1, 10, 11};
 
 Using a `List<>` lets you group several values together into one variable. This lets you do things to all of them at once — with a `List<int>`, you can `Sum()` the list with a single command.
 
-An important thing about a `List<int>` is that you can only put `ints` in it. If you put in a `double` or a `string`, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.
+An important thing about a `List<int>` is that you can only put `int`s in it. If you put in a `double` or a `string`, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.
 
 A delegate is like a `List<>` for methods.
 

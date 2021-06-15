@@ -76,7 +76,7 @@
 <li>Manual memory management. You have to explicitly ask the operating system for memory and give it back when you're done with it. This is very fast but it's easy to make mistakes. Languages like C and C++ use this.</li>
 <li>A borrow-checker. <a href="https://www.rust-lang.org/">Rust</a> allocates and deallocates memory for you, but you have to follow very strict rules to make it work. This is also fast.</li>
 </ul>
-<p>None of these options are better or worse than using a garbage collector. There is a basic trade-off between convenience and reliability/speed. If you have a solution with the best of both worls, please let the world know :)</p>
+<p>None of these options are better or worse than using a garbage collector. There is a basic trade-off between convenience and reliability/speed. If you have a solution with the best of both worlds, please let the world know :)</p>
 <h2 id="the-stack-and-the-heap">The stack and the heap</h2>
 <p>The stack and the heap are not relevant to garbage collection. The garbage collector simulates a machine with infinite memory. Whether the program splits that memory into a heap and a stack is an implementation detail.</p>
 <p>I highly recommend <a href="https://devblogs.microsoft.com/oldnewthing/20100809-00/?p=13203">Raymond Chen's article on the garbage collector</a> for more on this.</p>

@@ -67,7 +67,7 @@ There are two main alternatives to garbage collection:
 - Manual memory management. You have to explicitly ask the operating system for memory and give it back when you're done with it. This is very fast but it's easy to make mistakes. Languages like C and C++ use this.
 - A borrow-checker. [Rust](https://www.rust-lang.org/) allocates and deallocates memory for you, but you have to follow very strict rules to make it work. This is also fast.
 
-None of these options are better or worse than using a garbage collector. There is a basic trade-off between convenience and reliability/speed. If you have a solution with the best of both worls, please let the world know :)
+None of these options are better or worse than using a garbage collector. There is a basic trade-off between convenience and reliability/speed. If you have a solution with the best of both worlds, please let the world know :)
 
 ## The stack and the heap
 
