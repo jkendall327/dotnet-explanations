@@ -60,7 +60,7 @@ When you say you want part of a program to be asynchronous, there are usually tw
 1. You have several operations that you want to run at the same time so that you can get through them all faster.
 2. You have a slow operation (like writing to a file or downloading a webpage) that you want to run in the background and let you know when it's finished.
 
-Async/await is desgined for the second kind of asynchronicity. For the first, you want the [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl).
+Async/await is designed for the second kind of asynchronicity. For the first, you want the [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl).
 
 ## What happens when an async method runs
 
@@ -93,7 +93,7 @@ You should have several questions.
 
 - What does the `async` keyword do?
 - Why is the return-type of the method `Task<string>`, and not just `string`?
-- What does 'the program jumps back to whereever it was before' mean?
+- What does 'the program jumps back to where it was before' mean?
 
 ### The async keyword
 
