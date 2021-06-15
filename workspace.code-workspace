@@ -3,5 +3,8 @@
         {
             "path": "."
         }
-    ]
+    ],
+    "settings": {
+        "markdown.extension.print.onFileSave": true
+    }
 }

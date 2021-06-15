@@ -1,4 +1,4 @@
-# Async/await - [Home](index.md)
+# Async/await - [Home](../index.md)
 
 - [Async/await - Home](#asyncawait---home)
   - [In a nutshell](#in-a-nutshell)

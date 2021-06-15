@@ -1,4 +1,4 @@
-# Desktop project types - [Home](index.md)
+# Desktop project types - [Home](../index.md)
 
 - [Desktop project types - Home](#desktop-project-types---home)
   - [In a nutshell](#in-a-nutshell)
@@ -7,14 +7,17 @@
   - [WPF](#wpf)
 
 ## In a nutshell
+
 There are several ways to create .NET programs that run on desktop computers:
-* Winforms is outdated and Windows-only, but simple to use
-* WPF is more complicated than Winforms and Windows-only, but very powerful
-* Xamarin Forms is similar to WPF that targets Windows and mobile devices
-* MAUI is an evolution of Xamarin Forms that targets more platforms but isn't fully released yet
-* Avalonia is like a cross-platform WPF, but it's not created by Microsoft
+
+- Winforms is outdated and Windows-only, but simple to use
+- WPF is more complicated than Winforms and Windows-only, but very powerful
+- Xamarin Forms is similar to WPF that targets Windows and mobile devices
+- MAUI is an evolution of Xamarin Forms that targets more platforms but isn't fully released yet
+- Avalonia is like a cross-platform WPF, but it's not created by Microsoft
 
 ## Which project type should I choose?
+
 If you are new to C# and want to move on from making console apps, Winforms is simple to work with.
 
 If you are frustrated with Winforms' limitations or want to get familiar with one of the other desktop project types, study WPF.
@@ -26,11 +29,12 @@ Use Avalonia if you want to make a WPF-style app on multiple platforms right now
 ## Winforms
 
 ## WPF
+
 The most important thing about WPF is that it introduced something called XAML, which would be used in most desktop project types from then on.
 
 XAML is basically a form of XML that you use to describe the interface of your app.
 
-```
+```xml
 <Button>
     <Button.FontWeight>Bold</Button.FontWeight>
     <Button.Content>

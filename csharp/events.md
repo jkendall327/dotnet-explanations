@@ -1,4 +1,4 @@
-# Events - [Home](index.md)
+# Events - [Home](../index.md)
 
 - [Events - Home](#events---home)
   - [In a nutshell](#in-a-nutshell)
@@ -15,6 +15,7 @@
 Events are [delegates](delegates.md) with a few extra safety features built-in. They are used to implement the 'observer' design pattern.
 
 ## The observer design pattern
+
 We often want one part of our program to respond to something happening elsewhere in our program.
 
 Imagine we have a counter that starts at zero and goes up by one every minute. When it hits ten, we want to print a celebratory message to the screen.
@@ -32,9 +33,10 @@ This is called the observer pattern, or the publisher-subscriber pattern.
 You can implement this pattern with delegates. But they aren't the best choice for it in C#.
 
 ## Why delegates are bad for the observer design pattern
+
 With delegates it is easy to break encapsulation and crash your program.
 
-```
+```csharp
         // define a delegate
         public delegate void MyDelegate();
 
@@ -86,13 +88,14 @@ We need a special kind of delegate that can only be invoked or set in the class 
 ## What events change
 
 Events have the following restrictions.
-* You can only directly assign values to them in the class where they were declared.
-* Outside of the class where they were declared, you can only use the += and -= syntax to change their subscribers.
-* You can only invoke an event in the class it was declared.
+
+- You can only directly assign values to them in the class where they were declared.
+- Outside of the class where they were declared, you can only use the += and -= syntax to change their subscribers.
+- You can only invoke an event in the class it was declared.
 
 Here is the previous example rewritten to use events.
 
-```
+```csharp
         // we still declare a method signature through a delegate
         public delegate void MyDelegate();
 
@@ -133,7 +136,7 @@ In C# there is a very clearly-defined pattern for writing events. Much like how 
 
 Here is the previous example re-written with these useful constructs.
 
-```
+```csharp
         public class MyClass
         {
             // declares the event and its method signature in one line
@@ -156,6 +159,7 @@ Here is the previous example re-written with these useful constructs.
             }
         }
 ```
+
 I've removed lines that wouldn't compile for simplicity.
 
 `EventHandler` is a delegate that looks like this: `delegate void EventHandler(object sender, EventArgs e)`. It just saves us from declaring a separate delegate every time.
@@ -167,7 +171,7 @@ Returning `void` is simple. It doesn't make much sense for an event to return an
 
 Here is what it would like like if `MyClass` wanted to invoke `MyEvent`.
 
-```
+```csharp
         public class MyClass
         {
             public event EventHandler MyEvent;
@@ -190,7 +194,7 @@ There are two ways for an event to carry along data to its subscribers. One, usi
 The `EventHandler` class is generic, so we can have an `EventHandler<>` of any type. This lets us pass along a single value when our event is invoked.
 `EventHandler` will always ask for an `object sender` along with the generic type.
 
-```
+```csharp
         public class MyClass
         {
             // EventHandler now wants a string as well as an object
@@ -227,7 +231,7 @@ This approach is good when you only want to send out simple information, like a 
 
 To define your own event arguments, inherit from `EventArgs`.
 
-```
+```csharp
         public class PersonEventArgs : EventArgs
         {
             string Name;
@@ -246,7 +250,7 @@ To define your own event arguments, inherit from `EventArgs`.
 It's convention to have *EventArgs* at the end of the name of your new class.
 You typically define a constructor to make it easier to get information into the class when you're invoking your event:
 
-```
+```csharp
             public void InvokeTheEvent()
             {
                 MyEvent(this, new PersonEventArgs("Jack", 24, true));
@@ -255,7 +259,7 @@ You typically define a constructor to make it easier to get information into the
 
 Subscribers can now access this information.
 
-```
+```csharp
             private void WriteMessage(object sender, PersonEventArgs e)
             {
                 // subscribers can now access information from the event

@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Generics - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Generics - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="generics---home">Generics - <a href="index.html">Home</a></h1>
+        <h1 id="generics---home">Generics - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#generics---home">Generics - Home</a>
 <ul>
@@ -37,28 +37,28 @@
 You can also use generics to make classes that 'wrap' other classes, like <code>List&lt;&gt;</code>.</p>
 <h2 id="why-care-about-generics">Why care about generics?</h2>
 <p>Generics mostly exist so you don't have to write duplicate code. Imagine seeing these functions in a file:</p>
-<pre><code><code><div>public int Add(int x, int y)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
 {
-    return x + y;
+    <span class="hljs-keyword">return</span> x + y;
 }
 
-public double Add(double x, double y)
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">double</span> x, <span class="hljs-keyword">double</span> y</span>)</span>
 {
-    return x + y;
+    <span class="hljs-keyword">return</span> x + y;
 }
 
-public float Add(float x, float y)
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">float</span> <span class="hljs-title">Add</span>(<span class="hljs-params"><span class="hljs-keyword">float</span> x, <span class="hljs-keyword">float</span> y</span>)</span>
 {
-    return x + y;
+    <span class="hljs-keyword">return</span> x + y;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Something is clearly wrong here. The actual logic of these functions is all the same. The only difference is the type of their arguments.</p>
 <p>We can write a generic function to simplify this:</p>
-<pre><code><code><div>public T Add&lt;T&gt;(T x, T y)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">Add</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">T x, T y</span>)</span>
 {
-    return x + y;
+    <span class="hljs-keyword">return</span> x + y;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>We can now use this one function for <code>int</code>s, <code>double</code>s, <code>float</code>s, and many other types as well.</p>
 <p>The part that makes this function generic is the angle-brackets after its name (the '&lt;' and '&gt;').</p>
 <p>It's useful, however, to provide a stand-in for a type. By convention, this is T. There is nothing special about this; you can name it whatever you like.</p>

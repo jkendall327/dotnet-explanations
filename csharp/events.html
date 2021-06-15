@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Events - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Events - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="events---home">Events - <a href="index.html">Home</a></h1>
+        <h1 id="events---home">Events - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#events---home">Events - Home</a>
 <ul>
@@ -55,47 +55,47 @@ And that we want to shut down the user's PC when the count hits one hundred.</p>
 <p>You can implement this pattern with delegates. But they aren't the best choice for it in C#.</p>
 <h2 id="why-delegates-are-bad-for-the-observer-design-pattern">Why delegates are bad for the observer design pattern</h2>
 <p>With delegates it is easy to break encapsulation and crash your program.</p>
-<pre><code><code><div>        // define a delegate
-        public delegate void MyDelegate();
+<pre><code class="language-csharp"><div>        <span class="hljs-comment">// define a delegate</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyDelegate</span>(<span class="hljs-params"></span>)</span>;
 
-        // give a class an instance of the delegate
-        public class MyClass
+        <span class="hljs-comment">// give a class an instance of the delegate</span>
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
         {
-            // our 'publisher'
-            public MyDelegate ListOfMethods;
+            <span class="hljs-comment">// our &#x27;publisher&#x27;</span>
+            <span class="hljs-keyword">public</span> MyDelegate ListOfMethods;
         }
 
-        public class MyOtherClass
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
         {
-            public void DoThingsBadly()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoThingsBadly</span>(<span class="hljs-params"></span>)</span>
             {
-                var myClass = new MyClass();
+                <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass();
 
-                // fill the delegate with 'subscribers' -- so far, so good
-                // i can't be bothered writing multiple fake methods, so we'll just use the same one three times
+                <span class="hljs-comment">// fill the delegate with &#x27;subscribers&#x27; -- so far, so good</span>
+                <span class="hljs-comment">// i can&#x27;t be bothered writing multiple fake methods, so we&#x27;ll just use the same one three times</span>
                 myClass.ListOfMethods += WriteMessage;
                 myClass.ListOfMethods += WriteMessage;
                 myClass.ListOfMethods += WriteMessage;
 
-                // invoke the delegate
-                // this will print &quot;hello world&quot; three times
+                <span class="hljs-comment">// invoke the delegate</span>
+                <span class="hljs-comment">// this will print &quot;hello world&quot; three times</span>
                 myClass.ListOfMethods();
 
-                // uh-oh!
-                myClass.ListOfMethods = null;
+                <span class="hljs-comment">// uh-oh!</span>
+                myClass.ListOfMethods = <span class="hljs-literal">null</span>;
 
-                // this will crash your program
+                <span class="hljs-comment">// this will crash your program</span>
                 myClass.ListOfMethods();
             }
 
-            // the example method we fill the delegate with
-            // has to match the method signature of the delegate
-            private void WriteMessage()
+            <span class="hljs-comment">// the example method we fill the delegate with</span>
+            <span class="hljs-comment">// has to match the method signature of the delegate</span>
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"></span>)</span>
             {
-                Console.WriteLine(&quot;hello world&quot;);
+                Console.WriteLine(<span class="hljs-string">&quot;hello world&quot;</span>);
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>We should not be able to set the subscriber of another class to <code>null</code>. This doesn't just break things for <code>MyOtherClass</code>, but any part of the program that subscribed to <code>ListOfMethods</code>.
 Instead of setting it to <code>null</code>, we could also clear the list of methods, set it to an entirely new list, or any number of other dangerous actions.
 We also shouldn't be able to invoke the delegate whenever we want, either.</p>
@@ -108,147 +108,147 @@ We also shouldn't be able to invoke the delegate whenever we want, either.</p>
 <li>You can only invoke an event in the class it was declared.</li>
 </ul>
 <p>Here is the previous example rewritten to use events.</p>
-<pre><code><code><div>        // we still declare a method signature through a delegate
-        public delegate void MyDelegate();
+<pre><code class="language-csharp"><div>        <span class="hljs-comment">// we still declare a method signature through a delegate</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyDelegate</span>(<span class="hljs-params"></span>)</span>;
 
-        public class MyClass
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
         {
-            // the 'event' keyword is where the magic happens
-            public event MyDelegate MyEvent;
+            <span class="hljs-comment">// the &#x27;event&#x27; keyword is where the magic happens</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> MyDelegate MyEvent;
         }
 
-        public class MyOtherClass
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
         {
-            public void DoThingsBadly()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoThingsBadly</span>(<span class="hljs-params"></span>)</span>
             {
-                var myClass = new MyClass();
+                <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass();
 
-                myClass.MyEvent += WriteMessage; // this is fine
-                myClass.MyEvent += WriteMessage; // this is fine
-                myClass.MyEvent += WriteMessage; // this is fine
+                myClass.MyEvent += WriteMessage; <span class="hljs-comment">// this is fine</span>
+                myClass.MyEvent += WriteMessage; <span class="hljs-comment">// this is fine</span>
+                myClass.MyEvent += WriteMessage; <span class="hljs-comment">// this is fine</span>
 
-                myClass.MyEvent(); // this breaks -- can't invoke an event from another class
-                myClass.MyEvent = null; // this breaks -- can't set the value of an event from another class
+                myClass.MyEvent(); <span class="hljs-comment">// this breaks -- can&#x27;t invoke an event from another class</span>
+                myClass.MyEvent = <span class="hljs-literal">null</span>; <span class="hljs-comment">// this breaks -- can&#x27;t set the value of an event from another class</span>
             }
 
-            private void WriteMessage()
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"></span>)</span>
             {
-                Console.WriteLine(&quot;hello world&quot;);
+                Console.WriteLine(<span class="hljs-string">&quot;hello world&quot;</span>);
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>Our program is now a lot safer. We can't break everything by accidentally setting a delegate to <code>null</code>.</p>
 <p>However, it's still a bit ugly that we have to declare <code>MyDelegate</code>. Thankfully, there is a more convenient way to do things.</p>
 <h2 id="eventhandler-and-eventargs">EventHandler and EventArgs</h2>
 <p>In C# there is a very clearly-defined pattern for writing events. Much like how <a href="func-and-action.html">Func&lt;&gt; and Action&lt;&gt;</a> were made as shorthand for common delegate use-cases, <code>EventHandler</code> and <code>EventArgs</code> were created for common event use-cases.</p>
 <p>Here is the previous example re-written with these useful constructs.</p>
-<pre><code><code><div>        public class MyClass
+<pre><code class="language-csharp"><div>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
         {
-            // declares the event and its method signature in one line
-            public event EventHandler MyEvent;
+            <span class="hljs-comment">// declares the event and its method signature in one line</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> EventHandler MyEvent;
         }
 
-        public class MyOtherClass
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
         {
-            public void DoThingsBadly()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoThingsBadly</span>(<span class="hljs-params"></span>)</span>
             {
-                var myClass = new MyClass();
+                <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass();
 
                 myClass.MyEvent += WriteMessage;
             }
 
-            // subscribers to the event now need to follow a special format
-            private void WriteMessage(object sender, EventArgs e)
+            <span class="hljs-comment">// subscribers to the event now need to follow a special format</span>
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> sender, EventArgs e</span>)</span>
             {
-                Console.WriteLine(&quot;hello world&quot;);
+                Console.WriteLine(<span class="hljs-string">&quot;hello world&quot;</span>);
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>I've removed lines that wouldn't compile for simplicity.</p>
 <p><code>EventHandler</code> is a delegate that looks like this: <code>delegate void EventHandler(object sender, EventArgs e)</code>. It just saves us from declaring a separate delegate every time.</p>
 <p>Returning <code>void</code> is simple. It doesn't make much sense for an event to return anything.</p>
 <p><code>object sender</code> is generally meant to be whatever class invoked the event. This lets subscribers query it for information.
 <code>EventArgs</code> is a dummy class meant for carrying additional information. You typically use <code>EventArgs.Empty</code>, to represent no data being sent.</p>
 <p>Here is what it would like like if <code>MyClass</code> wanted to invoke <code>MyEvent</code>.</p>
-<pre><code><code><div>        public class MyClass
+<pre><code class="language-csharp"><div>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
         {
-            public event EventHandler MyEvent;
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> EventHandler MyEvent;
 
-            public void InvokeTheEvent()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InvokeTheEvent</span>(<span class="hljs-params"></span>)</span>
             {
-                MyEvent(this, EventArgs.Empty);
+                MyEvent(<span class="hljs-keyword">this</span>, EventArgs.Empty);
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>The <code>this</code> keyword passes in the current instance of <code>MyClass</code>. Because <code>EventHandler</code> asks for an <code>object</code>, you could, of course, send anything that you wanted.</p>
 <h2 id="passing-along-our-own-data">Passing along our own data</h2>
 <p>There are two ways for an event to carry along data to its subscribers. One, using a generic EventHandler, is simple but limited. The other, defining your EventArgs, is more involved but also more powerful.</p>
 <h3 id="generic-eventhandler">Generic EventHandler</h3>
 <p>The <code>EventHandler</code> class is generic, so we can have an <code>EventHandler&lt;&gt;</code> of any type. This lets us pass along a single value when our event is invoked.
 <code>EventHandler</code> will always ask for an <code>object sender</code> along with the generic type.</p>
-<pre><code><code><div>        public class MyClass
+<pre><code class="language-csharp"><div>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
         {
-            // EventHandler now wants a string as well as an object
-            public event EventHandler&lt;string&gt; MyEvent;
+            <span class="hljs-comment">// EventHandler now wants a string as well as an object</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-keyword">event</span> EventHandler&lt;<span class="hljs-keyword">string</span>&gt; MyEvent;
 
-            public void InvokeTheEvent()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InvokeTheEvent</span>(<span class="hljs-params"></span>)</span>
             {
-                // pass in an object (this class) and a string
-                MyEvent(this, &quot;hello&quot;);
+                <span class="hljs-comment">// pass in an object (this class) and a string</span>
+                MyEvent(<span class="hljs-keyword">this</span>, <span class="hljs-string">&quot;hello&quot;</span>);
             }
         }
 
-        public class MyOtherClass
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
         {
-            public void DoThingsBadly()
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoThingsBadly</span>(<span class="hljs-params"></span>)</span>
             {
-                var myClass = new MyClass();
+                <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass();
 
                 myClass.MyEvent += WriteMessage;
             }
 
-            // subscribers still need to match the method signature of the EventHandler
-            private void WriteMessage(object sender, string text)
+            <span class="hljs-comment">// subscribers still need to match the method signature of the EventHandler</span>
+            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> sender, <span class="hljs-keyword">string</span> text</span>)</span>
             {
-                // subscribers can now access information from the event
+                <span class="hljs-comment">// subscribers can now access information from the event</span>
                 Console.WriteLine(text);
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>This approach is good when you only want to send out simple information, like a number or a name. But if you want to send out more than one value, you need to define your own EventArgs.</p>
 <h3 id="defining-your-own-eventargs">Defining your own EventArgs</h3>
 <p>To define your own event arguments, inherit from <code>EventArgs</code>.</p>
-<pre><code><code><div>        public class PersonEventArgs : EventArgs
+<pre><code class="language-csharp"><div>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">PersonEventArgs</span> : <span class="hljs-title">EventArgs</span>
         {
-            string Name;
-            int Age;
-            bool IsAProgrammer;
+            <span class="hljs-keyword">string</span> Name;
+            <span class="hljs-keyword">int</span> Age;
+            <span class="hljs-keyword">bool</span> IsAProgrammer;
 
-            public PersonEventArgs(string name, int age, bool isAProgrammer)
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">PersonEventArgs</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> name, <span class="hljs-keyword">int</span> age, <span class="hljs-keyword">bool</span> isAProgrammer</span>)</span>
             {
                 Name = name;
                 Age = age;
                 IsAProgrammer = isAProgrammer;
             }
         }
-</div></code></code></pre>
+</div></code></pre>
 <p>It's convention to have <em>EventArgs</em> at the end of the name of your new class.
 You typically define a constructor to make it easier to get information into the class when you're invoking your event:</p>
-<pre><code><code><div>            public void InvokeTheEvent()
+<pre><code class="language-csharp"><div>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">InvokeTheEvent</span>(<span class="hljs-params"></span>)</span>
             {
-                MyEvent(this, new PersonEventArgs(&quot;Jack&quot;, 24, true));
+                MyEvent(<span class="hljs-keyword">this</span>, <span class="hljs-keyword">new</span> PersonEventArgs(<span class="hljs-string">&quot;Jack&quot;</span>, <span class="hljs-number">24</span>, <span class="hljs-literal">true</span>));
             }
-</div></code></code></pre>
+</div></code></pre>
 <p>Subscribers can now access this information.</p>
-<pre><code><code><div>            private void WriteMessage(object sender, PersonEventArgs e)
+<pre><code class="language-csharp"><div>            <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">object</span> sender, PersonEventArgs e</span>)</span>
             {
-                // subscribers can now access information from the event
-                Console.WriteLine(&quot;The name is:&quot; + e.Name);
-                Console.WriteLine(&quot;The age is:&quot; + e.Age);
-                Console.WriteLine(&quot;Are they a programmer? &quot; + e.IsAProgrammer);
+                <span class="hljs-comment">// subscribers can now access information from the event</span>
+                Console.WriteLine(<span class="hljs-string">&quot;The name is:&quot;</span> + e.Name);
+                Console.WriteLine(<span class="hljs-string">&quot;The age is:&quot;</span> + e.Age);
+                Console.WriteLine(<span class="hljs-string">&quot;Are they a programmer? &quot;</span> + e.IsAProgrammer);
 
             }
-</div></code></code></pre>
+</div></code></pre>
 
     </body>
     </html>

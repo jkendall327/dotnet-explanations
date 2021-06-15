@@ -1,4 +1,4 @@
-# .NET versions - [Home](index.md)
+# .NET versions - [Home](../index.md)
 
 - [.NET versions - Home](#net-versions---home)
   - [In a nutshell](#in-a-nutshell)
@@ -6,13 +6,16 @@
   - [History](#history)
 
 ## In a nutshell
+
 .NET is the general name for Microsoft's programming platform. .NET Framework, .NET Core and .NET 5 are all different 'versions' of .NET.
 
 ## Warning
+
 This page describes the different versions of .NET. It doesn't explain what .NET 'really' is, how it's different from C#, or what the CLR is.
 
 ## History
-.NET began in the late 1990s as Microsoft's response to Java. 
+
+.NET began in the late 1990s as Microsoft's response to Java.
 
 Rather than just releasing their version of Java as a product, they decide to make it a *standard*. A standard is just a description of what a system 'should' look like -- not a concrete implementation of it you can actually use. You can find some of [the .NET standards here](https://www.mono-project.com/docs/about-mono/languages/ecma/).
 
@@ -33,9 +36,10 @@ We now have three official implementations of .NET: .NET Framework, .NET Core, .
 Microsoft recognised that this situation was confusing, and in 2020/2021 brought in the new 'one .NET' campaign.
 
 This meant three things:
-* There would be no new work on .NET Framework, except bugfixes and security patches.
-* .NET Standard would be discontinued.
-* The next version of .NET Core would be named .NET 5.0.
+
+- There would be no new work on .NET Framework, except bugfixes and security patches.
+- .NET Standard would be discontinued.
+- The next version of .NET Core would be named .NET 5.0.
   
 From now on (assuming Microsoft doesn't change their minds), there will be only one official implementation of .NET, and its versions will just be named things like .NET 6, .NET 7, .NET 8, etc.
 

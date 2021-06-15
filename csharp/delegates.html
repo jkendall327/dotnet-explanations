@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Delegates - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Delegates - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="delegates---home">Delegates - <a href="index.html">Home</a></h1>
+        <h1 id="delegates---home">Delegates - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#delegates---home">Delegates - Home</a>
 <ul>
@@ -44,8 +44,8 @@
 <p>A delegate is like a <code>List&lt;&gt;</code> for methods.</p>
 <h2 id="explanation">Explanation</h2>
 <p>Think about a <code>List&lt;int&gt;</code>:</p>
-<pre><code><code><div>var myList = new List&lt;int&gt;() {4, 6, 1, 10, 11};
-</div></code></code></pre>
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> myList = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-keyword">int</span>&gt;() {<span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>};
+</div></code></pre>
 <p>Using a <code>List&lt;&gt;</code> lets you group several values together into one variable. This lets you do things to all of them at once -- with a <code>List&lt;int&gt;</code>, you can <code>Sum()</code> the list with a single command.</p>
 <p>An important thing about a <code>List&lt;int&gt;</code> is that you can only put <code>ints</code> in it. If you put in a <code>double</code> or a <code>string</code>, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.</p>
 <p>A delegate is like a <code>List&lt;&gt;</code> for methods.</p>
@@ -54,12 +54,12 @@
 <p>But how do you decide what 'kind' of methods this list should contain? To understand that, we need to understand method signatures.</p>
 <h2 id="method-signatures">Method signatures</h2>
 <p>Consider the following method.</p>
-<pre><code><code><div>public int AddThenSquare(int x, int y)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">AddThenSquare</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
 {
-    var sum = x + y;
-    return sum * sum;
+    <span class="hljs-keyword">var</span> sum = x + y;
+    <span class="hljs-keyword">return</span> sum * sum;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>When you're learning C#, you focus on what's between the curly braces. This is the <em>body</em> of the method.</p>
 <p>But for delegates, we care about the signature, which is the bit at the top.</p>
 <p><code>public int AddThenSquare(int x, int y)</code></p>
@@ -76,58 +76,58 @@ The name of the method and its visibility (whether it's <code>public</code> or <
 <p>If we want to add <code>AddThenSquare</code> to a delegate, we need a delegate that says 'I will take in any method that accepts two <code>int</code>s and gives back one <code>int</code>'.</p>
 <h2 id="using-delegates">Using delegates</h2>
 <p>We have to define the methods our delegate accepts before we can use it.</p>
-<pre><code><code><div>    delegate int ExampleDelegate(int x, int y);
-</div></code></code></pre>
+<pre><code class="language-csharp"><div>    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ExampleDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>;
+</div></code></pre>
 <p>This looks very similar to defining a method. There are two differences:</p>
 <ul>
 <li>We use the <code>delegate</code> keyword at the start.</li>
 <li>Instead of adding a method body, we put a <code>;</code> after the arguments.</li>
 </ul>
 <p>We can now add methods to our delegate.</p>
-<pre><code><code><div>class MyExampleClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyExampleClass</span>
 {
-    public int AddThenSquare(int x, int y)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">AddThenSquare</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
     {
-        var sum = x + y;
-        return sum * sum;
+        <span class="hljs-keyword">var</span> sum = x + y;
+        <span class="hljs-keyword">return</span> sum * sum;
     }
 
-    delegate int ExampleDelegate(int x, int y);
+    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ExampleDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>;
 
-    public void MyMethod()
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"></span>)</span>
     {
-        var myDelegate = new ExampleDelegate(AddThenSquare);
+        <span class="hljs-keyword">var</span> myDelegate = <span class="hljs-keyword">new</span> ExampleDelegate(AddThenSquare);
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This class has a method, a delegate, and another method which uses them both.</p>
 <p><code>delegate int ExampleDelegate(int x, int y);</code> defines a <em>kind</em> of delegate.</p>
 <p><code>var myDelegate = new ExampleDelegate(AddThenSquare);</code> creates an <em>instance</em> of the delegate we defined.</p>
 <p>(Advanced note: we could actually define our delegate outside of <code>MyExampleClass</code>. This is because behind the scenes, all delegates are actually classes.)</p>
 <p><code>myDelegate</code> now contains <code>AddThenSquare</code>. Because delegates are like <code>List&lt;&gt;</code>s, we can add multiple methods to it.</p>
-<pre><code><code><div>class MyExampleClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyExampleClass</span>
 {
-    public int AddThenSquare(int x, int y)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">AddThenSquare</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
     {
-        var sum = x + y;
-        return sum * sum;
+        <span class="hljs-keyword">var</span> sum = x + y;
+        <span class="hljs-keyword">return</span> sum * sum;
     }
 
-    public int SubtractThenSquare(int x, int y)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">SubtractThenSquare</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
     {
-        var sum = x + y;
-        return sum * sum;
+        <span class="hljs-keyword">var</span> sum = x + y;
+        <span class="hljs-keyword">return</span> sum * sum;
     }
 
-    delegate int ExampleDelegate(int x, int y);
+    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ExampleDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>;
 
-    public void MyMethod()
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"></span>)</span>
     {
-        var myDelegate = new ExampleDelegate(AddThenSquare);
+        <span class="hljs-keyword">var</span> myDelegate = <span class="hljs-keyword">new</span> ExampleDelegate(AddThenSquare);
         myDelegate += SubtractThenSquare;
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p><code>myDelegate</code> now contains both methods. You can remove a method from a delegate by using <code>-=</code>.</p>
 <p>(Advanced note: the <code>+=</code> syntax is shorthand for the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0">Delegate.Combine</a> method.)</p>
 <h2 id="actually-using-a-delegate">Actually using a delegate</h2>
@@ -138,27 +138,27 @@ We defined our delegate as taking two <code>int</code>s, so we have to give it t
 <p>This will run through every method in <code>myDelegate</code>, giving them each the arguments 4 and 5. We're not doing anything with the return values (81 and 1, in this example), but we could if we wanted.</p>
 <h2 id="treating-methods-like-variables">Treating methods like variables</h2>
 <p>People care about delegates because they let us treat methods like variables. More specifically, we can pass a method into another method.</p>
-<pre><code><code><div>    delegate void ExampleDelegate(int x);
+<pre><code class="language-csharp"><div>    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExampleDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span>;
 
-    public void DoTheMethodTwice(ExampleDelegate method, int argument)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoTheMethodTwice</span>(<span class="hljs-params">ExampleDelegate method, <span class="hljs-keyword">int</span> argument</span>)</span>
     {
         method.Invoke(argument);
         method.Invoke(argument);
     }
-</div></code></code></pre>
+</div></code></pre>
 <p>This method does something with a delegate, without any knowledge of what methods the delegate actually contains.</p>
 <p>(Advanced note: in fact, the delegate might be <code>null</code> and not contain any methods at all. If so, calling <code>Invoke</code> will crash the program.)</p>
 <p>Delegates let us write <em>methods about methods</em>.</p>
 <h2 id="other-syntax-that-you-might-see">Other syntax that you might see</h2>
 <p>Writing <code>.Invoke()</code> all the time is annoying, so C# has a shorthand.</p>
-<pre><code><code><div>    delegate void ExampleDelegate(int x);
+<pre><code class="language-csharp"><div>    <span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ExampleDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span>;
 
-    public void DoTheMethodTwice(ExampleDelegate method, int argument)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">DoTheMethodTwice</span>(<span class="hljs-params">ExampleDelegate method, <span class="hljs-keyword">int</span> argument</span>)</span>
     {
         method(argument);
         method(argument);
     }
-</div></code></code></pre>
+</div></code></pre>
 <p>I don't use this syntax. It looks identical to calling a normal method, and delegates should be treated differently than methods.
 You are welcome to use this syntax, just be careful with it.</p>
 <p>You will also see something like this.</p>

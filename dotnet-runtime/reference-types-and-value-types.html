@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Reference types and value types - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Reference types and value types - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="reference-types-and-value-types---home">Reference types and value types - <a href="index.html">Home</a></h1>
+        <h1 id="reference-types-and-value-types---home">Reference types and value types - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#reference-types-and-value-types---home">Reference types and value types - Home</a>
 <ul>
@@ -38,32 +38,32 @@
 </ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>Consider this quote from Ben Klemens' book <em><a href="https://www.amazon.co.uk/21st-Century-Tips-New-School/dp/1449327141">21st Century C: C Tips from the New School</a></em>.</p>
-<p><img src="file:///c:\Users\Jack\source\explanatory-website\images\ref-types-and-val-types.png" alt="image"></p>
+<p><img src="file:///c:\Users\Jack\source\websites\explanatory-website\!images\ref-types-and-val-types.png" alt="image"></p>
 <p>Reference types and value types are how .NET handle this problem.</p>
 <h2 id="the-basics">The basics</h2>
 <p>There are two kinds of values in .NET: value types and reference types.</p>
 <p>Value types follow the first bulletpoint in Klemens' quote.</p>
-<pre><code><code><div>var a = 10;
-var b = a;
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">10</span>;
+<span class="hljs-keyword">var</span> b = a;
 
-Console.WriteLine(b); // outputs '10'
+Console.WriteLine(b); <span class="hljs-comment">// outputs &#x27;10&#x27;</span>
 
 a++;
 
-Console.WriteLine(b); // still outputs '10'
-</div></code></code></pre>
+Console.WriteLine(b); <span class="hljs-comment">// still outputs &#x27;10&#x27;</span>
+</div></code></pre>
 <p>At the end of this codeblock, the value of <code>b</code> is still 10. When you set <code>b</code> to <code>a</code>, the value of <code>a</code> was copied over. There is no secret, invisible connection between the two variables: they are separate. If you do something to <code>a</code> - like increment it - <code>b</code> won't change.</p>
 <p>Reference types follow the second bulletpoint in Klemens' quote.</p>
-<pre><code><code><div>Person John = new Person { Age = 20, Height = 5.6 };
+<pre><code class="language-csharp"><div>Person John = <span class="hljs-keyword">new</span> Person { Age = <span class="hljs-number">20</span>, Height = <span class="hljs-number">5.6</span> };
 
 Person Jane = John;
 
-Console.WriteLine(Jane.Age); // outputs '20'
+Console.WriteLine(Jane.Age); <span class="hljs-comment">// outputs &#x27;20&#x27;</span>
 
-John.Age = 28;
+John.Age = <span class="hljs-number">28</span>;
 
-Console.WriteLine(Jane.Age); // outputs '28'
-</div></code></code></pre>
+Console.WriteLine(Jane.Age); <span class="hljs-comment">// outputs &#x27;28&#x27;</span>
+</div></code></pre>
 <p>When we set <code>Jane</code> equal to <code>John</code>, we are making it an <em>alias</em> for <code>John</code>.
 When you change something in <code>John</code>, <code>Jane</code> also changes. If you changed something in <code>Jane</code>, then <code>John</code> would change too.</p>
 <h2 id="in-net-reference-and-value-types-are-pre-determined">In .NET, reference and value types are pre-determined</h2>
@@ -90,47 +90,47 @@ When you change something in <code>John</code>, <code>Jane</code> also changes. 
 <p>Reference types are confusing to most beginners. The idea of having multiple variables that all share the same information seems somewhat pointless.</p>
 <p>(If you believe this very strongly, you might enjoy learning a language like <a href="https://www.rust-lang.org/">Rust</a>.)</p>
 <p>Reference types let methods change objects without having to return a new version of that object.</p>
-<pre><code><code><div>public void ClampAge(User user)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ClampAge</span>(<span class="hljs-params">User user</span>)</span>
 {
-    if (user.Age &lt; 0)
+    <span class="hljs-keyword">if</span> (user.Age &lt; <span class="hljs-number">0</span>)
     {
-        user.Age = 0;
+        user.Age = <span class="hljs-number">0</span>;
     }
-    if (user.Age &gt; 100)
+    <span class="hljs-keyword">if</span> (user.Age &gt; <span class="hljs-number">100</span>)
     {
-        user.Age = 100;
+        user.Age = <span class="hljs-number">100</span>;
     }
 }
 
-public void CreateUser(int age, string name)
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CreateUser</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> age, <span class="hljs-keyword">string</span> name</span>)</span>
 {
-    var user = new User(age, name);
+    <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> User(age, name);
     ClampAge(user);
     SaveUserToDatabase(user);
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Because <code>User</code> is a reference type, the <code>ClampAge</code> can directly modify the same object that <code>CreateUser</code> is working on. If <code>User</code> was a value type, our code would look like this:</p>
-<pre><code><code><div>public User ClampAge(User user)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">ClampAge</span>(<span class="hljs-params">User user</span>)</span>
 {
-    if (user.Age &lt; 0)
+    <span class="hljs-keyword">if</span> (user.Age &lt; <span class="hljs-number">0</span>)
     {
-        user.Age = 0;
+        user.Age = <span class="hljs-number">0</span>;
     }
-    if (user.Age &gt; 100)
+    <span class="hljs-keyword">if</span> (user.Age &gt; <span class="hljs-number">100</span>)
     {
-        user.Age = 100;
+        user.Age = <span class="hljs-number">100</span>;
     }
 
-    return user;
+    <span class="hljs-keyword">return</span> user;
 }
 
-public void CreateUser(int age, string name)
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">CreateUser</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> age, <span class="hljs-keyword">string</span> name</span>)</span>
 {
-    var user = new User(age, name);
+    <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> User(age, name);
     user = ClampAge(user);
     SaveUserToDatabase(user);
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This adds meaningless complexity.</p>
 <p>Reference types let us easily work on the same object across different pieces of code without having to pass it back and forth as much.</p>
 <h2 id="the-ref-and-out-keywords">The <code>ref</code> and <code>out</code> keywords</h2>
@@ -140,7 +140,7 @@ public void CreateUser(int age, string name)
 <p>The difference between <code>ref</code> and <code>out</code> is subtle and not very important.</p>
 <h2 id="the-stack-and-the-heap">The stack and the heap</h2>
 <p>You may have heard something like this before:</p>
-<p><em>&quot;Reference types live on the heap, value types live on the stack.&quot;</em></p>
+<p><em>Reference types live on the heap, value types live on the stack.</em></p>
 <p>This is mostly correct, but I have avoided talking about the stack and the heap so far.</p>
 <p>The stack and the heap are <em>implementation details</em>. They are not hard and fast rules of the universe. .NET happens to use these abstractions, but it could have also implemented reference types and value types in a completely different way.</p>
 <p>I highly recommend reading Raymond Chen's article <a href="https://docs.microsoft.com/en-us/archive/blogs/ericlippert/the-stack-is-an-implementation-detail-part-one"><em>The Stack is an Implementation Detail</em></a> for more information on this.</p>

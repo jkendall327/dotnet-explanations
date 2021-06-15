@@ -1,16 +1,18 @@
-# A tour of Visual Studio - [Home](index.md)
+# A tour of Visual Studio - [Home]((../index.md)
 
-- [A tour of Visual Studio - Home](#a-tour-of-visual-studio---home)
+- [A tour of Visual Studio - Home](#a-tour-of-visual-studio---homeindexmd)
   - [In a nutshell](#in-a-nutshell)
   - [Visual Studio versus Visual Studio Code](#visual-studio-versus-visual-studio-code)
   - [Installing Visual Studio](#installing-visual-studio)
 
 ## In a nutshell
+
 Visual Studio is Microsoft's big, monolithic program for writing, compiling, debugging and compiling programs. It is easy to pick up, but it has many features and dark corners that are hard to understand.
 
 This page will give an overview of its main features and how to use them effectively.
 
 ## Visual Studio versus Visual Studio Code
+
 Visual Studio is entirely different from Visual Studio Code (or as it's more commonly called, VSCode).
 
 VSCode is a lightweight text editoralong the lines of Notepad++ or Atom. While it supports plugins that give it advanced features - like syntax highlighting or code debugging.
@@ -18,6 +20,7 @@ VSCode is a lightweight text editoralong the lines of Notepad++ or Atom. While i
 If you're unsure which program to use to write C#, you are probably best off with Visual Studio. It handles more things for you by default.
 
 ## Installing Visual Studio
+
 Because Visual Studio is a large program, you can choose which parts of it to install. You may only be interested in features that let you program in C++, for example, or which focus on web development.
 
 There is a separate program, called the Visual Studio Installer, where you can choose what features to install. These features are grouped into 'workloads'.

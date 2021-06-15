@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Logging - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Logging - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="logging---home">Logging - <a href="index.html">Home</a></h1>
+        <h1 id="logging---home">Logging - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#logging---home">Logging - Home</a>
 <ul>
@@ -41,17 +41,17 @@
 <p>Logging is a way for programs to tell us what they are doing.</p>
 <h2 id="an-example">An example</h2>
 <p>The simplest form of logging is to write messages to the console, or 'standard output', when the program runs.</p>
-<pre><code><code><div>public int MyMethod(int x)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span>
 {
-    Console.WriteLine(&quot;The value of the argument is: &quot; + x);
+    Console.WriteLine(<span class="hljs-string">&quot;The value of the argument is: &quot;</span> + x);
 
     x = x * x;
 
-    Console.WriteLine(&quot;The value of the argument squared is: &quot; + x);
+    Console.WriteLine(<span class="hljs-string">&quot;The value of the argument squared is: &quot;</span> + x);
 
-    return x;
+    <span class="hljs-keyword">return</span> x;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This is a form of logging.</p>
 
     </body>

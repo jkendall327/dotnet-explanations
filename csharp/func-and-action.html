@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Func&lt;&gt; and Action&lt;&gt; - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Func&lt;&gt; and Action&lt;&gt; - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="func-and-action---home">Func&lt;&gt; and Action&lt;&gt; - <a href="index.html">Home</a></h1>
+        <h1 id="func-and-action---home">Func&lt;&gt; and Action&lt;&gt; - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#func-and-action---home">Func&lt;&gt; and Action&lt;&gt; - Home</a>
 <ul>
@@ -41,22 +41,22 @@
 <h2 id="the-problem-that-func-and-action-solve">The problem that <code>Func&lt;&gt;</code> and <code>Action&lt;&gt;</code> solve</h2>
 <p>Delegates are a very powerful tool that let us put methods into variables and pass them to other methods as arguments.</p>
 <p>The issue is that the syntax for delegates is quite heavy:</p>
-<pre><code><code><div>delegate void MyDelegate(string message);
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">delegate</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyDelegate</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>;
 
-public class MyClass
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-   public void UseADelegate()
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UseADelegate</span>(<span class="hljs-params"></span>)</span>
    {
       MyDelegate messageTarget = WriteMessage;
-      messageTarget(&quot;Hello, World!&quot;);
+      messageTarget(<span class="hljs-string">&quot;Hello, World!&quot;</span>);
    }
 
-   private void WriteMessage(string message)
+   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
    {
       Console.WriteLine(message);
    }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>For this very simple example, we have to</p>
 <ul>
 <li>Define the method signatures the delegate accepts. (The <code>delegate void MyDelegate...</code> line)</li>
@@ -68,59 +68,59 @@ public class MyClass
 <h2 id="action">Action&lt;&gt;</h2>
 <p><code>Action&lt;string&gt;</code> is the same as <code>delegate void DelegateName(string argumentName)</code>.
 Because <code>WriteMessage</code> returns <code>void</code>, we use <code>Action&lt;&gt;</code> rather than <code>Func&lt;&gt;</code>.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-   public void UseADelegate()
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UseADelegate</span>(<span class="hljs-params"></span>)</span>
    {
-      Action&lt;string&gt; messageTarget = WriteMessage;
-      messageTarget(&quot;Hello, World!&quot;);
+      Action&lt;<span class="hljs-keyword">string</span>&gt; messageTarget = WriteMessage;
+      messageTarget(<span class="hljs-string">&quot;Hello, World!&quot;</span>);
    }
 
-   private void WriteMessage(string message)
+   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
    {
       Console.WriteLine(message);
    }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>If you need more than one parameter, you just write them between the angle brackets.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-   public void UseADelegate()
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UseADelegate</span>(<span class="hljs-params"></span>)</span>
    {
-      Action&lt;string, bool&gt; messageTarget = WriteMessage;
-      messageTarget(&quot;Hello, World!&quot;, true);
+      Action&lt;<span class="hljs-keyword">string</span>, <span class="hljs-keyword">bool</span>&gt; messageTarget = WriteMessage;
+      messageTarget(<span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-literal">true</span>);
    }
 
-   private void WriteMessage(string message, bool shouldWrite)
+   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message, <span class="hljs-keyword">bool</span> shouldWrite</span>)</span>
    {
-    if (!shouldWrite) return;
+    <span class="hljs-keyword">if</span> (!shouldWrite) <span class="hljs-keyword">return</span>;
 
       Console.WriteLine(message);
    }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>You can <a href="https://docs.microsoft.com/en-us/dotnet/api/system.action-16?view=net-5.0">go up to sixteen arguments</a> this way. (But if you ever get that high, you should probably do things differently.)</p>
 <h2 id="func">Func&lt;&gt;</h2>
 <p><code>Func&lt;&gt;</code> is like <code>Action&lt;&gt;</code> for methods that return a value. The final generic argument is the result.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-   public void UseADelegate()
+   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UseADelegate</span>(<span class="hljs-params"></span>)</span>
    {
-       // bool is the final generic argument
-      Func&lt;string, bool&gt; messageTarget = WriteMessage;
+       <span class="hljs-comment">// bool is the final generic argument</span>
+      Func&lt;<span class="hljs-keyword">string</span>, <span class="hljs-keyword">bool</span>&gt; messageTarget = WriteMessage;
 
-      // and so messageTarget returns a bool
-      var result = messageTarget(&quot;Hello, World!&quot;);
+      <span class="hljs-comment">// and so messageTarget returns a bool</span>
+      <span class="hljs-keyword">var</span> result = messageTarget(<span class="hljs-string">&quot;Hello, World!&quot;</span>);
    }
 
-   // messageTarget takes methods that accept a string and return a bool
-   private bool WriteMessage(string message)
+   <span class="hljs-comment">// messageTarget takes methods that accept a string and return a bool</span>
+   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> message</span>)</span>
    {
       Console.WriteLine(message);
-      return true;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
    }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Again, you can <a href="https://docs.microsoft.com/en-us/dotnet/api/system.func-17?view=net-5.0">go up to sixteen arguments this way</a>, not counting the result.</p>
 <h2 id="predicate">Predicate&lt;&gt;</h2>
 <p>There is also a <code>Predicate&lt;&gt;</code>, but I don't understand it well enough to explain it here :)

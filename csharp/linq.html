@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>LINQ - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>LINQ - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="linq---home">LINQ - <a href="index.html">Home</a></h1>
+        <h1 id="linq---home">LINQ - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#linq---home">LINQ - Home</a>
 <ul>
@@ -44,28 +44,28 @@
 <h3 id="linq-is-about-building-definitions">LINQ is about building definitions</h3>
 <p>People often say that LINQ uses 'deferred execution' or 'lazy evaluation', which are two names for the same idea.</p>
 <p>The idea is that with LINQ, you build up a definition of the thing you want to do, which you can then deploy whenever you like.</p>
-<pre><code><code><div>var myFavouriteNumbers = new List&lt;int&gt;() { 4, 1, 12, 18 };
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> myFavouriteNumbers = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-keyword">int</span>&gt;() { <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">12</span>, <span class="hljs-number">18</span> };
 
-IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
-</div></code></code></pre>
+IEnumerable&lt;<span class="hljs-keyword">int</span>&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
+</div></code></pre>
 <p>The second line of this example <em>does not do anything</em>. No calculation is performed. No numbers are squared, no list is reversed. <code>result</code> is just a definition of various things we want to do to <code>myFavouriteNumbers</code> at a later time.</p>
 <p>To actually make anything happen, we need to 'trigger' the evaluation. We do this by calling one of a few extension methods on our <code>IEnumerable</code>. The most common is <code>.ToList()</code>.</p>
-<pre><code><code><div>result = result.ToList();
-</div></code></code></pre>
+<pre><code class="language-csharp"><div>result = result.ToList();
+</div></code></pre>
 <p><code>result</code> will now contain the values 324, 144, 1 and 16. By transforming the <code>IEnumerable</code> into a <code>List</code>, we put our definition to work and made it actually evaluate the contents of <code>myFavouriteNumbers</code>.</p>
 <p>We can re-use the definitions we create with LINQ as much as we want. A result of this is that we can get different results from the same <code>IEnumerable</code> if the underlying source of data has changed.</p>
-<pre><code><code><div>var myFavouriteNumbers = new List&lt;int&gt;() { 4, 1, 8, 2 };
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> myFavouriteNumbers = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-keyword">int</span>&gt;() { <span class="hljs-number">4</span>, <span class="hljs-number">1</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span> };
 
-IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
+IEnumerable&lt;<span class="hljs-keyword">int</span>&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();
 
-var firstCalculation = result.ToList(); // 4, 64, 1, 16
+<span class="hljs-keyword">var</span> firstCalculation = result.ToList(); <span class="hljs-comment">// 4, 64, 1, 16</span>
 
-myFavouriteNumbers.Add(3);
-myFavouriteNumbers.Add(9);
-myFavouriteNumbers.Add(1);
+myFavouriteNumbers.Add(<span class="hljs-number">3</span>);
+myFavouriteNumbers.Add(<span class="hljs-number">9</span>);
+myFavouriteNumbers.Add(<span class="hljs-number">1</span>);
 
-var secondCalculation = result.ToList(); // 1, 81, 9, 4, 64, 1, 16
-</div></code></code></pre>
+<span class="hljs-keyword">var</span> secondCalculation = result.ToList(); <span class="hljs-comment">// 1, 81, 9, 4, 64, 1, 16</span>
+</div></code></pre>
 <p>Each time we called <code>.ToList()</code>, it used the values currently in <code>myFavouriteNumbers</code> at that exact moment.</p>
 <h2 id="declarative-programming">Declarative programming</h2>
 <p>Declarative programming means that our code only talks about what we want to happen, not how it gets done.</p>

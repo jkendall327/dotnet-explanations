@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Static - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Static - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="static---home">Static - <a href="index.html">Home</a></h1>
+        <h1 id="static---home">Static - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#static---home">Static - Home</a>
 <ul>
@@ -52,83 +52,83 @@
 <p>We can also define new types in other ways, like creating structs or interfaces. I use classes in this page because they make the best example, but be aware that types and classes aren't the same thing.</p>
 <h2 id="how-things-work-without-static">How things work without static</h2>
 <p>You can use the <code>new</code> keyword to create an instance of a class.</p>
-<pre><code><code><div>var sb = new StringBuilder();
-</div></code></code></pre>
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> sb = <span class="hljs-keyword">new</span> StringBuilder();
+</div></code></pre>
 <p>This creates an instance of <code>StringBuilder</code> (a random example of a class).</p>
-<pre><code><code><div>var sb = new StringBuilder();
-sb.Length = 23;
-</div></code></code></pre>
+<pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> sb = <span class="hljs-keyword">new</span> StringBuilder();
+sb.Length = <span class="hljs-number">23</span>;
+</div></code></pre>
 <p>Here, we are modifying the instance. The <code>StringBuilder</code> type is not changed at all: just the <code>Length</code> property of the instance.</p>
 <h2 id="a-demonstration-of-static">A demonstration of static</h2>
 <p>Consider this class.</p>
-<pre><code><code><div>class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-    public static int Counter = 0;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> Counter = <span class="hljs-number">0</span>;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>By declaring this class, we define a type called <code>MyClass</code>. Because <code>Counter</code> is static, we can access it from anywhere we can access MyClass. We do this with dot-notation:</p>
-<pre><code><code><div>class Program
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-  public void Main()
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
   {
-    Console.WriteLine(MyClass.Counter); // prints &quot;0&quot;
+    Console.WriteLine(MyClass.Counter); <span class="hljs-comment">// prints &quot;0&quot;</span>
 
-    MyClass.Counter = 6;
+    MyClass.Counter = <span class="hljs-number">6</span>;
 
-    Console.WriteLine(MyClass.Counter); // prints &quot;7&quot;
+    Console.WriteLine(MyClass.Counter); <span class="hljs-comment">// prints &quot;7&quot;</span>
 
   }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Because Counter is part of the type itself, you can't access it through an instance of the type.</p>
-<pre><code><code><div>class Program
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-  public void Main()
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
   {
-    var instance = new MyClass();
+    <span class="hljs-keyword">var</span> instance = <span class="hljs-keyword">new</span> MyClass();
 
-    Console.WriteLine(instance.Counter); // this will not compile
-    instance.Counter = 6; // this will also not compile
+    Console.WriteLine(instance.Counter); <span class="hljs-comment">// this will not compile</span>
+    instance.Counter = <span class="hljs-number">6</span>; <span class="hljs-comment">// this will also not compile</span>
 
-    Console.WriteLine(MyClass.Counter); // this will compile
-    MyClass.Counter = 6; // this will also compile
+    Console.WriteLine(MyClass.Counter); <span class="hljs-comment">// this will compile</span>
+    MyClass.Counter = <span class="hljs-number">6</span>; <span class="hljs-comment">// this will also compile</span>
   }
 }
-</div></code></code></pre>
+</div></code></pre>
 <h2 id="methods-and-classes-can-also-be-static">Methods and classes can also be static</h2>
 <p>So far, we've only seen <code>static</code> used on a variable (<code>Counter</code>).</p>
 <p>We can also define static methods:</p>
-<pre><code><code><div>class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-    public static int DoMathematics(int x, int y)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">DoMathematics</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y</span>)</span>
     {
-      return (x + 16 % 2) * (y - 11 + 2 * x);
+      <span class="hljs-keyword">return</span> (x + <span class="hljs-number">16</span> % <span class="hljs-number">2</span>) * (y - <span class="hljs-number">11</span> + <span class="hljs-number">2</span> * x);
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>You can only make a method static if it doesn't touch any instance data. Instance data basically means 'anything in a type that isn't static'.</p>
-<pre><code><code><div>class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-  public int Counter = 0;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> Counter = <span class="hljs-number">0</span>;
 
-  public static void IncreaseCounter()
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">IncreaseCounter</span>(<span class="hljs-params"></span>)</span>
   {
     Counter++;
   }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This example won't compile, because <code>IncreaseCounter</code> is static and <code>Counter</code> isn't.</p>
 <p>As a general rule, static parts of a class can only touch other static code. Static methods usually get data from their arguments.</p>
 <p>Non-static code can touch whatever it wants, so it's OK to call a static method from a non-static piece of code.</p>
 <p>You access static methods with dot-notation, like static variables.</p>
-<pre><code><code><div>class Program
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-  public void Main()
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"></span>)</span>
   {
     MyClass.ComplicatedStaticMethodThatDoesSomething();
   }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>An example of a class with lots of <code>static</code> methods is the built-in <code>Math</code> class.</p>
 <h2 id="static-classes">Static classes</h2>
 <p>You can declare an entire class as <code>static</code>.</p>

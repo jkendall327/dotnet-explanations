@@ -1,4 +1,4 @@
-# Dependency injection - [Home](index.md)
+# Dependency injection - [Home](../index.md)
 
 - [Dependency injection - Home](#dependency-injection---home)
 	- [In a nutshell](#in-a-nutshell)
@@ -9,22 +9,23 @@
 	- [The end-goal of dependency injection](#the-end-goal-of-dependency-injection)
 
 ## In a nutshell
+
 Dependency injection is when you ask for something in a class's constructor rather than creating it in the class itself.
 
-```
+```csharp
 public class MyClass
 {
-	private readonly HttpClient _client;
+ private readonly HttpClient _client;
 
-	public MyClass(HttpClient client)
-	{
-		_client = client;
-	}
+ public MyClass(HttpClient client)
+ {
+  _client = client;
+ }
 
-	public void MyFunction()
-	{
-		_client.DownloadAsync("www.example.com");
-	}
+ public void MyFunction()
+ {
+  _client.DownloadAsync("www.example.com");
+ }
 }
 ```
 
@@ -33,18 +34,20 @@ This is dependency injection. Rather than creating a HttpClient with the 'new' k
 If dependency injection ever feels complicated, remember that this is all it really is. Lots of tools and patterns have been created to make it powerful, but everything relies on just asking for something in a class's constructor.
 
 ## So what?
+
 There are several reasons why dependency injection is useful.
 
-* MyClass isn't cluttered with code for creating the HttpClient.
-* MyClass doesn't know where the HttpClient has come from. This is good, because it *shouldn't* know -- all MyClass should care about is that it has one.
-* You can see that MyClass requires an HttpClient by looking at its constructor. You won't be surprised by a sudden reference to one halfway through the file.
-* It's impossible to create an instance of `MyClass` without giving it a `HttpClient`. If MyClass created the client, it could do it wrong. If this wasn't in the constructor, you could forget to call it. 
+- MyClass isn't cluttered with code for creating the HttpClient.
+- MyClass doesn't know where the HttpClient has come from. This is good, because it *shouldn't* know -- all MyClass should care about is that it has one.
+- You can see that MyClass requires an HttpClient by looking at its constructor. You won't be surprised by a sudden reference to one halfway through the file.
+- It's impossible to create an instance of `MyClass` without giving it a `HttpClient`. If MyClass created the client, it could do it wrong. If this wasn't in the constructor, you could forget to call it.
 
 When a class asks for everything it needs to work (its 'dependencies') in the constructor, our code is simpler and more predictable.
 
 You know understand dependency injection. You can stop reading here if you like. The rest of the page explains ways to build on this pattern.
 
 ## Using interfaces with dependency injection
+
 Interfaces are not part of dependency injection. But they are two useful ideas that work well together, so it's very common to ask for an interface in a class's constructor, rather than a concrete class.
 
 This makes your code more flexible. When you use dependency injection, MyClass doesn't know where its HttpClient comes from. If we asked for an interface instead of a concrete class, MyClass also wouldn't know what specific class it was using.
@@ -54,45 +57,46 @@ We could then swap out what we give MyClass with anything else that implements t
 (Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)
 
 ## Dependency injection all the way up
+
 MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.
 
-```
+```csharp
 class MyOtherClass
 {
-	public void MyMethod()
-	{
-		// create what we need
-		var client = new HttpClient();
-		var myClass = new MyClass(client);
+ public void MyMethod()
+ {
+  // create what we need
+  var client = new HttpClient();
+  var myClass = new MyClass(client);
 
-		// actually do something
-		myClass.MyFunction();
-	}
+  // actually do something
+  myClass.MyFunction();
+ }
 }
 ```
 
 We have moved things up one level. MyClass doesn't create its HttpClient, but whatever bit of code that creates a MyClass has to create one instead.
 
-This might seem pointless. We have made MyClass easier to understand, at the cost of making the rest of our code busier. 
+This might seem pointless. We have made MyClass easier to understand, at the cost of making the rest of our code busier.
 
 It would be nice if we could take *all* the code where we create dependencies (like our HttpClient) and put it in one place. That way, it would at least be easier to think about.
 
 We can do this by repeating the process of dependency injection.
 
-```
+```csharp
 class MyOtherClass
 {
-	private HttpClient _client;
+ private HttpClient _client;
 
-	public MyOtherClass(HttpClient client)
-	{
-		_client = client;
-	}
+ public MyOtherClass(HttpClient client)
+ {
+  _client = client;
+ }
 
-	public void MyMethod()
-	{
-		var myClass = new MyClass(_client);
-	}
+ public void MyMethod()
+ {
+  var myClass = new MyClass(_client);
+ }
 }
 ```
 
@@ -100,14 +104,14 @@ We have moved things up one more level. Now whatever creates an instance of `MyO
 
 We can repeat this process over and over, until eventually we reach the highest level of our program (which is called the 'entry-point'). This is usually in your program's `Main()` method, or close to it.
 
-```
+```csharp
 class Program
 {
-	public static void Main(string[] args)
-	{
-		var client = new HttpClient();
-		var myOtherClass = new MyOtherClass(client);
-	}
+ public static void Main(string[] args)
+ {
+  var client = new HttpClient();
+  var myOtherClass = new MyOtherClass(client);
+ }
 }
 ```
 
@@ -115,58 +119,60 @@ Now all of our code for creating dependencies is in one place.
 
 Once you start thinking this way, you can make your classes a lot simpler. `MyOtherClass`, for instance, doesn't need to know about `HttpClient` at all.
 
-```
+```csharp
 class MyOtherClass
 {
-	private MyClass _service;
+ private MyClass _service;
 
-	public MyOtherClass(MyClass service)
-	{
-		_service = service;
-	}
+ public MyOtherClass(MyClass service)
+ {
+  _service = service;
+ }
 
-	public void MyMethod()
-	{
-		_service.MyFunction();
-	}
+ public void MyMethod()
+ {
+  _service.MyFunction();
+ }
 }
 ```
 
 `Main()` can create the instance of `MyClass`, get it ready, and then feed it into `MyOtherClass` whenever it likes.
 
 ## DI containers
+
 People have created tools to automate this process, called *DI containers*.
 
 A DI container sits at the start of your program, usually in `Main()`. You 'register' classes with the container, and it will automatically figure out which classes depend on each other. You then 'resolve' these dependencies to start using your classes and get the program running.
 
-```
+```csharp
 class Program
 {
-	public static void Main(string[] args)
-	{
-		// create a container
-		var container = new ExampleDIContainer();
+ public static void Main(string[] args)
+ {
+  // create a container
+  var container = new ExampleDIContainer();
 
-		// register our classes with it
-		container.Register<MyOtherClass>();
-		container.Register<MyClass>();
+  // register our classes with it
+  container.Register<MyOtherClass>();
+  container.Register<MyClass>();
 
-		// usually you can specify specific variables as things you want to be passed into classes that ask for things of that type
-		var client = new HttpClient();
-		container.Instance<HttpClient>(client);
+  // usually you can specify specific variables as things you want to be passed into classes that ask for things of that type
+  var client = new HttpClient();
+  container.Instance<HttpClient>(client);
 
-		// the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance
-		var otherClass = container.Resolve<MyOtherClass>();
+  // the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance
+  var otherClass = container.Resolve<MyOtherClass>();
 
-		// we can now use our classes as we like
-		otherClass.MyMethod();
-	}
+  // we can now use our classes as we like
+  otherClass.MyMethod();
+ }
 }
 ```
 
 The code here is just an example. Actual DI containers all do things in slightly different ways. But they all work off of the same principles.
 
 ## The end-goal of dependency injection
+
 The end-goal of dependency injection is to have a program where all of your classes ask for their dependencies in their constructor, and where all dependencies are created in one place at the start of the program.
 
 You no longer have a complicated web of classes that all depend on each other in confusing ways. Now your classes are more modular and lightweight.

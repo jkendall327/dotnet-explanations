@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Dependency injection - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Dependency injection - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="dependency-injection---home">Dependency injection - <a href="index.html">Home</a></h1>
+        <h1 id="dependency-injection---home">Dependency injection - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#dependency-injection---home">Dependency injection - Home</a>
 <ul>
@@ -38,21 +38,21 @@
 </ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>Dependency injection is when you ask for something in a class's constructor rather than creating it in the class itself.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-	private readonly HttpClient _client;
+ <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> HttpClient _client;
 
-	public MyClass(HttpClient client)
-	{
-		_client = client;
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyClass</span>(<span class="hljs-params">HttpClient client</span>)</span>
+ {
+  _client = client;
+ }
 
-	public void MyFunction()
-	{
-		_client.DownloadAsync(&quot;www.example.com&quot;);
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyFunction</span>(<span class="hljs-params"></span>)</span>
+ {
+  _client.DownloadAsync(<span class="hljs-string">&quot;www.example.com&quot;</span>);
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This is dependency injection. Rather than creating a HttpClient with the 'new' keyword, one is passed in through the constructor.</p>
 <p>If dependency injection ever feels complicated, remember that this is all it really is. Lots of tools and patterns have been created to make it powerful, but everything relies on just asking for something in a class's constructor.</p>
 <h2 id="so-what">So what?</h2>
@@ -72,93 +72,93 @@
 <p>(Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)</p>
 <h2 id="dependency-injection-all-the-way-up">Dependency injection all the way up</h2>
 <p>MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.</p>
-<pre><code><code><div>class MyOtherClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
 {
-	public void MyMethod()
-	{
-		// create what we need
-		var client = new HttpClient();
-		var myClass = new MyClass(client);
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"></span>)</span>
+ {
+  <span class="hljs-comment">// create what we need</span>
+  <span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> HttpClient();
+  <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass(client);
 
-		// actually do something
-		myClass.MyFunction();
-	}
+  <span class="hljs-comment">// actually do something</span>
+  myClass.MyFunction();
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>We have moved things up one level. MyClass doesn't create its HttpClient, but whatever bit of code that creates a MyClass has to create one instead.</p>
 <p>This might seem pointless. We have made MyClass easier to understand, at the cost of making the rest of our code busier.</p>
 <p>It would be nice if we could take <em>all</em> the code where we create dependencies (like our HttpClient) and put it in one place. That way, it would at least be easier to think about.</p>
 <p>We can do this by repeating the process of dependency injection.</p>
-<pre><code><code><div>class MyOtherClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
 {
-	private HttpClient _client;
+ <span class="hljs-keyword">private</span> HttpClient _client;
 
-	public MyOtherClass(HttpClient client)
-	{
-		_client = client;
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyOtherClass</span>(<span class="hljs-params">HttpClient client</span>)</span>
+ {
+  _client = client;
+ }
 
-	public void MyMethod()
-	{
-		var myClass = new MyClass(_client);
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"></span>)</span>
+ {
+  <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass(_client);
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>We have moved things up one more level. Now whatever creates an instance of <code>MyOtherClass</code> can deal with creating the <code>HttpClient</code>.</p>
 <p>We can repeat this process over and over, until eventually we reach the highest level of our program (which is called the 'entry-point'). This is usually in your program's <code>Main()</code> method, or close to it.</p>
-<pre><code><code><div>class Program
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-	public static void Main(string[] args)
-	{
-		var client = new HttpClient();
-		var myOtherClass = new MyOtherClass(client);
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+ {
+  <span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> HttpClient();
+  <span class="hljs-keyword">var</span> myOtherClass = <span class="hljs-keyword">new</span> MyOtherClass(client);
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Now all of our code for creating dependencies is in one place.</p>
 <p>Once you start thinking this way, you can make your classes a lot simpler. <code>MyOtherClass</code>, for instance, doesn't need to know about <code>HttpClient</code> at all.</p>
-<pre><code><code><div>class MyOtherClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>
 {
-	private MyClass _service;
+ <span class="hljs-keyword">private</span> MyClass _service;
 
-	public MyOtherClass(MyClass service)
-	{
-		_service = service;
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MyOtherClass</span>(<span class="hljs-params">MyClass service</span>)</span>
+ {
+  _service = service;
+ }
 
-	public void MyMethod()
-	{
-		_service.MyFunction();
-	}
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"></span>)</span>
+ {
+  _service.MyFunction();
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p><code>Main()</code> can create the instance of <code>MyClass</code>, get it ready, and then feed it into <code>MyOtherClass</code> whenever it likes.</p>
 <h2 id="di-containers">DI containers</h2>
 <p>People have created tools to automate this process, called <em>DI containers</em>.</p>
 <p>A DI container sits at the start of your program, usually in <code>Main()</code>. You 'register' classes with the container, and it will automatically figure out which classes depend on each other. You then 'resolve' these dependencies to start using your classes and get the program running.</p>
-<pre><code><code><div>class Program
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
 {
-	public static void Main(string[] args)
-	{
-		// create a container
-		var container = new ExampleDIContainer();
+ <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+ {
+  <span class="hljs-comment">// create a container</span>
+  <span class="hljs-keyword">var</span> container = <span class="hljs-keyword">new</span> ExampleDIContainer();
 
-		// register our classes with it
-		container.Register&lt;MyOtherClass&gt;();
-		container.Register&lt;MyClass&gt;();
+  <span class="hljs-comment">// register our classes with it</span>
+  container.Register&lt;MyOtherClass&gt;();
+  container.Register&lt;MyClass&gt;();
 
-		// usually you can specify specific variables as things you want to be passed into classes that ask for things of that type
-		var client = new HttpClient();
-		container.Instance&lt;HttpClient&gt;(client);
+  <span class="hljs-comment">// usually you can specify specific variables as things you want to be passed into classes that ask for things of that type</span>
+  <span class="hljs-keyword">var</span> client = <span class="hljs-keyword">new</span> HttpClient();
+  container.Instance&lt;HttpClient&gt;(client);
 
-		// the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance
-		var otherClass = container.Resolve&lt;MyOtherClass&gt;();
+  <span class="hljs-comment">// the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance</span>
+  <span class="hljs-keyword">var</span> otherClass = container.Resolve&lt;MyOtherClass&gt;();
 
-		// we can now use our classes as we like
-		otherClass.MyMethod();
-	}
+  <span class="hljs-comment">// we can now use our classes as we like</span>
+  otherClass.MyMethod();
+ }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>The code here is just an example. Actual DI containers all do things in slightly different ways. But they all work off of the same principles.</p>
 <h2 id="the-end-goal-of-dependency-injection">The end-goal of dependency injection</h2>
 <p>The end-goal of dependency injection is to have a program where all of your classes ask for their dependencies in their constructor, and where all dependencies are created in one place at the start of the program.</p>

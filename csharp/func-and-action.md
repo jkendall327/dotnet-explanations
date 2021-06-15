@@ -1,4 +1,4 @@
-# Func<> and Action<> - [Home](index.md)
+# Func<> and Action<> - [Home](../index.md)
 
 - [Func<> and Action<> - Home](#func-and-action---home)
   - [In a nutshell](#in-a-nutshell)
@@ -10,7 +10,7 @@
 ## In a nutshell
 
 `Func<>` and `Action<>` are convenient shortcuts for common [delegates](delegates.md) use-cases.
-`Func<>` is for methods that return a value. `Action<>` is for methods that return void. 
+`Func<>` is for methods that return a value. `Action<>` is for methods that return void.
 
 ## The problem that `Func<>` and `Action<>` solve
 
@@ -18,7 +18,7 @@ Delegates are a very powerful tool that let us put methods into variables and pa
 
 The issue is that the syntax for delegates is quite heavy:
 
-```
+```csharp
 delegate void MyDelegate(string message);
 
 public class MyClass
@@ -37,18 +37,20 @@ public class MyClass
 ```
 
 For this very simple example, we have to
-* Define the method signatures the delegate accepts. (The `delegate void MyDelegate...` line)
-* Create an instance of the delegate.
-* Assign a method to the delegate. 
-* Invoke the delegate.
 
-`Func<>` and `Action<>` remove the first step by pre-defining a method signature for us. 
+- Define the method signatures the delegate accepts. (The `delegate void MyDelegate...` line)
+- Create an instance of the delegate.
+- Assign a method to the delegate.
+- Invoke the delegate.
+
+`Func<>` and `Action<>` remove the first step by pre-defining a method signature for us.
 
 ## Action<>
+
 `Action<string>` is the same as `delegate void DelegateName(string argumentName)`.
 Because `WriteMessage` returns `void`, we use `Action<>` rather than `Func<>`.
 
-```
+```csharp
 public class MyClass
 {
    public void UseADelegate()
@@ -66,7 +68,7 @@ public class MyClass
 
 If you need more than one parameter, you just write them between the angle brackets.
 
-```
+```csharp
 public class MyClass
 {
    public void UseADelegate()
@@ -87,9 +89,10 @@ public class MyClass
 You can [go up to sixteen arguments](https://docs.microsoft.com/en-us/dotnet/api/system.action-16?view=net-5.0) this way. (But if you ever get that high, you should probably do things differently.)
 
 ## Func<>
+
 `Func<>` is like `Action<>` for methods that return a value. The final generic argument is the result.
 
-```
+```csharp
 public class MyClass
 {
    public void UseADelegate()

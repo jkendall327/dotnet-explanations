@@ -1,4 +1,4 @@
-# Generics - [Home](index.md)
+# Generics - [Home](../index.md)
 
 - [Generics - Home](#generics---home)
   - [In a nutshell](#in-a-nutshell)
@@ -13,7 +13,7 @@ You can also use generics to make classes that 'wrap' other classes, like `List<
 
 Generics mostly exist so you don't have to write duplicate code. Imagine seeing these functions in a file:
 
-```
+```csharp
 public int Add(int x, int y)
 {
     return x + y;
@@ -34,7 +34,7 @@ Something is clearly wrong here. The actual logic of these functions is all the 
 
 We can write a generic function to simplify this:
 
-```
+```csharp
 public T Add<T>(T x, T y)
 {
     return x + y;

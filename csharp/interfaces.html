@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Interfaces - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Interfaces - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="interfaces---home">Interfaces - <a href="index.html">Home</a></h1>
+        <h1 id="interfaces---home">Interfaces - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#interfaces---home">Interfaces - Home</a>
 <ul>
@@ -42,42 +42,42 @@
 <p>Interfaces let you say what you want your code to do without specifying how it does it.</p>
 <h2 id="the-problem">The problem</h2>
 <p>Imagine a program that lets people register accounts and edit their username.</p>
-<pre><code><code><div>public void ChangeUsername(int userID, string newName)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
-    var user = new UserDetailsDatabaseLoader.Load(id);
+    <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> UserDetailsDatabaseLoader.Load(id);
     user.Name = newName;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>We use <code>DatabaseLoader</code>, which we've made elsewhere in our program, to get the user's details from a database. How <code>DatabaseLoader</code> works doesn't matter. What matters is that it's a 'service': it does something useful for us.</p>
 <p>Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to do two things:</p>
 <ul>
 <li>Create a new service that gets the information you want from the filesystem.</li>
 <li>Change every part of your program that used the <code>DatabaseLoader</code> to now use a <code>FilesystemLoader</code>.</li>
 </ul>
-<pre><code><code><div>public void ChangeUsername(int userID, string newName)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
-    var user = new FilesystemLoader.Load(id);
+    <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> FilesystemLoader.Load(id);
     user.Name = newName;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Changing your program like this isn't too annoying when you only have to change one line. But imagine that this is a real project, and you end up having to move lots of code over to the new <code>FilesystemLoader</code>. Now imagine that instead of the filesystem, you realise you need to get user information from <a href="https://en.wikipedia.org/wiki/Homing_pigeon">carrier pigeons</a> instead.</p>
-<pre><code><code><div>public void ChangeUsername(int userID, string newName)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
-    var user = CarrierPigeonLoader.Load(id);
+    <span class="hljs-keyword">var</span> user = CarrierPigeonLoader.Load(id);
     user.Name = newName;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>All of these <code>Loader</code> classes have done the same thing - get user information. They did this in different ways, but in our <code>ChangeUsername</code> method, we don't care about how the service got the information - we just want the information. We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon).
 If we can do this, it means we won't need to update <code>ChangeUsername</code> in the future if we come up with another way of completing this task.</p>
 <p>This is what interfaces do.</p>
 <h2 id="what-is-an-interface">What is an interface?</h2>
 <p>An interface is a list of method signatures. Read the explanation on <a href="delegates.html">delegates</a> for an explanation of method signatures.</p>
 <p>Here is an interface with one method signature, named <code>Load</code>.</p>
-<pre><code><code><div>interface ILoader
+<pre><code class="language-csharp"><div><span class="hljs-keyword">interface</span> <span class="hljs-title">ILoader</span>
 {
-    public User Load(int id);
+    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">Load</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> id</span>)</span>;
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>An interface looks similar to a class, with three differences:</p>
 <ul>
 <li>You use the <code>interface</code> keyword.</li>
@@ -87,15 +87,15 @@ If we can do this, it means we won't need to update <code>ChangeUsername</code> 
 <h2 id="implementing-an-interface">Implementing an interface</h2>
 <p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes -- not something concrete you can actually use. You can't use the <code>new</code> keyword to create an instance of an interface, for instance.</p>
 <p>Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.</p>
-<pre><code><code><div>class CarrierPigeonLoader : ILoader
+<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">CarrierPigeonLoader</span> : <span class="hljs-title">ILoader</span>
 {
-    // Without this method, your program will no longer compile.
-    public User Load(int id)
+    <span class="hljs-comment">// Without this method, your program will no longer compile.</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">Load</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> id</span>)</span>
     {
-        // catch the bird, read the message on its leg...
+        <span class="hljs-comment">// catch the bird, read the message on its leg...</span>
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p><code>ILoader</code> defines a method called 'Load' that takes an <code>int</code> and returns a <code>User</code>.
 Because <code>CarrierPigeonLoader</code> implements <code>ILoader</code>, it has to have a method that matches that signature.</p>
 <h2 id="fixing-the-original-problem">Fixing the original problem</h2>

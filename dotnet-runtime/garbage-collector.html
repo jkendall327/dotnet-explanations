@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>The garbage collector - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>The garbage collector - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="the-garbage-collector---home">The garbage collector - <a href="index.html">Home</a></h1>
+        <h1 id="the-garbage-collector---home">The garbage collector - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#the-garbage-collector---home">The garbage collector - Home</a>
 <ul>
@@ -50,11 +50,11 @@
 <h2 id="the-garbage-collector-in-action">The garbage collector in action</h2>
 <p>You almost never have to think about the garbage collector when you're writing a program. You should only think about it if performance is very important or in a few specific scenarios (like <a href="https://docs.microsoft.com/en-us/dotnet/framework/performance/performance-tips">concatenating strings</a>).</p>
 <p>You can think of the <code>new</code> keyword as invoking the garbage collector.</p>
-<pre><code><code><div>public void MakeSomeObjects()
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MakeSomeObjects</span>(<span class="hljs-params"></span>)</span>
 {
-    var sb = new StringBuilder();
+    <span class="hljs-keyword">var</span> sb = <span class="hljs-keyword">new</span> StringBuilder();
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>The <code>new</code> keyword tells the garbage collector (or more accurately, the .NET runtime) to ask the operating system for enough memory to hold a <code>StringBuilder</code>.</p>
 <p>When it decides your program needs to give some memory back, the garbage collector will look through all the objects in your program. If there any objects that it can safely get rid of, it will deallocate that object's memory and give it back to the operating system.</p>
 <p>What does 'safely get rid of' mean? <a href="https://stackoverflow.com/questions/2257563/what-are-the-generations-in-garbage-collection">It's complicated</a>, but essentially the garbage collector will check if any part of your program is currently using that object, or <em>could</em> use that object. It builds a big graph of all the objects in your program, and if any are left on their own, they can be safely removed.</p>

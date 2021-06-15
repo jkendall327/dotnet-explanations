@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Properties &sol; getter-setters - &lsqb;Home&rsqb;&lpar;index&period;md&rpar;</title>
+        <title>Properties &sol; getter-setters - &lsqb;Home&rsqb;&lpar;&period;&period;&sol;index&period;md&rpar;</title>
         <style>
 </style>
         
@@ -23,7 +23,7 @@
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="properties--getter-setters---home">Properties / getter-setters - <a href="index.html">Home</a></h1>
+        <h1 id="properties--getter-setters---home">Properties / getter-setters - <a href="../index.html">Home</a></h1>
 <ul>
 <li><a href="#properties--getter-setters---home">Properties / getter-setters - Home</a>
 <ul>
@@ -47,47 +47,47 @@
 <p>(Advanced note: there are several other visibility modifiers in C#, like <code>internal</code> and <code>protected</code>. They all just extend the basic idea of public/private.)</p>
 <p><code>Public</code> and <code>private</code> are good, but limiting. If another part of the program can read a <code>public</code> field, it can also set it to a nonsense value. This is a common source of bugs.</p>
 <p>We need a way to separate <em>reading</em> a piece of information from <em>editing</em> it. We can do this with methods.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-    private string importantInformation;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> importantInformation;
 
-    public string GetImportantInformation
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> GetImportantInformation
     {
-        return importantInformation;
+        <span class="hljs-keyword">return</span> importantInformation;
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Other parts of the program can now see what <code>importantInformation</code> is, but they can't edit it. Only <code>MyClass</code> can.</p>
 <p>We can also use methods to control how a field gets changed.</p>
-<pre><code><code><div>public class MyClass
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>
 {
-    private string importantInformation;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> importantInformation;
 
-    public void SetImportantInformation(string newInformation)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">SetImportantInformation</span>(<span class="hljs-params"><span class="hljs-keyword">string</span> newInformation</span>)</span>
     {
-        if (string.IsNullOrEmpty(newInformation))
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">string</span>.IsNullOrEmpty(newInformation))
         {
-            return;
+            <span class="hljs-keyword">return</span>;
         }
-        else
+        <span class="hljs-keyword">else</span>
         {
             importantInformation = newInformation;
         }
     }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>Other parts of the program can now edit <code>importantInformation</code>. Our new method, however, stops nonsense values like a <code>null</code> string getting passed in.</p>
 <p>You now understand the idea behind properties in C#. Everything else is just convenient syntax for making these kinds of methods.</p>
 <h2 id="convenient-syntax">Convenient syntax</h2>
 <p>If you open up Visual Studio, type the word <code>propfull</code> and then hit the tab key twice, VS will write this chunk of code for you:</p>
-<pre><code><code><div>private string importantInformation;
+<pre><code class="language-csharp"><div><span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> importantInformation;
 
-public string ImportantInformation
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> ImportantInformation
 {
-    get { return importantInformation; }
-    set { importantInformation = value; }
+    <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> importantInformation; }
+    <span class="hljs-keyword">set</span> { importantInformation = <span class="hljs-keyword">value</span>; }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This should look similar to the examples above. We have a private field, <code>importantInformation</code>, and a public <em>property</em> beneath which controls access to it.</p>
 <h3 id="explaining-the-syntax">Explaining the syntax</h3>
 <p>When the compiler sees the above example, it simply replaces it with two normal methods, called <code>get</code> and <code>set</code>. That's all properties are -- methods.</p>
@@ -96,20 +96,20 @@ public string ImportantInformation
 <h3 id="a-common-bug">A common bug</h3>
 <p>Note that <code>importantInformation</code> and <code>ImportantInformation</code> aren't the same. It's convention to use lowercase for the field, and pascalcase for the property.</p>
 <p>If you mix up the names of the field and the property, you can cause serious bugs. The most common is to use the name of the property in the property itself.</p>
-<pre><code><code><div>private string importantInformation;
+<pre><code class="language-csharp"><div><span class="hljs-keyword">private</span> <span class="hljs-keyword">string</span> importantInformation;
 
-public string ImportantInformation
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> ImportantInformation
 {
-    get { return ImportantInformation; }
-    set { ImportantInformation = value; }
+    <span class="hljs-keyword">get</span> { <span class="hljs-keyword">return</span> ImportantInformation; }
+    <span class="hljs-keyword">set</span> { ImportantInformation = <span class="hljs-keyword">value</span>; }
 }
-</div></code></code></pre>
+</div></code></pre>
 <p>This will crash your program whenever anything tries to access <code>ImportantInformation</code>. Because the <code>set</code> method refers to the property itself, the program will get stuck in an endless loop. You will quickly run out of memory and crash without even a stacktrace.</p>
 <h3 id="an-even-more-convenient-syntax">An even more convenient syntax</h3>
 <p>You might have noticed that in the examples above, we don't actually do anything interesting to keep the field safe. We don't have any validation checks.</p>
 <p>If this is the case, there's actually an even simpler syntax for writing a property.</p>
-<pre><code><code><div>public string ImportantInformation { get; set;}
-</div></code></code></pre>
+<pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> ImportantInformation { <span class="hljs-keyword">get</span>; <span class="hljs-keyword">set</span>;}
+</div></code></pre>
 <p>This is equivalent to the above examples.</p>
 
     </body>
