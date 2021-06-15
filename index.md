@@ -10,27 +10,27 @@ This page isn't a programming tutorial, so I won't explain fundamental concepts 
 
 * C#
   * [Interfaces](csharp/interfaces.md)
-  * [Generics](csharp/generics.md) (incomplete!)
-  * [The 'static' keyword](csharp/static.md)
+  * [Generics](csharp/generics.md) [incomplete]
+  * [The 'static' keyword](csharp/static.md) [99% complete]
   * [Delegates](csharp/delegates.md)
   * [Func<> and Action<>](csharp/func-and-action.md)
   * Lambdas
   * [Events](csharp/events.md)
-  * [Async/await](csharp/async-await.md)
+  * [Async/await](csharp/async-await.md) [99% complete]
   * [Properties](csharp/properties.md)
   * [LINQ](csharp/linq.md)
 * .NET project types
-  * [Desktop](project-types/desktop-project-types.md)
-  * [Web](project-types/web-project-types.md)
+  * [Desktop](project-types/desktop-project-types.md) [incomplete]
+  * [Web](project-types/web-project-types.md) [incomplete]
 * The .NET runtime
-  * [How your source code turns into a program](dotnet-runtime/source-to-execution.md)
+  * [How your source code turns into a program](dotnet-runtime/source-to-execution.md) [incomplete]
   * [Reference types and value types](dotnet-runtime/reference-types-and-value-types.md)
   * [The garbage collector](dotnet-runtime/garbage-collector.md)
 * The developer experience
   * MSBuild
-  * [A tour of Visual Studio](developer-experience/vs-tour.md)
+  * [A tour of Visual Studio](developer-experience/vs-tour.md) [incomplete]
 * .NET as a concept
-  * [The difference between .NET Framework, .NET Core, .NET 5/6](general-dotnet/dotnet-versions.md)
+  * [The difference between .NET Framework, .NET Core, .NET 5/6](general-dotnet/dotnet-versions.md) [incomplete]
   * The history of .NET
 * Common .NET programming patterns
   * [Logging](common-patterns/logging.md)
