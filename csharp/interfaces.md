@@ -79,7 +79,7 @@ An interface looks similar to a class, with three differences:
 
 ## Implementing an interface
 
-By themselves, interfaces don't do anything. Interfaces are not 'real' classes -- not something concrete you can actually use. You can't use the `new` keyword to create an instance of an interface, for instance.
+By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you can actually use. You can't use the `new` keyword to create an instance of an interface, for instance.
 
 Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.
 

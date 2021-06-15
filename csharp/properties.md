@@ -82,7 +82,7 @@ This should look similar to the examples above. We have a private field, `import
 
 ### Explaining the syntax
 
-When the compiler sees the above example, it simply replaces it with two normal methods, called `get` and `set`. That's all properties are -- methods.
+When the compiler sees the above example, it simply replaces it with two normal methods, called `get` and `set`. That's all properties are — methods.
 
 The `value` keyword is unique to properties. It's whatever your field is going to be set to. You can do validation checks on it, for example,
 

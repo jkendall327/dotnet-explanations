@@ -25,7 +25,7 @@ Think about a `List<int>`:
 var myList = new List<int>() {4, 6, 1, 10, 11};
 ```
 
-Using a `List<>` lets you group several values together into one variable. This lets you do things to all of them at once -- with a `List<int>`, you can `Sum()` the list with a single command.
+Using a `List<>` lets you group several values together into one variable. This lets you do things to all of them at once — with a `List<int>`, you can `Sum()` the list with a single command.
 
 An important thing about a `List<int>` is that you can only put `ints` in it. If you put in a `double` or a `string`, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.
 
@@ -209,7 +209,7 @@ The reason for this split is historical. When you use the `delegate` keyword, it
 
 When you first learn about them, it's hard to imagine where delegates would be useful.
 
-You won't create many delegates yourself. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, `Action<>` and `Func<>`. Learning about those topics will  make delegates easier to understand in retrospect.
+You won't create many delegates yourself. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, `Action<>` and `Func<>`. Learning about those topics will make delegates easier to understand in retrospect.
 
 More broadly, delegates are the basis of functional programming in C#. This page isn't the place to explain functional programming, but just know that it's an important topic.
 

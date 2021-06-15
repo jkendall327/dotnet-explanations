@@ -91,7 +91,7 @@
 </div></code></pre>
 <p>This should look similar to the examples above. We have a private field, <code>importantInformation</code>, and a public <em>property</em> beneath which controls access to it.</p>
 <h3 id="explaining-the-syntax">Explaining the syntax</h3>
-<p>When the compiler sees the above example, it simply replaces it with two normal methods, called <code>get</code> and <code>set</code>. That's all properties are -- methods.</p>
+<p>When the compiler sees the above example, it simply replaces it with two normal methods, called <code>get</code> and <code>set</code>. That's all properties are — methods.</p>
 <p>The <code>value</code> keyword is unique to properties. It's whatever your field is going to be set to. You can do validation checks on it, for example,</p>
 <p><code>if (string.IsNullOrEmpty(value)) { ... }</code></p>
 <h3 id="a-common-bug">A common bug</h3>

@@ -25,7 +25,7 @@ We could simply add a line of code in the counter that checks if it's at ten, th
 But imagine we also want to save the current count to a file every time it's a prime number.
 And that we want to shut down the user's PC when the count hits one hundred.
 
-We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do -- count.
+We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do — count.
 
 A better model would be if our counter could 'send out' messages describing what its current count was. Then other parts of the program could do whatever they liked with that information, and it wouldn't affect the counter. It wouldn't even have to know who's listening to its messages. Think of it like a radio-tower sending out music to radios.
 
@@ -54,7 +54,7 @@ With delegates it is easy to break encapsulation and crash your program.
             {
                 var myClass = new MyClass();
 
-                // fill the delegate with 'subscribers' -- so far, so good
+                // fill the delegate with 'subscribers' — so far, so good
                 // i can't be bothered writing multiple fake methods, so we'll just use the same one three times
                 myClass.ListOfMethods += WriteMessage;
                 myClass.ListOfMethods += WriteMessage;
@@ -116,8 +116,8 @@ Here is the previous example rewritten to use events.
                 myClass.MyEvent += WriteMessage; // this is fine
                 myClass.MyEvent += WriteMessage; // this is fine
 
-                myClass.MyEvent(); // this breaks -- can't invoke an event from another class
-                myClass.MyEvent = null; // this breaks -- can't set the value of an event from another class
+                myClass.MyEvent(); // this breaks — can't invoke an event from another class
+                myClass.MyEvent = null; // this breaks — can't set the value of an event from another class
             }
 
             private void WriteMessage()

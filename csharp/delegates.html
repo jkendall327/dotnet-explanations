@@ -47,7 +47,7 @@
 <p>Think about a <code>List&lt;int&gt;</code>:</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">var</span> myList = <span class="hljs-keyword">new</span> List&lt;<span class="hljs-keyword">int</span>&gt;() {<span class="hljs-number">4</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">10</span>, <span class="hljs-number">11</span>};
 </div></code></pre>
-<p>Using a <code>List&lt;&gt;</code> lets you group several values together into one variable. This lets you do things to all of them at once -- with a <code>List&lt;int&gt;</code>, you can <code>Sum()</code> the list with a single command.</p>
+<p>Using a <code>List&lt;&gt;</code> lets you group several values together into one variable. This lets you do things to all of them at once — with a <code>List&lt;int&gt;</code>, you can <code>Sum()</code> the list with a single command.</p>
 <p>An important thing about a <code>List&lt;int&gt;</code> is that you can only put <code>ints</code> in it. If you put in a <code>double</code> or a <code>string</code>, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.</p>
 <p>A delegate is like a <code>List&lt;&gt;</code> for methods.</p>
 <p>With a delegate, you can group methods into one variable. This lets you do things with all of them at once.</p>
@@ -172,7 +172,7 @@ The reason it's called 'multicast' is because when you add a delegate to one, it
 The reason for this split is historical. When you use the <code>delegate</code> keyword, it will always be the <code>MulticastDelegate</code>.</p>
 <h2 id="why-care-about-delegates">Why care about delegates?</h2>
 <p>When you first learn about them, it's hard to imagine where delegates would be useful.</p>
-<p>You won't create many delegates yourself. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, <code>Action&lt;&gt;</code> and <code>Func&lt;&gt;</code>. Learning about those topics will  make delegates easier to understand in retrospect.</p>
+<p>You won't create many delegates yourself. Microsoft has created convenient shortcuts for the most common use-cases, like lambda expressions, events, <code>Action&lt;&gt;</code> and <code>Func&lt;&gt;</code>. Learning about those topics will make delegates easier to understand in retrospect.</p>
 <p>More broadly, delegates are the basis of functional programming in C#. This page isn't the place to explain functional programming, but just know that it's an important topic.</p>
 <h2 id="further-learning">Further learning</h2>
 <p>The best explanation of delegates is <a href="https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54">Jamie King's YouTube playlist</a>. You should watch this entire playlist.</p>

@@ -60,7 +60,7 @@
 <p>There are several reasons why dependency injection is useful.</p>
 <ul>
 <li>MyClass isn't cluttered with code for creating the HttpClient.</li>
-<li>MyClass doesn't know where the HttpClient has come from. This is good, because it <em>shouldn't</em> know -- all MyClass should care about is that it has one.</li>
+<li>MyClass doesn't know where the HttpClient has come from. This is good, because it <em>shouldn't</em> know — all MyClass should care about is that it has one.</li>
 <li>You can see that MyClass requires an HttpClient by looking at its constructor. You won't be surprised by a sudden reference to one halfway through the file.</li>
 <li>It's impossible to create an instance of <code>MyClass</code> without giving it a <code>HttpClient</code>. If MyClass created the client, it could do it wrong. If this wasn't in the constructor, you could forget to call it.</li>
 </ul>

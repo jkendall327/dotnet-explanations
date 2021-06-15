@@ -86,7 +86,7 @@ If we can do this, it means we won't need to update <code>ChangeUsername</code> 
 </ul>
 <p>(Advanced note: you can actually define <a href="https://www.infoq.com/articles/default-interface-methods-cs8/">interface method bodies</a> from C# 8.0 onwards. You should not do this until you understand why the feature is available.)</p>
 <h2 id="implementing-an-interface">Implementing an interface</h2>
-<p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes -- not something concrete you can actually use. You can't use the <code>new</code> keyword to create an instance of an interface, for instance.</p>
+<p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you can actually use. You can't use the <code>new</code> keyword to create an instance of an interface, for instance.</p>
 <p>Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">CarrierPigeonLoader</span> : <span class="hljs-title">ILoader</span>
 {

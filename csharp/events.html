@@ -50,7 +50,7 @@
 <p>We could simply add a line of code in the counter that checks if it's at ten, then print the message.
 But imagine we also want to save the current count to a file every time it's a prime number.
 And that we want to shut down the user's PC when the count hits one hundred.</p>
-<p>We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do -- count.</p>
+<p>We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do — count.</p>
 <p>A better model would be if our counter could 'send out' messages describing what its current count was. Then other parts of the program could do whatever they liked with that information, and it wouldn't affect the counter. It wouldn't even have to know who's listening to its messages. Think of it like a radio-tower sending out music to radios.</p>
 <p>This is called the observer pattern, or the publisher-subscriber pattern.</p>
 <p>You can implement this pattern with delegates. But they aren't the best choice for it in C#.</p>
@@ -72,7 +72,7 @@ And that we want to shut down the user's PC when the count hits one hundred.</p>
             {
                 <span class="hljs-keyword">var</span> myClass = <span class="hljs-keyword">new</span> MyClass();
 
-                <span class="hljs-comment">// fill the delegate with &#x27;subscribers&#x27; -- so far, so good</span>
+                <span class="hljs-comment">// fill the delegate with &#x27;subscribers&#x27; — so far, so good</span>
                 <span class="hljs-comment">// i can&#x27;t be bothered writing multiple fake methods, so we&#x27;ll just use the same one three times</span>
                 myClass.ListOfMethods += WriteMessage;
                 myClass.ListOfMethods += WriteMessage;
@@ -128,8 +128,8 @@ We also shouldn't be able to invoke the delegate whenever we want, either.</p>
                 myClass.MyEvent += WriteMessage; <span class="hljs-comment">// this is fine</span>
                 myClass.MyEvent += WriteMessage; <span class="hljs-comment">// this is fine</span>
 
-                myClass.MyEvent(); <span class="hljs-comment">// this breaks -- can&#x27;t invoke an event from another class</span>
-                myClass.MyEvent = <span class="hljs-literal">null</span>; <span class="hljs-comment">// this breaks -- can&#x27;t set the value of an event from another class</span>
+                myClass.MyEvent(); <span class="hljs-comment">// this breaks — can&#x27;t invoke an event from another class</span>
+                myClass.MyEvent = <span class="hljs-literal">null</span>; <span class="hljs-comment">// this breaks — can&#x27;t set the value of an event from another class</span>
             }
 
             <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">WriteMessage</span>(<span class="hljs-params"></span>)</span>

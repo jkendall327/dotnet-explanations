@@ -1,8 +1,8 @@
 # Simple explanations for .NET concepts
 
-This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone who was in the same position as me -- interested in .NET as a general concept but confused by unfamiliar names, project types and terminology.
+This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone who was in the same position as me — interested in .NET as a general concept but confused by unfamiliar names, project types and terminology.
 
-My goal is to give you the 'eureka moment' needed to appreciate more detailed resources, like the [MSDN](https://docs.microsoft.com/en-us/dotnet/) or a [Manning Press](https://www.manning.com/) book. I try to write as directly and clearly as possible. If you read a page and think 'well, that's pretty simple, why did he feel the need to explain that?' -- I'm happy.
+My goal is to give you the 'eureka moment' needed to appreciate more detailed resources, like the [MSDN](https://docs.microsoft.com/en-us/dotnet/) or a [Manning Press](https://www.manning.com/) book. I try to write as directly and clearly as possible. If you read a page and think 'well, that's pretty simple, why did he feel the need to explain that?' — I'm happy.
 
 This page isn't a programming tutorial, so I won't explain fundamental concepts like variables or for-loops.
 

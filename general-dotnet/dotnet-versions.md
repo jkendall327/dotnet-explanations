@@ -18,17 +18,17 @@ This page describes the different versions of .NET. It doesn't explain what .NET
 
 .NET began in the late 1990s as Microsoft's response to Java.
 
-Rather than just releasing their version of Java as a product, they decide to make it a *standard*. A standard is just a description of what a system 'should' look like -- not a concrete implementation of it you can actually use. You can find some of [the .NET standards here](https://www.mono-project.com/docs/about-mono/languages/ecma/).
+Rather than just releasing their version of Java as a product, they decide to make it a *standard*. A standard is just a description of what a system 'should' look like — not a concrete implementation of it you can actually use. You can find some of [the .NET standards here](https://www.mono-project.com/docs/about-mono/languages/ecma/).
 
 The first implementation of the .NET specification was .NET Framework. Its key characteristics were that it was closed-source and Windows-only.
 
 .NET Core was the second implementation, released in 2016. It was open-source from the start and cross-platform.
 
-In the meantime, there was also the [Mono project](https://www.mono-project.com/), which reimplemented .NET framework in an open-source way. This was the entire point of making .NET a *standard* -- anyone could come along and make their own implementation of it. .NET Core took a lot of influence from Mono.
+In the meantime, there was also the [Mono project](https://www.mono-project.com/), which reimplemented .NET framework in an open-source way. This was the entire point of making .NET a *standard* — anyone could come along and make their own implementation of it. .NET Core took a lot of influence from Mono.
 
 .NET Core is very similar to .NET Framework in most ways. However, there are some differences.
 
-This matters mostly in terms of [Nuget packages](https://www.nuget.org/) -- little add-on libraries you can download to use in your projects. A Nuget package made for .NET Framework wouldn't be guaranteed to work on .NET Core.
+This matters mostly in terms of [Nuget packages](https://www.nuget.org/) — little add-on libraries you can download to use in your projects. A Nuget package made for .NET Framework wouldn't be guaranteed to work on .NET Core.
 
 In response, Microsoft created the very confusingly-named .NET Standard. This was a set of libraries that all official (i.e. made by Microsoft) implementations of .NET would be guaranteed to have. So if your Nuget package targeted .NET Standard, you'd know it would work pretty much anywhere.
 
