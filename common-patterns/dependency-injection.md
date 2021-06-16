@@ -55,7 +55,7 @@ This makes your code more flexible. When you use dependency injection, MyClass d
 
 We could then swap out what we give MyClass with anything else that implements the interface. MyClass wouldn't know the difference.
 
-(Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)
+> 💡 This is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.
 
 ## Dependency injection all the way up
 

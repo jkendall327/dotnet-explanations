@@ -59,7 +59,7 @@ In some languages, like C++, you can treat any variable as a value or a referenc
 
 In C#, you can't. This decision is already made for you in the type itself. An `int` will always be a value type. A `StringBuilder` will always be a reference type.
 
-(Advanced note: there are ways to 'box' a value type so it becomes a reference type, like with [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types). But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.)
+> ⚠️ There are ways to 'box' a value type so it becomes a reference type, like with [nullable value types](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types). But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.
 
 As a rough guide, the following things are value types:
 

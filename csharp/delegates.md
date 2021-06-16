@@ -67,7 +67,7 @@ The *arguments* are the variables the method asks for. More specifically, we onl
 
 The return type is what the method gives back. In this case, it's also an `int`. But it could be `void`, or anything else.
 
-(Advanced note: the CLR can differentiate methods based on just their return type, but C# chooses not to support this.)
+> 💡 The [CLR](../dotnet-runtime/source-to-execution.md) can differentiate methods based on just their return type, but C# chooses not to support this.
 
 If we want to add `AddThenSquare` to a delegate, we need a delegate that says 'I will take in any method that accepts two `int`s and gives back one `int`'.
 
@@ -110,7 +110,7 @@ This class has a method, a delegate, and another method which uses them both.
 
 `var myDelegate = new ExampleDelegate(AddThenSquare);` creates an *instance* of the delegate we defined.
 
-(Advanced note: we could actually define our delegate outside of `MyExampleClass`. This is because behind the scenes, all delegates are actually classes.)
+> ⚠️ We could actually define our delegate outside of `MyExampleClass`. This is because behind the scenes, all delegates are actually classes.
 
 `myDelegate` now contains `AddThenSquare`. Because delegates are like `List<>`s, we can add multiple methods to it.
 
@@ -141,7 +141,7 @@ class MyExampleClass
 
 `myDelegate` now contains both methods. You can remove a method from a delegate by using `-=`.
 
-(Advanced note: the `+=` syntax is shorthand for the [Delegate.Combine](https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0) method.)
+> 💡 The `+=` syntax is shorthand for the [Delegate.Combine](https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0) method.
 
 ## Actually using a delegate
 
@@ -170,7 +170,7 @@ People care about delegates because they let us treat methods like variables. Mo
 
 This method does something with a delegate, without any knowledge of what methods the delegate actually contains.
 
-(Advanced note: in fact, the delegate might be `null` and not contain any methods at all. If so, calling `Invoke` will crash the program.)
+> ⚠️ In fact, the delegate might be `null` and not contain any methods at all. If so, calling `Invoke` will crash the program.
 
 Delegates let us write *methods about methods*.
 

@@ -29,7 +29,7 @@ Async/await is a convenient syntax for letting your program jump out of a method
         }
 ```
 
-(Advanced note: you shouldn't use `HttpClient` like this. This is just an example.)
+> ⚠️ You shouldn't use `HttpClient` like this. This is just an example.
 
 ## Warning
 
@@ -99,7 +99,7 @@ You should have several questions.
 
 The only thing the async keyword does is let you use the `await` keyword inside that method. If you use an `await` statement in a method that isn't `async`, your program won't compile.
 
-(Advanced note: `async` also tells the compiler to generate a state-machine for your method. But without any `await` statements you won't notice any difference.)
+> ⚠️ `async` also tells the compiler to generate a state-machine for your method. But without any `await` statements you won't notice any difference.
 
 We need the `async` keyword for historical reasons. Before async/await was invented, people might have used variables called 'await' in their code. Microsoft didn't want to break existing code, so you have to opt-in to async/await by using the `async` keyword.
 

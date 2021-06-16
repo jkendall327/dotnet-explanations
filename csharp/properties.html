@@ -45,7 +45,9 @@
 <h2 id="explanation">Explanation</h2>
 <p>In object-oriented programming, a class can hide its internal operations from the outside world. This is called 'encapsulation'.</p>
 <p>This is what you are doing when you use the <code>public</code> or <code>private</code> keyword in C#. If a class has a <code>public</code> field, any other part of the program can read that data, or edit it. If the field is <code>private</code>, only the class itself can see it.</p>
-<p>(Advanced note: there are several other visibility modifiers in C#, like <code>internal</code> and <code>protected</code>. They all just extend the basic idea of public/private.)</p>
+<blockquote>
+<p>💡 There are other visibility modifiers in C#, like <code>internal</code> and <code>protected</code>. They all just extend the basic idea of public/private.</p>
+</blockquote>
 <p><code>Public</code> and <code>private</code> are good, but limiting. If another part of the program can read a <code>public</code> field, it can also set it to a nonsense value. This is a common source of bugs.</p>
 <p>We need a way to separate <em>reading</em> a piece of information from <em>editing</em> it. We can do this with methods.</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>

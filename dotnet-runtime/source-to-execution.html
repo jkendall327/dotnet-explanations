@@ -38,24 +38,24 @@
 <h2 id="in-a-nutshell">In a nutshell</h2>
 <p>When you run a .NET program, it's like booting up a very small <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machine</a> made just for running your code.</p>
 <h2 id="the-problem-this-solves">The problem this solves</h2>
-<p>The reason .NET works this way - by running your code in a small virtual machine - is because <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java works this way</a>.</p>
-<p>The main reason Java does it that way is for portability.</p>
-<p>Different kinds of computers have different <em>architectures</em>, meaning their processors work with different sets of instructions.</p>
+<p>The reason .NET works this way - by running your code in a small virtual machine - is because <a href="https://en.wikipedia.org/wiki/Java_virtual_machine">Java works this way</a>. .NET was originally Microsoft's attempt to do Java, but better.</p>
+<p>The main reason Java used a virtual machine is for portability.</p>
+<p>Different computers have different <em>architectures</em>, meaning their processors work with different sets of instructions.</p>
 <p>If you want a program to run on different architectures, you need a compiler that 'targets' them. Targeting seven architectures means writing seven separate compilers, which is obviously not ideal.</p>
-<p>Java responded to this by abstracting the machine your code runs on. Rather than running on any specific architecture, your code compiles to an imaginary architecture. This is usually called bytecode.</p>
-<p>When a new kind of architecture comes out, you can now support it by just porting over the virtual machine. Existing code will work on new platforms 'for free', and won't have to be recompiled.</p>
-<p>Here is the idea in simpler terms:</p>
+<p>Java responded to this by abstracting the machine your code runs on. Rather than running on any specific architecture, your code compiles to an imaginary architecture. This is usually called <em>bytecode</em>.</p>
+<p>When a new kind of architecture comes out, you can now support it by just porting over the virtual machine. Existing code will work on new platforms 'for free'.</p>
+<p>In simpler terms:</p>
 <ol>
 <li>You write a program.</li>
 <li>Your code is compiled to an 'intermediate' language.</li>
-<li>When a user opens the program, the virtual machine turns the intermediate code into real machine instructions the computer can understand.</li>
+<li>When a user opens the program, the virtual machine turns the intermediate code into real instructions the computer understands.</li>
 </ol>
 <p>.NET works in a very similar way.</p>
 <h2 id="the-common-language-runtime">The Common Language Runtime</h2>
-<p>The Common Language Runtime, also informally called the '.NET runtime', is the virtual machine that your C# code targets.</p>
-<p>There is another advantage to using an intermediate language: multiple languages can compile down to it. In .NET, for instance, C# and F# both compile to CIL. As a result, you can think of those languages as 'really' just being versions of CIL that are easier to use. You can write CIL directly, if you want.</p>
+<p>The Common Language Runtime, also informally called the '.NET runtime', is the virtual machine your C# code targets. Its language is the Common Intermediate Language (CIL), also called MSIL (Microsoft Intermediate Language) or just 'IL' for short.</p>
+<p>Another advantage to using an intermediate language is that multiple languages can compile down to it. In .NET, for instance, C# and F# both compile to CIL. You can think of both languages as 'really' just versions of CIL that are easier to use. You can write CIL directly, if you want.</p>
 <h2 id="the-jit">The JIT</h2>
-<p>The Just-in-Time compiler is what turns CIL into real machine instructions when you run a .NET program.</p>
+<p>The Just-in-Time compiler turns CIL into real machine instructions when you run a .NET program.</p>
 
     </body>
     </html>

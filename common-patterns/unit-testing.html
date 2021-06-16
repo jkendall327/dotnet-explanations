@@ -29,13 +29,72 @@
 <li><a href="#unit-testing---home">Unit testing - Home</a>
 <ul>
 <li><a href="#in-a-nutshell">In a nutshell</a></li>
-<li><a href="#explanation">Explanation</a></li>
+<li><a href="#example">Example</a>
+<ul>
+<li><a href="#naming">Naming</a></li>
+<li><a href="#expected-and-actual">Expected and actual</a></li>
+<li><a href="#arrange-act-assert">Arrange, act, assert</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
-<p>Unit tests are code that automatically run other bits of code to see if you've accidentally broken anything.</p>
-<h2 id="explanation">Explanation</h2>
+<p>Unit tests are code that automatically run other bits of code. They usually check if your code has bugs, or make sure you don't accidentally break old code with new updates.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<h2 id="example">Example</h2>
+<p>The idea of code that can tell if other code is correct or not might seem magical. Unit tests are actually very mundane. Here is what one looks like:</p>
+<pre><code class="language-csharp"><div>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">ReturnsFour</span>(<span class="hljs-params"></span>)</span>
+        {
+            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;
+        }
+
+        [<span class="hljs-meta">Fact</span>]
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReturnsFour_ShouldReturnFour</span>(<span class="hljs-params"></span>)</span>
+        {
+            <span class="hljs-keyword">var</span> expected = <span class="hljs-number">4</span>;
+            <span class="hljs-keyword">var</span> actual = ReturnsFour();
+
+            Assert.Equal(expected, actual);
+        }
+</div></code></pre>
+<p>As you can see, this is incredibly complex and sensitive code - thank god we have tests to prove it works.</p>
+<p>The second method here is the unit test. In .NET/C#, test methods usually have an attribute (the line in square brackets above the method name).</p>
+<p>But what really makes it a unit test is the last line. All unit tests call some kind of <code>Assert</code> method that checks if two values are equal, or if a <code>bool</code> is true, or something similar. This is what determines if the unit test passes or fails.</p>
+<p>As a result, you can write perfectly useless tests like this:</p>
+<pre><code class="language-csharp"><div>        [<span class="hljs-meta">Fact</span>]
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ReturnsFour_ShouldReturnFour</span>(<span class="hljs-params"></span>)</span>
+        {
+            <span class="hljs-keyword">var</span> expected = <span class="hljs-number">4</span>;
+            <span class="hljs-keyword">var</span> actual = ReturnsFour();
+
+            Assert.Equal(<span class="hljs-literal">true</span>, <span class="hljs-literal">true</span>);
+        }
+</div></code></pre>
+<p>This test will always 'pass'.</p>
+<p>In the sample above, I've tried to illustrate as many 'best practices' about unit tests as possible. I will now explain them.</p>
+<h3 id="naming">Naming</h3>
+<p>Naming things well <a href="https://hilton.org.uk/blog/why-naming-things-is-hard">is famously difficult</a>. To counter this, there is a standard naming pattern for unit tests in C#.</p>
+<ol>
+<li>The name of the method you are testing.</li>
+<li>What the method 'should' do.</li>
+<li>(Optional) Under what conditions Step 2 is true.</li>
+</ol>
+<p>For example, you might give a test this name: <code>CountUsers_ShouldReturnZero_WhenDatabaseIsEmpty</code>.</p>
+<h3 id="expected-and-actual">Expected and actual</h3>
+<p>Every unit test is about comparing the result of some operation with what you expect it to be.</p>
+<p>It is a good idea to literally use the names 'expected' and 'actual' in tests to make it clear to everyone else who reads your code what your expectations are.</p>
+<h3 id="arrange-act-assert">Arrange, act, assert</h3>
+<p>I didn't show this in the example because it was too short, but there is also a conventional way to order your unit tests.</p>
+<p>First, you <em>arrange</em> what you need to perform the test.</p>
+<p>Then, you <em>act</em> by performing the operation you are testing.</p>
+<p>Finally, you <em>assert</em> to find out if the result if what you expect.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Commonly called a <em>regression</em>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
     </body>
     </html>

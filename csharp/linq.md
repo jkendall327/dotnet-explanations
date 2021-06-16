@@ -3,45 +3,53 @@
 
 - [LINQ - Home](#linq---home)
   - [In a nutshell](#in-a-nutshell)
-  - [Terms you will hear used to describe LINQ](#terms-you-will-hear-used-to-describe-linq)
-    - [LINQ is about building definitions](#linq-is-about-building-definitions)
-  - [Declarative programming](#declarative-programming)
+  - [LINQ is about building definitions](#linq-is-about-building-definitions)
+  - [Functional programming](#functional-programming)
+  - [Bringing it all together](#bringing-it-all-together)
+  - [The LINQ syntax](#the-linq-syntax)
+  - [Common LINQ methods](#common-linq-methods)
+    - [Select](#select)
+    - [Where](#where)
+  - [Chaining LINQ](#chaining-linq)
+  - [The alternative syntax](#the-alternative-syntax)
 
 ## In a nutshell
 
 LINQ is a set of extension methods that make working on lists of data more convenient.
 
-## Terms you will hear used to describe LINQ
-
-LINQ looks and feels quite different from most other C# code. These differences are often explained through vague terms that are unhelpful for beginners. I will explain them.
-
-### LINQ is about building definitions
+## LINQ is about building definitions
 
 People often say that LINQ uses 'deferred execution' or 'lazy evaluation', which are two names for the same idea.
 
-The idea is that with LINQ, you build up a definition of the thing you want to do, which you can then deploy whenever you like.
+The idea is that with LINQ, you build up a definition of what you want to do separately from actually doing it.
 
 ```csharp
 var myFavouriteNumbers = new List<int>() { 4, 1, 12, 18 };
 
-IEnumerable<int> result = myFavouriteNumbers.Select(x => x * x).Reverse();
+IEnumerable<int> result = myFavouriteNumbers.Reverse();
 ```
 
-The second line of this example *does not do anything*. No calculation is performed. No numbers are squared, no list is reversed. `result` is just a definition of various things we want to do to `myFavouriteNumbers` at a later time.
+The second line of this example *does not do anything*. No calculation is performed. No list is reversed. `result` is just a definition of what we want to do to `myFavouriteNumbers` at a later time.
 
-To actually make anything happen, we need to 'trigger' the evaluation. We do this by calling one of a few extension methods on our `IEnumerable`. The most common is `.ToList()`.
+To actually make anything happen, we need to 'trigger' the evaluation. We do this by calling one of a few extension methods on our `IEnumerable`. You have to just learn which ones these are. The most common is `.ToList()`.
 
 ```csharp
-result = result.ToList();
+var actualResult = result.ToList();
 ```
 
-`result` will now contain the values 324, 144, 1 and 16. By transforming the `IEnumerable` into a `List`, we put our definition to work and made it actually evaluate the contents of `myFavouriteNumbers`.
+`actualResult` will now contain the values 18, 12, 1 and 4. By transforming the `IEnumerable` into a `List`, we put our definition to work and made LINQ actually evaluate the contents of `myFavouriteNumbers`.
 
-We can re-use the definitions we create with LINQ as much as we want. A result of this is that we can get different results from the same `IEnumerable` if the underlying source of data has changed.
+I will try to explain this with a real-life example, and then an example in code.
+
+Imagine a man comes up to you and says: "I'm going to hand you a piece of paper. When I blow on a whistle, I want you to fold the paper, tear it in half, throw one half in the air and give the other back to me."
+By saying this, this (rather strange) man has given you a definition of what he wants you to do. But you don't immediately start folding the paper. You wait until he blows on the whistle to start following the instructions. Blowing the whistle is like calling `.ToList()`.
+
+You can think of LINQ as a little like defining functions. Once you've declared a function, you can use it as many times as you like. The same is true with LINQ. As a result, we can get different results from the same `IEnumerable` if the underlying data changes.
 
 ```csharp
 var myFavouriteNumbers = new List<int>() { 4, 1, 8, 2 };
 
+// this LINQ query takes every number in the list, squares it, and then reverses the entire list
 IEnumerable<int> result = myFavouriteNumbers.Select(x => x * x).Reverse();
 
 var firstCalculation = result.ToList(); // 4, 64, 1, 16
@@ -53,14 +61,180 @@ myFavouriteNumbers.Add(1);
 var secondCalculation = result.ToList(); // 1, 81, 9, 4, 64, 1, 16
 ```
 
-Each time we called `.ToList()`, it used the values currently in `myFavouriteNumbers` at that exact moment.
+Each time we called `.ToList()`, it used the values in `myFavouriteNumbers` at that exact moment.
 
-## Declarative programming
+Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an `IEnumerable<>` actually gets evaluated is tricky. It's fine to add `.ToList()` at the end of all your LINQ queries if it makes things easier to understand.[^1]
 
-Declarative programming means that our code only talks about what we want to happen, not how it gets done.
+Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an `IEnumerable<>` actually gets evaluated is tricky. It's fine to add `.ToList()` at the end of all your LINQ queries if it makes things easier to understand. It isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.
+
+Declarative programming means that our code talks about what we want to happen, not how it gets done.
 
 `IEnumerable<int> result = myFavouriteNumbers.Select(x => x * x).Reverse();`
 
-In this line, we simply call `Reverse()` and - by some magic - our list of numbers comes back in the opposite order. We don't have to manually create a new list and iterate over the old one with a for-loop counting backwards.
+In this line, we call `Reverse()` and our list of numbers magically comes back in the opposite order. We don't know how LINQ did this. Maybe it used a reverse for-loop to go over every element backwards. Maybe it used a complex sorting algorithm. Maybe it did something completely different. We don't care how it happened, just what the result was.
 
-Declarative programming is an imprecise, stylistic term. You have probably written declarative code before without realising it.
+Declarative programming lets you focus on what code means. We often use comments in normal code to explain why we're doing something, but a method called `Reverse()` explains itself.
+
+## Functional programming
+
+Functional programming is a style of programming that, among other things, cares about immutability. This means that in functional languages like [Haskell](https://www.haskell.org/), you can't update the value of a variable. Instead, you create a new variable to represent its new value.
+
+Similarly, LINQ won't modify any data you give it. When you call `.Reverse()` on a collection, the collection isn't changed. Instead, the method returns a new collection that's reversed.
+
+This means you don't have to worry about accidentally ruining any important data. But it can be easy to forget.
+
+```csharp
+var myList = new List<int>(){ 4, 3, 1, 7 };
+myList.Reverse();
+```
+
+If we printed out `myList` here, it would look like nothing had changed. The elements would all be in the same order. That's because `.Reverse()` gave us the reversed collection, but we didn't do anything with it. Here's how that example should look.
+
+```csharp
+var myList = new List<int>(){ 4, 3, 1, 7 };
+myList = myList.Reverse();
+```
+
+Here, we assign the result of `Reverse()` back onto the original list. This will update our original data. We could also assign it to a new list, if we liked. It doesn't matter.
+
+If a LINQ query doesn't seem to do anything, check the return types of the methods you're using. Make sure you're using the results they give you.
+
+## Bringing it all together
+
+LINQ cares about a few things.
+
+- It separates defining what you want to do from actually doing it.
+- Once you've defined an operation, you can use it over and over.
+- LINQ tries to let us write what we want to happen without having to explain how it all works.
+- LINQ generally doesn't modify any data we give it. Instead, it returns new data.
+
+## The LINQ syntax
+
+When you see code like `x => x * x`, you might wonder if there's something special about the letter x. The answer is no: 'x' is just easy to type. It's possible, and sometimes a good idea, to use  descriptive names:
+
+`IEnumerable<int> result = myFavouriteNumbers.Select(number => number * number).Reverse();`
+
+If you've not seen it before, this is called a lambda expression. It's basically a simpler way of creating a [delegate](delegates.md). The first part of the lambda, before the `=>`, is where you declare any variables you want to work with. For a list of data, this usually means one element of the list. The part after the `=>` is where you actually write code, like in a function. In this example, we just use the variable we asked for (`number`), but you can use anything.
+
+```csharp
+var myList = new List<int>(){ 4, 3, 1, 7 };
+var randomNumber = 7;
+myList = myList.Select(x => x * randomNumber);
+```
+
+This will multiply every element in `myList` by seven. `x` has the values 4, 3, 1 and 7, in that order.
+
+You can also use other methods inside a LINQ clause.
+
+```csharp
+private void TrimWhitespace(string text)
+{
+  if (!string.IsNullOrEmpty(text)) {
+    return text.Trim();
+  }
+
+  return text;
+} 
+
+private void TransformStrings()
+{
+  var myList = new List<string>(){ " hello ", "   goodbye", "good morning    ", "good evening  " };
+  myList = myList.Select(x => TrimWhitespace(x)) // myList now contains "hello", "goodbye", etc.
+                  .ToList(); // remember that we have to force LINQ to evaluate 
+}
+```
+
+We've been using methods like `Select` without really explaining what they do. Let's look at some common LINQ methods in more detail.
+
+## Common LINQ methods
+
+LINQ methods let you modify, filter and order data.
+
+### Select
+
+`Select` is probably the most powerful LINQ method. It lets you apply a function to every element in a list. In other languages, this is often called `Map`. In code like `myList = myList.Select(x => x * 7);`, the function is `x * x`.
+
+Every foreach loop can be translated into a select statement. Both go over every element in a list and do something with it.
+
+If necessary, you can introduce sub-blocks of code for complicated statements. Here is an example I wrote recently.
+
+```csharp
+            myList = myList.Where(x => x.MediaType == 1)
+                .Select(x =>
+                {
+                    var url = x.ImageVersions2.Candidates
+                    .OrderByDescending(i => i.Height)
+                    .First()
+                    .Url;
+                    
+                    return url.ToString();
+                });
+```
+
+This method parsed JSON from Instagram, but the details aren't important. There are four things to notice here.
+
+1. You can chain a `Where` with a `Select`. This will be explained later.
+2. You introduce a codeblock in a LINQ query with curly-brackets.
+3. You can define variables as normal.
+4. You `return` a value at the end. This is what actually gets put into the new list.
+
+The value you return from a `Select` doesn't have to be the same type as the original collection. If you had a list of strings, for instance, you could `Select` them into numbers.
+
+```csharp
+List<string> foo = new() { "54", "18", "32" };
+List<int> numbers = foo.Select(x => int.Parse(x)); // 
+```
+
+`int.Parse` takes a string and returns a number. This defines what our `Select()` call returns. We often say that `Select` 'projects' values into a new form.
+
+> ⚠️ This code breaks with strings that can't be parsed. `int.TryParse` is usually better.
+
+### Where
+
+`Where()` lets you filter data.
+
+```csharp
+List<string> foo = new() { "54", "18", "32" };
+List<int> numbers = foo.Where(x => x > 20); // numbers only contains 32 and 54
+```
+
+The expression in a `Where` query has to be boolean: either it returns true or false. `x` is either greater than 20, or it isn't. Everything that passes the test you set gets put into a new list.
+
+## Chaining LINQ
+
+Recall these two facts:
+
+1. LINQ methods generally return a new list rather than modifying the list they work on.
+2. LINQ is about constructing definitions of what you want to do.
+
+These facts lead into the very common pattern of chained LINQ statements.
+
+```csharp
+var myList = new List<int>(){ 4, 3, 1, 7 };
+
+var results = myList
+                .Where(x => x % 2 != 0)
+                .Select(x => x + x + x)
+                .OrderBy(x => x
+                .ToList());
+```
+
+Each of these lines returns a new `IEnumerable<int>` that the next line takes in. it's common to format chained LINQ like this, with each method on its own line.
+
+## The alternative syntax
+
+There is another way to write LINQ queries.
+
+```csharp
+var myList = new List<int>(){ 4, 3, 1, 7 };
+
+var results = select x from myList
+                where x => x % 2 != 0
+                select x => x + x + x
+                orderby x
+                .ToList());
+```
+
+This syntax is less common than regular method calls. Don't feel a need to learn it.
+
+[^1]: This isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.

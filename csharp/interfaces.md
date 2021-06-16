@@ -27,12 +27,12 @@ public void ChangeUsername(int userID, string newName)
 }
 ```
 
-We use `DatabaseLoader`, which we've made elsewhere in our program, to get the user's details from a database. How `DatabaseLoader` works doesn't matter. What matters is that it's a 'service': it does something useful for us.
+We use `DatabaseLoader`, which we've made elsewhere in our program, to get the user's details from a database. How `DatabaseLoader` works doesn't matter. What matters is that it does something useful for us.
 
-Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to do two things:
+Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to:
 
-- Create a new service that gets the information you want from the filesystem.
-- Change every part of your program that used the `DatabaseLoader` to now use a `FilesystemLoader`.
+- Create a new service that gets information from the filesystem.
+- Change every part of your program that used `DatabaseLoader` to now use `FilesystemLoader`.
 
 ```csharp
 public void ChangeUsername(int userID, string newName)
@@ -42,7 +42,7 @@ public void ChangeUsername(int userID, string newName)
 }
 ```
 
-Changing your program like this isn't too annoying when you only have to change one line. But imagine that this is a real project, and you end up having to move lots of code over to the new `FilesystemLoader`. Now imagine that instead of the filesystem, you realise you need to get user information from [carrier pigeons](https://en.wikipedia.org/wiki/Homing_pigeon) instead.
+Changing your program like this isn't too annoying when you only have to change one line. But imagine that  you have to move lots of code over to the new `FilesystemLoader`. Now imagine that you realise you need to get user information from [carrier pigeons](https://en.wikipedia.org/wiki/Homing_pigeon) instead.
 
 ```csharp
 public void ChangeUsername(int userID, string newName)
@@ -52,8 +52,9 @@ public void ChangeUsername(int userID, string newName)
 }
 ```
 
-All of these `Loader` classes have done the same thing - get user information. They did this in different ways, but in our `ChangeUsername` method, we don't care about how the service got the information - we just want the information. We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon).
-If we can do this, it means we won't need to update `ChangeUsername` in the future if we come up with another way of completing this task.
+All of these `Loader` classes have done the same thing - get user information. They did this in different ways, but in our `ChangeUsername` method, we don't care about how the service got the information - we just want the information.
+
+We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon). This means we wouldn't need to update `ChangeUsername` if we come up with another way of completing this task.
 
 This is what interfaces do.
 
@@ -66,24 +67,25 @@ Here is an interface with one method signature, named `Load`.
 ```csharp
 interface ILoader
 {
-    public User Load(int id);
+    User Load(int id);
 }
 ```
 
-An interface looks similar to a class, with three differences:
+An interface looks similar to a class, with two differences:
 
 - You use the `interface` keyword.
 - You only define method signatures. You cannot define fields or method bodies in an interface.
 
-(Advanced note: you can actually define [interface method bodies](https://www.infoq.com/articles/default-interface-methods-cs8/) from C# 8.0 onwards. You should not do this until you understand why the feature is available.)
+> 💡 You can actually define [interface method bodies](https://www.infoq.com/articles/default-interface-methods-cs8/) from C# 8.0 onwards. You should not do this until you understand why the feature is available.
 
 ## Implementing an interface
 
-By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you can actually use. You can't use the `new` keyword to create an instance of an interface, for instance.
+By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you  actually use. You can't create an instance of an interface with the `new` keyword.
 
-Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.
+Interfaces exist so actual classes can 'implement' them. When a class implements an interface, it says 'I promise to have methods that match those in the interface'.
 
 ```csharp
+// The syntax for implementing an interface is identical to inheriting from a class.
 class CarrierPigeonLoader : ILoader
 {
     // Without this method, your program will no longer compile.
@@ -94,7 +96,7 @@ class CarrierPigeonLoader : ILoader
 }
 ```
 
-`ILoader` defines a method called 'Load' that takes an `int` and returns a `User`.
+`ILoader` defined a method called 'Load' that takes an `int` and returns a `User`.
 Because `CarrierPigeonLoader` implements `ILoader`, it has to have a method that matches that signature.
 
 ## Fixing the original problem
@@ -105,14 +107,20 @@ We now know that whenever we use *any* of those classes, they **will** have a me
 
 Let's modify our original method.
 
+```csharp
 public void ChangeUsername(int userID, string newName)
 {
     ILoader loader = new CarrierPigeonLoader();
     var user = loader.Load(id);
     user.Name = newName;
 }
+```
 
-When we declare a variable that has an interface as its type, it means 'I can be any of the classes that implement me'. If you are familiar with polymorphism, think of how a parent class can stand in for any class that inherits from it. In the second line, where we call `loader.Load()`, `loader` could be any class that implements our interface.
+We can't create an instance of `ILoader` with `new`, but we can declare a variable of type `ILoader`.
+
+When we declare a variable of an interface, it means 'I can be any of the classes that implement me'. If you are familiar with polymorphism, think of how a parent class can stand in for any class that inherits from it.
+
+In the second line, where we call `loader.Load()`, `loader` could be any class that implements our interface.
 
 ## Dependency injection
 

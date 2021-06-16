@@ -70,7 +70,9 @@
 <p>Interfaces are not part of dependency injection. But they are two useful ideas that work well together, so it's very common to ask for an interface in a class's constructor, rather than a concrete class.</p>
 <p>This makes your code more flexible. When you use dependency injection, MyClass doesn't know where its HttpClient comes from. If we asked for an interface instead of a concrete class, MyClass also wouldn't know what specific class it was using.</p>
 <p>We could then swap out what we give MyClass with anything else that implements the interface. MyClass wouldn't know the difference.</p>
-<p>(Advanced note: this is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.)</p>
+<blockquote>
+<p>💡 This is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.</p>
+</blockquote>
 <h2 id="dependency-injection-all-the-way-up">Dependency injection all the way up</h2>
 <p>MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyOtherClass</span>

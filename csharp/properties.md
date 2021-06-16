@@ -19,7 +19,7 @@ In object-oriented programming, a class can hide its internal operations from th
 
 This is what you are doing when you use the `public` or `private` keyword in C#. If a class has a `public` field, any other part of the program can read that data, or edit it. If the field is `private`, only the class itself can see it.
 
-(Advanced note: there are several other visibility modifiers in C#, like `internal` and `protected`. They all just extend the basic idea of public/private.)
+> 💡 There are other visibility modifiers in C#, like `internal` and `protected`. They all just extend the basic idea of public/private.
 
 `Public` and `private` are good, but limiting. If another part of the program can read a `public` field, it can also set it to a nonsense value. This is a common source of bugs.
 

@@ -49,11 +49,11 @@
     user.Name = newName;
 }
 </div></code></pre>
-<p>We use <code>DatabaseLoader</code>, which we've made elsewhere in our program, to get the user's details from a database. How <code>DatabaseLoader</code> works doesn't matter. What matters is that it's a 'service': it does something useful for us.</p>
-<p>Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to do two things:</p>
+<p>We use <code>DatabaseLoader</code>, which we've made elsewhere in our program, to get the user's details from a database. How <code>DatabaseLoader</code> works doesn't matter. What matters is that it does something useful for us.</p>
+<p>Now imagine that instead of loading information from a database, you want to get it from the filesystem. You have to:</p>
 <ul>
-<li>Create a new service that gets the information you want from the filesystem.</li>
-<li>Change every part of your program that used the <code>DatabaseLoader</code> to now use a <code>FilesystemLoader</code>.</li>
+<li>Create a new service that gets information from the filesystem.</li>
+<li>Change every part of your program that used <code>DatabaseLoader</code> to now use <code>FilesystemLoader</code>.</li>
 </ul>
 <pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
@@ -61,34 +61,37 @@
     user.Name = newName;
 }
 </div></code></pre>
-<p>Changing your program like this isn't too annoying when you only have to change one line. But imagine that this is a real project, and you end up having to move lots of code over to the new <code>FilesystemLoader</code>. Now imagine that instead of the filesystem, you realise you need to get user information from <a href="https://en.wikipedia.org/wiki/Homing_pigeon">carrier pigeons</a> instead.</p>
+<p>Changing your program like this isn't too annoying when you only have to change one line. But imagine that  you have to move lots of code over to the new <code>FilesystemLoader</code>. Now imagine that you realise you need to get user information from <a href="https://en.wikipedia.org/wiki/Homing_pigeon">carrier pigeons</a> instead.</p>
 <pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
     <span class="hljs-keyword">var</span> user = CarrierPigeonLoader.Load(id);
     user.Name = newName;
 }
 </div></code></pre>
-<p>All of these <code>Loader</code> classes have done the same thing - get user information. They did this in different ways, but in our <code>ChangeUsername</code> method, we don't care about how the service got the information - we just want the information. We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon).
-If we can do this, it means we won't need to update <code>ChangeUsername</code> in the future if we come up with another way of completing this task.</p>
+<p>All of these <code>Loader</code> classes have done the same thing - get user information. They did this in different ways, but in our <code>ChangeUsername</code> method, we don't care about how the service got the information - we just want the information.</p>
+<p>We need a way to express what we want out code to do (get a user's details) without specifying how it's done (database, filesystem, carrier pigeon). This means we wouldn't need to update <code>ChangeUsername</code> if we come up with another way of completing this task.</p>
 <p>This is what interfaces do.</p>
 <h2 id="what-is-an-interface">What is an interface?</h2>
 <p>An interface is a list of method signatures. Read the explanation on <a href="delegates.html">delegates</a> for an explanation of method signatures.</p>
 <p>Here is an interface with one method signature, named <code>Load</code>.</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">interface</span> <span class="hljs-title">ILoader</span>
 {
-    <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">Load</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> id</span>)</span>;
+    <span class="hljs-function">User <span class="hljs-title">Load</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> id</span>)</span>;
 }
 </div></code></pre>
-<p>An interface looks similar to a class, with three differences:</p>
+<p>An interface looks similar to a class, with two differences:</p>
 <ul>
 <li>You use the <code>interface</code> keyword.</li>
 <li>You only define method signatures. You cannot define fields or method bodies in an interface.</li>
 </ul>
-<p>(Advanced note: you can actually define <a href="https://www.infoq.com/articles/default-interface-methods-cs8/">interface method bodies</a> from C# 8.0 onwards. You should not do this until you understand why the feature is available.)</p>
+<blockquote>
+<p>💡 You can actually define <a href="https://www.infoq.com/articles/default-interface-methods-cs8/">interface method bodies</a> from C# 8.0 onwards. You should not do this until you understand why the feature is available.</p>
+</blockquote>
 <h2 id="implementing-an-interface">Implementing an interface</h2>
-<p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you can actually use. You can't use the <code>new</code> keyword to create an instance of an interface, for instance.</p>
-<p>Interfaces exist so that actual classes can 'implement' them. When a class implements an interface, it says 'I agree to have methods that match the interface's method signature'.</p>
-<pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">CarrierPigeonLoader</span> : <span class="hljs-title">ILoader</span>
+<p>By themselves, interfaces don't do anything. Interfaces are not 'real' classes — not something concrete you  actually use. You can't create an instance of an interface with the <code>new</code> keyword.</p>
+<p>Interfaces exist so actual classes can 'implement' them. When a class implements an interface, it says 'I promise to have methods that match those in the interface'.</p>
+<pre><code class="language-csharp"><div><span class="hljs-comment">// The syntax for implementing an interface is identical to inheriting from a class.</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title">CarrierPigeonLoader</span> : <span class="hljs-title">ILoader</span>
 {
     <span class="hljs-comment">// Without this method, your program will no longer compile.</span>
     <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">Load</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> id</span>)</span>
@@ -97,19 +100,22 @@ If we can do this, it means we won't need to update <code>ChangeUsername</code> 
     }
 }
 </div></code></pre>
-<p><code>ILoader</code> defines a method called 'Load' that takes an <code>int</code> and returns a <code>User</code>.
+<p><code>ILoader</code> defined a method called 'Load' that takes an <code>int</code> and returns a <code>User</code>.
 Because <code>CarrierPigeonLoader</code> implements <code>ILoader</code>, it has to have a method that matches that signature.</p>
 <h2 id="fixing-the-original-problem">Fixing the original problem</h2>
 <p>Imagine that you modified <code>DatabaseLoader</code>, <code>FilesystemLoader</code> and <code>CarrierPigeonLoader</code> to all implement <code>ILoader</code>.</p>
 <p>We now know that whenever we use <em>any</em> of those classes, they <strong>will</strong> have a method named 'Load' that takes an <code>int</code> and returns a <code>User</code>. They will likely do this in different ways. That's OK. All we care about is the input (our <code>int</code>) and what we get back (the <code>User</code>).</p>
 <p>Let's modify our original method.</p>
-<p>public void ChangeUsername(int userID, string newName)
+<pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ChangeUsername</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> userID, <span class="hljs-keyword">string</span> newName</span>)</span>
 {
-ILoader loader = new CarrierPigeonLoader();
-var user = loader.Load(id);
-<a href="http://user.Name">user.Name</a> = newName;
-}</p>
-<p>When we declare a variable that has an interface as its type, it means 'I can be any of the classes that implement me'. If you are familiar with polymorphism, think of how a parent class can stand in for any class that inherits from it. In the second line, where we call <code>loader.Load()</code>, <code>loader</code> could be any class that implements our interface.</p>
+    ILoader loader = <span class="hljs-keyword">new</span> CarrierPigeonLoader();
+    <span class="hljs-keyword">var</span> user = loader.Load(id);
+    user.Name = newName;
+}
+</div></code></pre>
+<p>We can't create an instance of <code>ILoader</code> with <code>new</code>, but we can declare a variable of type <code>ILoader</code>.</p>
+<p>When we declare a variable of an interface, it means 'I can be any of the classes that implement me'. If you are familiar with polymorphism, think of how a parent class can stand in for any class that inherits from it.</p>
+<p>In the second line, where we call <code>loader.Load()</code>, <code>loader</code> could be any class that implements our interface.</p>
 <h2 id="dependency-injection">Dependency injection</h2>
 <p>So far, this likely seems quite pointless. We have done a lot of extra work for nothing. We've created an interface, but we still say <code>new CarrierPigeonLoader()</code> in our method. We would have to update that every time we wanted to get user information in a new way.</p>
 <p>The magic trick which makes interfaces actually useful is <a href="dependency-injection.html">dependency injection</a>.</p>

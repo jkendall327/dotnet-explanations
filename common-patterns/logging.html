@@ -31,17 +31,19 @@
 <li><a href="#in-a-nutshell">In a nutshell</a></li>
 <li><a href="#why-use-logging">Why use logging?</a></li>
 <li><a href="#an-example">An example</a></li>
+<li><a href="#solutions">Solutions</a></li>
 </ul>
 </li>
 </ul>
 <h2 id="in-a-nutshell">In a nutshell</h2>
-<p>Logging is when your program records messages during runtime to show what it's doing.</p>
+<p>Logging is when your program sends out messages to explain what it's doing.</p>
 <h2 id="why-use-logging">Why use logging?</h2>
-<p>Programs are complicated. We use several design patterns and coding styles to manage this, but there is a basic amount of complexity that we can't get rid of.</p>
-<p>As a result, it is very difficult to understand what a program is doing at any given moment through logic alone. The gap between what we think a program does and what it actually does is the cause of almost all bugs.</p>
+<p>Programs are complicated. Design patterns and clever coding styles reduce this, but programs will always be difficult to fully understand. The gap between what we think a program does and what it actually does is the cause of almost all bugs.</p>
 <p>Logging is a way for programs to tell us what they are doing.</p>
+<p>This can tell us what branches of execution our program hits, or doesn't. It can record business events, like when a user makes a purchase on an online store.</p>
+<p>Logging gives us information that helps us analyze and debug programs.</p>
 <h2 id="an-example">An example</h2>
-<p>The simplest form of logging is to write messages to the console, or 'standard output', when the program runs.</p>
+<p>The simplest form of logging is writing messages to the console.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
 <pre><code class="language-csharp"><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">MyMethod</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> x</span>)</span>
 {
     Console.WriteLine(<span class="hljs-string">&quot;The value of the argument is: &quot;</span> + x);
@@ -53,7 +55,22 @@
     <span class="hljs-keyword">return</span> x;
 }
 </div></code></pre>
-<p>This is a form of logging.</p>
+<p>This is simple to implement, but has flaws.</p>
+<ul>
+<li>It's not permanent. We lose this information when the program ends.</li>
+<li>It depends on having a console to write to.</li>
+<li>It's just flat text. There is no metadata to help us find interesting patterns in the logs.</li>
+</ul>
+<h2 id="solutions">Solutions</h2>
+<p>For serious programs, <em>structured logging</em> is very useful. In contrast to using <code>Console.WriteLine</code>, structured logs aren't just text. They're usually <a href="https://en.wikipedia.org/wiki/JSON">JSON</a>, a format which lets us include metadata about the messages we're recording.</p>
+<p>A popular way to get structured logging in C# is to use the <a href="https://serilog.net/">Serilog</a> library.</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Also called 'standard output' or 'STDOUT'. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
 
     </body>
     </html>

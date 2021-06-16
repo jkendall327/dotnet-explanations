@@ -62,7 +62,9 @@
             <span class="hljs-keyword">return</span> html.ToString();
         }
 </div></code></pre>
-<p>(Advanced note: you shouldn't use <code>HttpClient</code> like this. This is just an example.)</p>
+<blockquote>
+<p>⚠️ You shouldn't use <code>HttpClient</code> like this. This is just an example.</p>
+</blockquote>
 <h2 id="warning">Warning</h2>
 <p>Async/await is hard to learn about for a few reasons.</p>
 <ul>
@@ -113,7 +115,9 @@
 </ul>
 <h3 id="the-async-keyword">The async keyword</h3>
 <p>The only thing the async keyword does is let you use the <code>await</code> keyword inside that method. If you use an <code>await</code> statement in a method that isn't <code>async</code>, your program won't compile.</p>
-<p>(Advanced note: <code>async</code> also tells the compiler to generate a state-machine for your method. But without any <code>await</code> statements you won't notice any difference.)</p>
+<blockquote>
+<p>⚠️ <code>async</code> also tells the compiler to generate a state-machine for your method. But without any <code>await</code> statements you won't notice any difference.</p>
+</blockquote>
 <p>We need the <code>async</code> keyword for historical reasons. Before async/await was invented, people might have used variables called 'await' in their code. Microsoft didn't want to break existing code, so you have to opt-in to async/await by using the <code>async</code> keyword.</p>
 <h3 id="task">Task&lt;&gt;</h3>
 <p>Normal C# methods return either <code>void</code> or some value (<code>string</code>, <code>int</code>, <code>MyObject</code>).

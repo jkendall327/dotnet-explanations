@@ -73,7 +73,9 @@
 The name of the method and its visibility (whether it's <code>public</code> or <code>private</code>) aren't important.</p>
 <p>The <em>arguments</em> are the variables the method asks for. More specifically, we only care about the types of the arguments. It doesn't matter that <code>AddThenSquare</code> names one argument 'x' and the other 'y'. All that matters is that they are both <code>int</code>s.</p>
 <p>The return type is what the method gives back. In this case, it's also an <code>int</code>. But it could be <code>void</code>, or anything else.</p>
-<p>(Advanced note: the CLR can differentiate methods based on just their return type, but C# chooses not to support this.)</p>
+<blockquote>
+<p>💡 The <a href="../dotnet-runtime/source-to-execution.html">CLR</a> can differentiate methods based on just their return type, but C# chooses not to support this.</p>
+</blockquote>
 <p>If we want to add <code>AddThenSquare</code> to a delegate, we need a delegate that says 'I will take in any method that accepts two <code>int</code>s and gives back one <code>int</code>'.</p>
 <h2 id="using-delegates">Using delegates</h2>
 <p>We have to define the methods our delegate accepts before we can use it.</p>
@@ -104,7 +106,9 @@ The name of the method and its visibility (whether it's <code>public</code> or <
 <p>This class has a method, a delegate, and another method which uses them both.</p>
 <p><code>delegate int ExampleDelegate(int x, int y);</code> defines a <em>kind</em> of delegate.</p>
 <p><code>var myDelegate = new ExampleDelegate(AddThenSquare);</code> creates an <em>instance</em> of the delegate we defined.</p>
-<p>(Advanced note: we could actually define our delegate outside of <code>MyExampleClass</code>. This is because behind the scenes, all delegates are actually classes.)</p>
+<blockquote>
+<p>⚠️ We could actually define our delegate outside of <code>MyExampleClass</code>. This is because behind the scenes, all delegates are actually classes.</p>
+</blockquote>
 <p><code>myDelegate</code> now contains <code>AddThenSquare</code>. Because delegates are like <code>List&lt;&gt;</code>s, we can add multiple methods to it.</p>
 <pre><code class="language-csharp"><div><span class="hljs-keyword">class</span> <span class="hljs-title">MyExampleClass</span>
 {
@@ -130,7 +134,9 @@ The name of the method and its visibility (whether it's <code>public</code> or <
 }
 </div></code></pre>
 <p><code>myDelegate</code> now contains both methods. You can remove a method from a delegate by using <code>-=</code>.</p>
-<p>(Advanced note: the <code>+=</code> syntax is shorthand for the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0">Delegate.Combine</a> method.)</p>
+<blockquote>
+<p>💡 The <code>+=</code> syntax is shorthand for the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0">Delegate.Combine</a> method.</p>
+</blockquote>
 <h2 id="actually-using-a-delegate">Actually using a delegate</h2>
 <p>Nothing happens when you just add methods to a delegate, in the same way nothing happens when you add numbers to a <code>List&lt;int&gt;</code>.</p>
 <p>To make our delegate do something, we use the delegate's <code>Invoke</code> method.
@@ -148,7 +154,9 @@ We defined our delegate as taking two <code>int</code>s, so we have to give it t
     }
 </div></code></pre>
 <p>This method does something with a delegate, without any knowledge of what methods the delegate actually contains.</p>
-<p>(Advanced note: in fact, the delegate might be <code>null</code> and not contain any methods at all. If so, calling <code>Invoke</code> will crash the program.)</p>
+<blockquote>
+<p>⚠️ In fact, the delegate might be <code>null</code> and not contain any methods at all. If so, calling <code>Invoke</code> will crash the program.</p>
+</blockquote>
 <p>Delegates let us write <em>methods about methods</em>.</p>
 <h2 id="other-syntax-that-you-might-see">Other syntax that you might see</h2>
 <p>Writing <code>.Invoke()</code> all the time is annoying, so C# has a shorthand.</p>

@@ -70,7 +70,9 @@ When you change something in <code>John</code>, <code>Jane</code> also changes. 
 <h2 id="in-net-reference-and-value-types-are-pre-determined">In .NET, reference and value types are pre-determined</h2>
 <p>In some languages, like C++, you can treat any variable as a value or a reference type at any time.</p>
 <p>In C#, you can't. This decision is already made for you in the type itself. An <code>int</code> will always be a value type. A <code>StringBuilder</code> will always be a reference type.</p>
-<p>(Advanced note: there are ways to 'box' a value type so it becomes a reference type, like with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</a>. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.)</p>
+<blockquote>
+<p>⚠️ There are ways to 'box' a value type so it becomes a reference type, like with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</a>. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.</p>
+</blockquote>
 <p>As a rough guide, the following things are value types:</p>
 <ul>
 <li>Primitives (<code>int</code>, <code>double</code>, <code>bool</code>, <code>char</code>)</li>

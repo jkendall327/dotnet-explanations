@@ -5,22 +5,25 @@
   - [In a nutshell](#in-a-nutshell)
   - [Why use logging?](#why-use-logging)
   - [An example](#an-example)
+  - [Solutions](#solutions)
 
 ## In a nutshell
 
-Logging is when your program records messages during runtime to show what it's doing.
+Logging is when your program sends out messages to explain what it's doing.
 
 ## Why use logging?
 
-Programs are complicated. We use several design patterns and coding styles to manage this, but there is a basic amount of complexity that we can't get rid of.
-
-As a result, it is very difficult to understand what a program is doing at any given moment through logic alone. The gap between what we think a program does and what it actually does is the cause of almost all bugs.
+Programs are complicated. Design patterns and clever coding styles reduce this, but programs will always be difficult to fully understand. The gap between what we think a program does and what it actually does is the cause of almost all bugs.
 
 Logging is a way for programs to tell us what they are doing.
 
+This can tell us what branches of execution our program hits, or doesn't. It can record business events, like when a user makes a purchase on an online store.
+
+Logging gives us information that helps us analyze and debug programs.
+
 ## An example
 
-The simplest form of logging is to write messages to the console, or 'standard output', when the program runs.
+The simplest form of logging is writing messages to the console.[^1]
 
 ```csharp
 public int MyMethod(int x)
@@ -35,4 +38,16 @@ public int MyMethod(int x)
 }
 ```
 
-This is a form of logging.
+This is simple to implement, but has flaws.
+
+- It's not permanent. We lose this information when the program ends.
+- It depends on having a console to write to.
+- It's just flat text. There is no metadata to help us find interesting patterns in the logs.
+
+## Solutions
+
+For serious programs, *structured logging* is very useful. In contrast to using `Console.WriteLine`, structured logs aren't just text. They're usually [JSON](https://en.wikipedia.org/wiki/JSON), a format which lets us include metadata about the messages we're recording.
+
+A popular way to get structured logging in C# is to use the [Serilog](https://serilog.net/) library.
+
+[^1]: Also called 'standard output' or 'STDOUT'.
