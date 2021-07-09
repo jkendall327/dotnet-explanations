@@ -15,7 +15,7 @@
 
 ## In a nutshell
 
-LINQ is a set of extension methods that make working on lists of data more convenient.
+LINQ is a set of extension methods that make working on collections of data more convenient.
 
 ## LINQ is about building definitions
 
