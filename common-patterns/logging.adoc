@@ -1,13 +1,10 @@
-// title: Logging
-= Logging - xref:../index.adoc[Home]
+= Logging
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<logging---home,Logging - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<why-use-logging,Why use logging?>>
- ** <<an-example,An example>>
- ** <<solutions,Solutions>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Logging is when your program sends out messages to explain what it's doing.
 

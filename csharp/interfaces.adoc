@@ -1,17 +1,10 @@
-// title: Interfaces
-= Interfaces - xref:../index.adoc[Home]
+= Interfaces
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<interfaces---home,Interfaces - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<the-problem,The problem>>
- ** <<what-is-an-interface,What is an interface?>>
- ** <<implementing-an-interface,Implementing an interface>>
- ** <<fixing-the-original-problem,Fixing the original problem>>
- ** <<dependency-injection,Dependency injection>>
- ** <<when-to-use-interfaces,When to use interfaces>>
- ** <<where-to-go-from-here,Where to go from here>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Interfaces let you say what you want your code to do without specifying how it does it.
 

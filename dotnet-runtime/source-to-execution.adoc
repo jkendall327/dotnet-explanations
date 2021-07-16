@@ -1,13 +1,10 @@
-// title: How your source code turns into a program
-= How your source code turns into a program - xref:../index.adoc[Home]
+= How your source code turns into a program
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<how-your-source-code-turns-into-a-program---home,How your source code turns into a program - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<the-problem-this-solves,The problem this solves>>
- ** <<the-common-language-runtime,The Common Language Runtime>>
- ** <<the-jit,The JIT>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 When you run a .NET program, it's like booting up a very small https://en.wikipedia.org/wiki/Virtual_machine[virtual machine] made just for running your code.
 

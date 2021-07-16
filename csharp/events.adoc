@@ -1,17 +1,10 @@
-// title: Events
-= Events - xref:../index.adoc[Home]
+= Events
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<events---home,Events - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<the-observer-design-pattern,The observer design pattern>>
- ** <<why-delegates-are-bad-for-the-observer-design-pattern,Why delegates are bad for the observer design pattern>>
- ** <<what-events-change,What events change>>
- ** <<eventhandler-and-eventargs,EventHandler and EventArgs>>
- ** <<passing-along-our-own-data,Passing along our own data>>
-  *** <<generic-eventhandler,Generic EventHandler>>
-  *** <<defining-your-own-eventargs,Defining your own EventArgs>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Events are xref:delegates.adoc[delegates] with a few extra safety features built-in. They are used to implement the 'observer' design pattern.
 

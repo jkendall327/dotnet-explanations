@@ -1,13 +1,10 @@
-// title: Web project types
-= Web project types - xref:../index.adoc[Home]
+= Web project types
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<web-project-types---home,Web project types - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<what-should-i-learn,What should I learn?>>
- ** <<webforms,Webforms>>
- ** <<aspnet,ASP.NET>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 The different ways you can use it to make websites is one of the most confusing parts of .NET. Here are some terms you will hear:
 

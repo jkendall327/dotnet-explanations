@@ -1,15 +1,10 @@
-// title: Properties / getter-setters
-= Properties / getter-setters - xref:../index.adoc[Home]
+= Properties/getter-setters
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<properties--getter-setters---home,Properties / getter-setters - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<explanation,Explanation>>
- ** <<convenient-syntax,Convenient syntax>>
-  *** <<explaining-the-syntax,Explaining the syntax>>
-  *** <<a-common-bug,A common bug>>
-  *** <<an-even-more-convenient-syntax,An even more convenient syntax>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Properties are a kind of method that make the `public` and `private` keywords more powerful.
 

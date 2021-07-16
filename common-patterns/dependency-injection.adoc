@@ -1,15 +1,10 @@
-// title: Dependency injection
-= Dependency injection - xref:../index.adoc[Home]
+= Dependency injection
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<dependency-injection---home,Dependency injection - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<so-what,So what?>>
- ** <<using-interfaces-with-dependency-injection,Using interfaces with dependency injection>>
- ** <<dependency-injection-all-the-way-up,Dependency injection all the way up>>
- ** <<di-containers,DI containers>>
- ** <<the-end-goal-of-dependency-injection,The end-goal of dependency injection>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Dependency injection is when you ask for something in a class's constructor rather than creating it in the class itself.
 

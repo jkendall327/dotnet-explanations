@@ -1,12 +1,10 @@
-// title: Func<> and Action<>
-= Func<> and Action<> - xref:../index.adoc[Home]
+= Func<> and Action<>
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<func-and-action---home,Func<> and Action<> - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<the-problem-that-func-and-action-solve,The problem that `Func<>` and `Action<>` solve>>
- ** <<action,Action<>>>
- ** <<func,Func<>>>
- ** <<predicate,Predicate<>>>
+xref:../index.adoc[Home]
 
 == In a nutshell
 

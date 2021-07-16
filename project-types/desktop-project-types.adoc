@@ -1,13 +1,10 @@
-// title: Desktop project types
-= Desktop project types - xref:../index.adoc[Home]
+= Desktop project types
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<desktop-project-types---home,Desktop project types - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<which-project-type-should-i-choose,Which project type should I choose?>>
- ** <<winforms,Winforms>>
- ** <<wpf,WPF>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 There are several ways to create .NET programs that run on desktop computers:
 

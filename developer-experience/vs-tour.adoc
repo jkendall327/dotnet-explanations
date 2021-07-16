@@ -1,11 +1,10 @@
-// title: A tour of Visual Studio
-= A tour of Visual Studio - xref:../index.adoc[Home]
+= A tour of visual studio
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
 :pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<a-tour-of-visual-studio---home,A tour of Visual Studio - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<visual-studio-versus-visual-studio-code,Visual Studio versus Visual Studio Code>>
- ** <<installing-visual-studio,Installing Visual Studio>>
+xref:../index.adoc[Home]
 
 == In a nutshell
 

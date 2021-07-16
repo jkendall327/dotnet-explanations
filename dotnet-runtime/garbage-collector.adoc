@@ -1,17 +1,10 @@
-// title: The garbage collector
-= The garbage collector - xref:../index.adoc[Home]
+= Garbage collection
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
 :pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<the-garbage-collector---home,The garbage collector - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<programs-need-memory,Programs need memory>>
- ** <<the-garbage-collector-in-action,The garbage collector in action>>
-  *** <<a-myth-about-null,A myth about `null`>>
- ** <<other-approaches-to-managing-memory,Other approaches to managing memory>>
- ** <<the-stack-and-the-heap,The stack and the heap>>
- ** <<further-reading,Further reading>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 The .NET garbage collector lets our programs act as if they have infinite memory to work with.
 

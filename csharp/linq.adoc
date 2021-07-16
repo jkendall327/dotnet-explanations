@@ -1,19 +1,10 @@
-// title: LINQ
-= LINQ - xref:../index.adoc[Home]
+= LINQ
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<linq---home,LINQ - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<linq-is-about-building-definitions,LINQ is about building definitions>>
- ** <<functional-programming,Functional programming>>
- ** <<bringing-it-all-together,Bringing it all together>>
- ** <<the-linq-syntax,The LINQ syntax>>
- ** <<common-linq-methods,Common LINQ methods>>
-  *** <<select,Select>>
-  *** <<where,Where>>
- ** <<chaining-linq,Chaining LINQ>>
- ** <<the-alternative-syntax,The alternative syntax>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 LINQ is a set of extension methods that make working on collections of data more convenient.
 

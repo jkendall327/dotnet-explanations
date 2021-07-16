@@ -1,17 +1,10 @@
-// title: Static
-= Static - xref:../index.adoc[Home]
+= Static
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<static---home,Static - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<a-note-on-terminology,A note on terminology>>
- ** <<how-things-work-without-static,How things work without static>>
- ** <<a-demonstration-of-static,A demonstration of static>>
- ** <<methods-and-classes-can-also-be-static,Methods and classes can also be static>>
- ** <<static-classes,Static classes>>
- ** <<misconceptions-about-static,Misconceptions about static>>
- ** <<when-to-use-static,When to use static>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 C# is an object-oriented language. Almost everything you work with is tied to an instance of a type. When you use the static keyword, things are tied to _the type itself_.
 

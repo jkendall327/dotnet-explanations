@@ -1,12 +1,10 @@
-// title: Unit testing
-= Unit testing - xref:../index.adoc[Home]
+= Unit testing
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<unit-testing---home,Unit testing - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<example,Example>>
-  *** <<naming,Naming>>
-  *** <<expected-and-actual,Expected and actual>>
-  *** <<arrange-act-assert,Arrange, act, assert>>
+xref:../index.adoc[Home]
 
 == In a nutshell
 

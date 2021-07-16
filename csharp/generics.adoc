@@ -1,11 +1,10 @@
-// title: Generics
-= Generics - xref:../index.adoc[Home]
+= Generics
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<generics---home,Generics - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<why-care-about-generics,Why care about generics?>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Generics let you write a function that doesn't care about the type of its arguments.
 You can also use generics to make classes that 'wrap' other classes, like `List<>`.

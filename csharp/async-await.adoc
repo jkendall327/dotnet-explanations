@@ -1,22 +1,10 @@
-// title: Async/await
-= Async/await - xref:../index.adoc[Home]
+= Async/await
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<asyncawait---home,Async/await - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<warning,Warning>>
-  *** <<terminology,Terminology>>
-  *** <<threads,Threads>>
-  *** <<the-problem-asyncawait-solves,The problem async/await solves>>
- ** <<what-happens-when-an-async-method-runs,What happens when an async method runs>>
- ** <<questions,Questions>>
-  *** <<the-async-keyword,The async keyword>>
-  *** <<task,Task<>>>
-  *** <<the-calling-context,The calling context>>
- ** <<integrating-async-into-the-rest-of-your-program,Integrating async into the rest of your program>>
- ** <<making-your-own-asynchronous-functions,Making your own asynchronous functions>>
-  *** <<taskrun,Task.Run()>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 Async/await is a convenient syntax for letting your program jump out of a method while it's doing something that takes a long time (like opening a file or downloading a webpage) and then jumping back into that method once the task is completed. Here is an example of async/await:
 

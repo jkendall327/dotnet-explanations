@@ -1,19 +1,10 @@
-// title: Delegates
-= Delegates - xref:../index.adoc[Home]
+= Delegates
+Jack Kendall <jkendall3096@gmail.com>
+:toc:
+:pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-* <<delegates---home,Delegates - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<explanation,Explanation>>
- ** <<method-signatures,Method signatures>>
- ** <<using-delegates,Using delegates>>
- ** <<actually-using-a-delegate,Actually using a delegate>>
- ** <<treating-methods-like-variables,Treating methods like variables>>
- ** <<other-syntax-that-you-might-see,Other syntax that you might see>>
- ** <<multicast-delegates,Multicast delegates>>
- ** <<why-care-about-delegates,Why care about delegates?>>
- ** <<further-learning,Further learning>>
-
-== In a nutshell
+xref:../index.adoc[Home]
 
 A delegate is like a `List<>` for methods.
 
