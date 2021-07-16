@@ -88,7 +88,7 @@ myFavouriteNumbers.Add(<span class="hljs-number">1</span>);
 <span class="hljs-keyword">var</span> secondCalculation = result.ToList(); <span class="hljs-comment">// 1, 81, 9, 4, 64, 1, 16</span>
 </div></code></pre>
 <p>Each time we called <code>.ToList()</code>, it used the values in <code>myFavouriteNumbers</code> at that exact moment.</p>
-<p>Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an <code>IEnumerable&lt;&gt;</code> actually gets evaluated is tricky. It's fine to add <code>.ToList()</code> at the end of all your LINQ queries if it makes things easier to understand.<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup></p>
+<p>Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an <code>IEnumerable&lt;&gt;</code> actually gets evaluated is tricky. It's fine to add <code>.ToList()</code> at the end of all your LINQ queries if it makes things easier to understand. This isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.</p>
 <p>Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an <code>IEnumerable&lt;&gt;</code> actually gets evaluated is tricky. It's fine to add <code>.ToList()</code> at the end of all your LINQ queries if it makes things easier to understand. It isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.</p>
 <p>Declarative programming means that our code talks about what we want to happen, not how it gets done.</p>
 <p><code>IEnumerable&lt;int&gt; result = myFavouriteNumbers.Select(x =&gt; x * x).Reverse();</code></p>
@@ -207,13 +207,6 @@ List&lt;<span class="hljs-keyword">int</span>&gt; numbers = foo.Where(x =&gt; x 
                 .ToList());
 </div></code></pre>
 <p>This syntax is less common than regular method calls. Don't feel a need to learn it.</p>
-<hr class="footnotes-sep">
-<section class="footnotes">
-<ol class="footnotes-list">
-<li id="fn1" class="footnote-item"><p>This isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
-</li>
-</ol>
-</section>
 
     </body>
     </html>

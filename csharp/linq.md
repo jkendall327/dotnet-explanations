@@ -63,7 +63,7 @@ var secondCalculation = result.ToList(); // 1, 81, 9, 4, 64, 1, 16
 
 Each time we called `.ToList()`, it used the values in `myFavouriteNumbers` at that exact moment.
 
-Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an `IEnumerable<>` actually gets evaluated is tricky. It's fine to add `.ToList()` at the end of all your LINQ queries if it makes things easier to understand.[^1]
+Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an `IEnumerable<>` actually gets evaluated is tricky. It's fine to add `.ToList()` at the end of all your LINQ queries if it makes things easier to understand. This isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.
 
 Lazy evaluation is an interesting tool and it's good to understand it. However, it can cause subtle errors. Sometimes, figuring out the exact moment that an `IEnumerable<>` actually gets evaluated is tricky. It's fine to add `.ToList()` at the end of all your LINQ queries if it makes things easier to understand. It isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.
 
@@ -237,4 +237,3 @@ var results = select x from myList
 
 This syntax is less common than regular method calls. Don't feel a need to learn it.
 
-[^1]: This isn't very efficient, but you shouldn't use LINQ in performance-critical code anyway.

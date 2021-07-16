@@ -23,7 +23,7 @@ Logging gives us information that helps us analyze and debug programs.
 
 ## An example
 
-The simplest form of logging is writing messages to the console.[^1]
+The simplest form of logging is writing messages to the console.
 
 ```csharp
 public int MyMethod(int x)
@@ -49,5 +49,3 @@ This is simple to implement, but has flaws.
 For serious programs, *structured logging* is very useful. In contrast to using `Console.WriteLine`, structured logs aren't just text. They're usually [JSON](https://en.wikipedia.org/wiki/JSON), a format which lets us include metadata about the messages we're recording.
 
 A popular way to get structured logging in C# is to use the [Serilog](https://serilog.net/) library.
-
-[^1]: Also called 'standard output' or 'STDOUT'.

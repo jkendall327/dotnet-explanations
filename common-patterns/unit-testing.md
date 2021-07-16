@@ -10,7 +10,7 @@
 
 ## In a nutshell
 
-Unit tests are code that automatically run other bits of code. They usually check if your code has bugs, or make sure you don't accidentally break old code with new updates.[^1]
+Unit tests are code that automatically run other bits of code. They usually check if your code has bugs, or make sure you don't accidentally break old code with new updates.
 
 ## Example
 
@@ -80,5 +80,3 @@ First, you *arrange* what you need to perform the test.
 Then, you *act* by performing the operation you are testing.
 
 Finally, you *assert* to find out if the result if what you expect.
-
-[^1]: Commonly called a *regression*.
