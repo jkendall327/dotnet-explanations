@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Dependency injection - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Dependency injection</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,54 +435,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Dependency injection - <a href="../index.html">Home</a></h1>
+<h1>Dependency injection</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_so_what">So what?</a></li>
+<li><a href="#_using_interfaces_with_dependency_injection">Using interfaces with dependency injection</a></li>
+<li><a href="#_dependency_injection_all_the_way_up">Dependency injection all the way up</a></li>
+<li><a href="#_di_containers">DI containers</a></li>
+<li><a href="#_the_end_goal_of_dependency_injection">The end-goal of dependency injection</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#dependency-injection---home">Dependency injection - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#so-what">So what?</a></p>
-</li>
-<li>
-<p><a href="#using-interfaces-with-dependency-injection">Using interfaces with dependency injection</a></p>
-</li>
-<li>
-<p><a href="#dependency-injection-all-the-way-up">Dependency injection all the way up</a></p>
-</li>
-<li>
-<p><a href="#di-containers">DI containers</a></p>
-</li>
-<li>
-<p><a href="#the-end-goal-of-dependency-injection">The end-goal of dependency injection</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Dependency injection is when you ask for something in a class&#8217;s constructor rather than creating it in the class itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public class MyClass
 {
  private readonly HttpClient _client;
 
@@ -564,7 +549,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyOtherClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
 {
  public void MyMethod()
  {
@@ -592,7 +577,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyOtherClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
 {
  private HttpClient _client;
 
@@ -616,7 +601,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class Program
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
  public static void Main(string[] args)
  {
@@ -634,7 +619,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyOtherClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
 {
  private MyClass _service;
 
@@ -666,7 +651,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class Program
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
  public static void Main(string[] args)
  {
@@ -709,8 +694,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:08 +0100
+Last updated 2021-07-16 10:26:58 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

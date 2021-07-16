@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Properties / getter-setters - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Properties/getter-setters</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,52 +435,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Properties / getter-setters - <a href="../index.html">Home</a></h1>
+<h1>Properties/getter-setters</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_explanation">Explanation</a></li>
+<li><a href="#_convenient_syntax">Convenient syntax</a>
+<ul class="sectlevel2">
+<li><a href="#_explaining_the_syntax">Explaining the syntax</a></li>
+<li><a href="#_a_common_bug">A common bug</a></li>
+<li><a href="#_an_even_more_convenient_syntax">An even more convenient syntax</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="properties&.html#8212;&#8203;getter-setters---home">Properties / getter-setters - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#explanation">Explanation</a></p>
-</li>
-<li>
-<p><a href="#convenient-syntax">Convenient syntax</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#explaining-the-syntax">Explaining the syntax</a></p>
-</li>
-<li>
-<p><a href="#a-common-bug">A common bug</a></p>
-</li>
-<li>
-<p><a href="#an-even-more-convenient-syntax">An even more convenient syntax</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Properties are a kind of method that make the <code>public</code> and <code>private</code> keywords more powerful.</p>
 </div>
@@ -509,7 +493,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public class MyClass
 {
     private string importantInformation;
 
@@ -528,7 +512,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public class MyClass
 {
     private string importantInformation;
 
@@ -562,7 +546,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">private string importantInformation;
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">private string importantInformation;
 
 public string ImportantInformation
 {
@@ -596,7 +580,7 @@ public string ImportantInformation
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">private string importantInformation;
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">private string importantInformation;
 
 public string ImportantInformation
 {
@@ -619,7 +603,7 @@ public string ImportantInformation
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public string ImportantInformation { get; set;}</code></pre>
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public string ImportantInformation { get; set;}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -631,8 +615,15 @@ public string ImportantInformation
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:12 +0100
+Last updated 2021-07-16 10:29:35 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>.NET versions - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>.NET versions</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,47 +435,38 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>.NET versions - <a href="../index.html">Home</a></h1>
+<h1>.NET versions</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_warning">Warning</a></li>
+<li><a href="#_history">History</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#net-versions---home">.NET versions - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#warning">Warning</a></p>
-</li>
-<li>
-<p><a href="#history">History</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>Microsoft&#8217;s programming platform is called '.NET'. .NET Framework, .NET Core and .NET 5 are all different 'versions' of .NET.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 <div class="sect1">
 <h2 id="_warning">Warning</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<div class="title">NET is the general name for Microsoft&#8217;s programming platform. .NET Framework, .NET Core and .NET 5 are all different 'versions' of .NET.</div>
 <p>This page describes the different versions of .NET. It doesn&#8217;t explain what .NET 'really' is, how it&#8217;s different from C#, or what the CLR is.</p>
 </div>
 </div>
@@ -483,18 +475,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_history">History</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<div class="title">NET began in the late 1990s as Microsoft&#8217;s response to Java.</div>
+<p>Microsoft created .NET in the 1990s as a response to Java.</p>
+</div>
+<div class="paragraph">
 <p>Rather than just releasing their version of Java as a product, they decide to make it a <em>standard</em>. A standard is just a description of what a system 'should' look like&#8201;&#8212;&#8201;not a concrete implementation of it you can actually use. You can find some of <a href="https://www.mono-project.com/docs/about-mono/languages/ecma/">the .NET standards here</a>.</p>
 </div>
 <div class="paragraph">
 <p>The first implementation of the .NET specification was .NET Framework. Its key characteristics were that it was closed-source and Windows-only.</p>
 </div>
 <div class="paragraph">
-<div class="title">NET Core was the second implementation, released in 2016. It was open-source from the start and cross-platform.</div>
+<p>The second implementation was .NET Core, released in 2016. It was open-source from the start and cross-platform.</p>
+</div>
+<div class="paragraph">
 <p>In the meantime, there was also the <a href="https://www.mono-project.com/">Mono project</a>, which reimplemented .NET framework in an open-source way. This was the entire point of making .NET a <em>standard</em>&#8201;&#8212;&#8201;anyone could come along and make their own implementation of it. .NET Core took a lot of influence from Mono.</p>
 </div>
 <div class="paragraph">
-<div class="title">NET Core is very similar to .NET Framework in most ways. However, there are some differences.</div>
+<p>Though .NET Core is very similar to .NET Framework in most ways, there are some differences.</p>
+</div>
+<div class="paragraph">
 <p>This matters mostly in terms of <a href="https://www.nuget.org/">Nuget packages</a>&#8201;&#8212;&#8201;little add-on libraries you can download to use in your projects. A Nuget package made for .NET Framework wouldn&#8217;t be guaranteed to work on .NET Core.</p>
 </div>
 <div class="paragraph">
@@ -533,8 +531,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:14 +0100
+Last updated 2021-07-16 10:31:24 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

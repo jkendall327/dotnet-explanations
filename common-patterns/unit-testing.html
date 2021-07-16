@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Unit testing - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Unit testing</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,43 +435,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Unit testing - <a href="../index.html">Home</a></h1>
+<h1>Unit testing</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_in_a_nutshell">In a nutshell</a></li>
+<li><a href="#_example">Example</a>
+<ul class="sectlevel2">
+<li><a href="#_naming">Naming</a></li>
+<li><a href="#_expected_and_actual">Expected and actual</a></li>
+<li><a href="#_arrange_act_assert">Arrange, act, assert</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#unit-testing---home">Unit testing - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#example">Example</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#naming">Naming</a></p>
-</li>
-<li>
-<p><a href="#expected-and-actual">Expected and actual</a></p>
-</li>
-<li>
-<p><a href="#arrange-act-assert">Arrange, act, assert</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
 </div>
 </div>
@@ -490,7 +482,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public int ReturnsFour()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public int ReturnsFour()
         {
             return 4;
         }
@@ -519,7 +511,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        [Fact]
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        [Fact]
         public void ReturnsFour_ShouldReturnFour()
         {
             var expected = 4;
@@ -586,8 +578,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:09 +0100
+Last updated 2021-07-16 10:27:18 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

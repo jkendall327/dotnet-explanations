@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Static - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Static</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,54 +435,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Static - <a href="../index.html">Home</a></h1>
+<h1>Static</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_a_note_on_terminology">A note on terminology</a></li>
+<li><a href="#_how_things_work_without_static">How things work without static</a></li>
+<li><a href="#_a_demonstration_of_static">A demonstration of static</a></li>
+<li><a href="#_methods_and_classes_can_also_be_static">Methods and classes can also be static</a></li>
+<li><a href="#_static_classes">Static classes</a></li>
+<li><a href="#_misconceptions_about_static">Misconceptions about static</a></li>
+<li><a href="#_when_to_use_static">When to use static</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#static---home">Static - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#a-note-on-terminology">A note on terminology</a></p>
-</li>
-<li>
-<p><a href="#how-things-work-without-static">How things work without static</a></p>
-</li>
-<li>
-<p><a href="#a-demonstration-of-static">A demonstration of static</a></p>
-</li>
-<li>
-<p><a href="#methods-and-classes-can-also-be-static">Methods and classes can also be static</a></p>
-</li>
-<li>
-<p><a href="#static-classes">Static classes</a></p>
-</li>
-<li>
-<p><a href="#misconceptions-about-static">Misconceptions about static</a></p>
-</li>
-<li>
-<p><a href="#when-to-use-static">When to use static</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>C# is an object-oriented language. Almost everything you work with is tied to an instance of a type. When you use the static keyword, things are tied to <em>the type itself</em>.</p>
 </div>
@@ -525,7 +506,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">var sb = new StringBuilder();</code></pre>
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">var sb = new StringBuilder();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -533,7 +514,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">var sb = new StringBuilder();
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">var sb = new StringBuilder();
 sb.Length = 23;</code></pre>
 </div>
 </div>
@@ -550,7 +531,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyClass
 {
     public static int Counter = 0;
 }</code></pre>
@@ -561,7 +542,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class Program
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
   public void Main()
   {
@@ -580,7 +561,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class Program
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
   public void Main()
   {
@@ -608,7 +589,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyClass
 {
     public static int DoMathematics(int x, int y)
     {
@@ -622,7 +603,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyClass
 {
   public int Counter = 0;
 
@@ -647,7 +628,7 @@ sb.Length = 23;</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">class Program
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
   public void Main()
   {
@@ -726,8 +707,15 @@ sb.Length = 23;</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:12 +0100
+Last updated 2021-07-16 10:29:42 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Async/await - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Async/await</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,87 +435,54 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Async/await - <a href="../index.html">Home</a></h1>
+<h1>Async/await</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_warning">Warning</a>
+<ul class="sectlevel2">
+<li><a href="#_terminology">Terminology</a></li>
+<li><a href="#_threads">Threads</a></li>
+<li><a href="#_the_problem_asyncawait_solves">The problem async/await solves</a></li>
+</ul>
+</li>
+<li><a href="#_what_happens_when_an_async_method_runs">What happens when an async method runs</a></li>
+<li><a href="#_questions">Questions</a>
+<ul class="sectlevel2">
+<li><a href="#_the_async_keyword">The async keyword</a></li>
+<li><a href="#_task">Task&lt;&gt;</a></li>
+<li><a href="#_the_calling_context">The calling context</a></li>
+</ul>
+</li>
+<li><a href="#_integrating_async_into_the_rest_of_your_program">Integrating async into the rest of your program</a></li>
+<li><a href="#_making_your_own_asynchronous_functions">Making your own asynchronous functions</a>
+<ul class="sectlevel2">
+<li><a href="#_task_run">Task.Run()</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#asyncawait---home">Async/await - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#warning">Warning</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#terminology">Terminology</a></p>
-</li>
-<li>
-<p><a href="#threads">Threads</a></p>
-</li>
-<li>
-<p><a href="#the-problem-asyncawait-solves">The problem async/await solves</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-<li>
-<p><a href="#what-happens-when-an-async-method-runs">What happens when an async method runs</a></p>
-</li>
-<li>
-<p><a href="#questions">Questions</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#the-async-keyword">The async keyword</a></p>
-</li>
-<li>
-<p><a href="#task">Task&lt;</a>&gt;</p>
-</li>
-<li>
-<p><a href="#the-calling-context">The calling context</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="#integrating-async-into-the-rest-of-your-program">Integrating async into the rest of your program</a></p>
-</li>
-<li>
-<p><a href="#making-your-own-asynchronous-functions">Making your own asynchronous functions</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#taskrun">Task.Run()</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Async/await is a convenient syntax for letting your program jump out of a method while it&#8217;s doing something that takes a long time (like opening a file or downloading a webpage) and then jumping back into that method once the task is completed. Here is an example of async/await:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
         {
             var client = new HttpClient();
             var html = await client.GetAsync("www.google.com");
@@ -600,7 +568,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
         {
             var client = new HttpClient();
             var html = await client.GetAsync("www.google.com");
@@ -745,7 +713,7 @@ Async methods return either <code>Task</code> (the equivalent to <code>void</cod
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public async Task&lt;string&gt; DownloadGoogleAsync()
         {
             var client = new HttpClient();
             var html = await client.GetAsync("www.google.com");
@@ -800,8 +768,15 @@ Async methods return either <code>Task</code> (the equivalent to <code>void</cod
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:09 +0100
+Last updated 2021-07-16 10:27:33 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>The garbage collector - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Garbage collection</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,55 +435,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>The garbage collector - <a href="../index.html">Home</a></h1>
+<h1>Garbage collection</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_programs_need_memory">Programs need memory</a></li>
+<li><a href="#_the_garbage_collector_in_action">The garbage collector in action</a>
+<ul class="sectlevel2">
+<li><a href="#_a_myth_about_null">A myth about <code>null</code></a></li>
+</ul>
+</li>
+<li><a href="#_other_approaches_to_managing_memory">Other approaches to managing memory</a></li>
+<li><a href="#_the_stack_and_the_heap">The stack and the heap</a></li>
+<li><a href="#_further_reading">Further reading</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#the-garbage-collector---home">The garbage collector - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#programs-need-memory">Programs need memory</a></p>
-</li>
-<li>
-<p><a href="#the-garbage-collector-in-action">The garbage collector in action</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#a-myth-about-null">A myth about <code>null</code></a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-<li>
-<p><a href="#other-approaches-to-managing-memory">Other approaches to managing memory</a></p>
-</li>
-<li>
-<p><a href="#the-stack-and-the-heap">The stack and the heap</a></p>
-</li>
-<li>
-<p><a href="#further-reading">Further reading</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>The .NET garbage collector lets our programs act as if they have infinite memory to work with.</p>
 </div>
@@ -516,7 +498,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void MakeSomeObjects()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void MakeSomeObjects()
 {
     var sb = new StringBuilder();
 }</code></pre>
@@ -605,8 +587,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:13 +0100
+Last updated 2021-07-16 10:30:08 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

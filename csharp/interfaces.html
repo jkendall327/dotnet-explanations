@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Interfaces - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Interfaces</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,54 +435,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Interfaces - <a href="../index.html">Home</a></h1>
+<h1>Interfaces</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_the_problem">The problem</a></li>
+<li><a href="#_what_is_an_interface">What is an interface?</a></li>
+<li><a href="#_implementing_an_interface">Implementing an interface</a></li>
+<li><a href="#_fixing_the_original_problem">Fixing the original problem</a></li>
+<li><a href="#_dependency_injection">Dependency injection</a></li>
+<li><a href="#_when_to_use_interfaces">When to use interfaces</a></li>
+<li><a href="#_where_to_go_from_here">Where to go from here</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#interfaces---home">Interfaces - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#the-problem">The problem</a></p>
-</li>
-<li>
-<p><a href="#what-is-an-interface">What is an interface?</a></p>
-</li>
-<li>
-<p><a href="#implementing-an-interface">Implementing an interface</a></p>
-</li>
-<li>
-<p><a href="#fixing-the-original-problem">Fixing the original problem</a></p>
-</li>
-<li>
-<p><a href="#dependency-injection">Dependency injection</a></p>
-</li>
-<li>
-<p><a href="#when-to-use-interfaces">When to use interfaces</a></p>
-</li>
-<li>
-<p><a href="#where-to-go-from-here">Where to go from here</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Interfaces let you say what you want your code to do without specifying how it does it.</p>
 </div>
@@ -495,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void ChangeUsername(int userID, string newName)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void ChangeUsername(int userID, string newName)
 {
     var user = new UserDetailsDatabaseLoader.Load(id);
     user.Name = newName;
@@ -520,7 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void ChangeUsername(int userID, string newName)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void ChangeUsername(int userID, string newName)
 {
     var user = new FilesystemLoader.Load(id);
     user.Name = newName;
@@ -532,7 +513,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void ChangeUsername(int userID, string newName)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void ChangeUsername(int userID, string newName)
 {
     var user = CarrierPigeonLoader.Load(id);
     user.Name = newName;
@@ -561,7 +542,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">interface ILoader
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">interface ILoader
 {
     User Load(int id);
 }</code></pre>
@@ -600,7 +581,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">// The syntax for implementing an interface is identical to inheriting from a class.
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">// The syntax for implementing an interface is identical to inheriting from a class.
 class CarrierPigeonLoader : ILoader
 {
     // Without this method, your program will no longer compile.
@@ -631,7 +612,7 @@ Because <code>CarrierPigeonLoader</code> implements <code>ILoader</code>, it has
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void ChangeUsername(int userID, string newName)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void ChangeUsername(int userID, string newName)
 {
     ILoader loader = new CarrierPigeonLoader();
     var user = loader.Load(id);
@@ -696,8 +677,15 @@ Because <code>CarrierPigeonLoader</code> implements <code>ILoader</code>, it has
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:11 +0100
+Last updated 2021-07-16 10:28:20 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>

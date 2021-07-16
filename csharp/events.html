@@ -5,7 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<title>Events - Home</title>
+<meta name="author" content="Jack Kendall">
+<title>Events</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -434,58 +435,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Events - <a href="../index.html">Home</a></h1>
+<h1>Events</h1>
+<div class="details">
+<span id="author" class="author">Jack Kendall</span><br>
+<span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_the_observer_design_pattern">The observer design pattern</a></li>
+<li><a href="#_why_delegates_are_bad_for_the_observer_design_pattern">Why delegates are bad for the observer design pattern</a></li>
+<li><a href="#_what_events_change">What events change</a></li>
+<li><a href="#_eventhandler_and_eventargs">EventHandler and EventArgs</a></li>
+<li><a href="#_passing_along_our_own_data">Passing along our own data</a>
+<ul class="sectlevel2">
+<li><a href="#_generic_eventhandler">Generic EventHandler</a></li>
+<li><a href="#_defining_your_own_eventargs">Defining your own EventArgs</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#events---home">Events - Home</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#in-a-nutshell">In a nutshell</a></p>
-</li>
-<li>
-<p><a href="#the-observer-design-pattern">The observer design pattern</a></p>
-</li>
-<li>
-<p><a href="#why-delegates-are-bad-for-the-observer-design-pattern">Why delegates are bad for the observer design pattern</a></p>
-</li>
-<li>
-<p><a href="#what-events-change">What events change</a></p>
-</li>
-<li>
-<p><a href="#eventhandler-and-eventargs">EventHandler and EventArgs</a></p>
-</li>
-<li>
-<p><a href="#passing-along-our-own-data">Passing along our own data</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#generic-eventhandler">Generic EventHandler</a></p>
-</li>
-<li>
-<p><a href="#defining-your-own-eventargs">Defining your own EventArgs</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Events are <a href="delegates.html">delegates</a> with a few extra safety features built-in. They are used to implement the 'observer' design pattern.</p>
 </div>
@@ -527,7 +507,7 @@ And that we want to shut down the user&#8217;s PC when the count hits one hundre
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        // define a delegate
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        // define a delegate
         public delegate void MyDelegate();
 
         // give a class an instance of the delegate
@@ -603,7 +583,7 @@ We also shouldn&#8217;t be able to invoke the delegate whenever we want, either.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        // we still declare a method signature through a delegate
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        // we still declare a method signature through a delegate
         public delegate void MyDelegate();
 
         public class MyClass
@@ -652,7 +632,7 @@ We also shouldn&#8217;t be able to invoke the delegate whenever we want, either.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public class MyClass
         {
             // declares the event and its method signature in one line
             public event EventHandler MyEvent;
@@ -693,7 +673,7 @@ We also shouldn&#8217;t be able to invoke the delegate whenever we want, either.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public class MyClass
         {
             public event EventHandler MyEvent;
 
@@ -723,7 +703,7 @@ We also shouldn&#8217;t be able to invoke the delegate whenever we want, either.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public class MyClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public class MyClass
         {
             // EventHandler now wants a string as well as an object
             public event EventHandler&lt;string&gt; MyEvent;
@@ -764,7 +744,7 @@ We also shouldn&#8217;t be able to invoke the delegate whenever we want, either.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">        public class PersonEventArgs : EventArgs
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        public class PersonEventArgs : EventArgs
         {
             string Name;
             int Age;
@@ -785,7 +765,7 @@ You typically define a constructor to make it easier to get information into the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">            public void InvokeTheEvent()
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">            public void InvokeTheEvent()
             {
                 MyEvent(this, new PersonEventArgs("Jack", 24, true));
             }</code></pre>
@@ -796,7 +776,7 @@ You typically define a constructor to make it easier to get information into the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">            private void WriteMessage(object sender, PersonEventArgs e)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">            private void WriteMessage(object sender, PersonEventArgs e)
             {
                 // subscribers can now access information from the event
                 Console.WriteLine("The name is:" + e.Name);
@@ -812,8 +792,15 @@ You typically define a constructor to make it easier to get information into the
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 09:46:10 +0100
+Last updated 2021-07-16 10:27:58 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>
