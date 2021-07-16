@@ -1,12 +1,10 @@
-// title: Reference types and value types
-= Reference types and value types - xref:../index.adoc[Home]
+= Reference types and value types
 Jack Kendall <jkendall3096@gmail.com>
-:description: Explaining the difference between reference types and value types in .NET.
-:url-repo: https://github.com/jkendall327/dotnet-explanations
-:toc: auto
+:toc:
 :pp: {plus}{plus}
+:source-highlighter: highlightjs
 
-== In a nutshell
+xref:../index.adoc[Home]
 
 Consider this quote from Ben Klemens' book _https://www.amazon.co.uk/21st-Century-Tips-New-School/dp/1449327141[21st Century C: C Tips from the New School]_.
 
@@ -58,9 +56,7 @@ In some languages, like C{pp}, you can treat any variable as a value or a refere
 
 In C#, you can't. This decision is already made for you in the type itself. An `int` will always be a value type. A `StringBuilder` will always be a reference type.
 
-____
-⚠️ There are ways to 'box' a value type so it becomes a reference type, like with https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types[nullable value types]. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.
-____
+NOTE: There are ways to 'box' a value type so it becomes a reference type, like with https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types[nullable value types]. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn't change.
 
 As a rough guide, the following things are value types:
 

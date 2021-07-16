@@ -5,9 +5,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.15">
-<meta name="description" content="Explaining the difference between reference types and value types in .NET.">
 <meta name="author" content="Jack Kendall">
-<title>Reference types and value types - Home</title>
+<title>Reference types and value types</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,10 +435,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/github.min.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>Reference types and value types - <a href="../index.html">Home</a></h1>
+<h1>Reference types and value types</h1>
 <div class="details">
 <span id="author" class="author">Jack Kendall</span><br>
 <span id="email" class="email"><a href="mailto:jkendall3096@gmail.com">jkendall3096@gmail.com</a></span><br>
@@ -447,7 +447,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_in_a_nutshell">In a nutshell</a></li>
 <li><a href="#_the_basics">The basics</a></li>
 <li><a href="#_in_net_reference_and_value_types_are_pre_determined">In .NET, reference and value types are pre-determined</a></li>
 <li><a href="#_why_do_reference_types_exist">Why do reference types exist?</a></li>
@@ -457,9 +456,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_in_a_nutshell">In a nutshell</h2>
+<div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p><a href="../index.html">Home</a></p>
+</div>
 <div class="paragraph">
 <p>Consider this quote from Ben Klemens' book <em><a href="https://www.amazon.co.uk/21st-Century-Tips-New-School/dp/1449327141">21st Century C: C Tips from the New School</a></em>.</p>
 </div>
@@ -484,7 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">var a = 10;
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">var a = 10;
 var b = a;
 
 Console.WriteLine(b); // outputs '10'
@@ -502,7 +503,7 @@ Console.WriteLine(b); // still outputs '10'</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">Person John = new Person { Age = 20, Height = 5.6 };
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">Person John = new Person { Age = 20, Height = 5.6 };
 
 Person Jane = John;
 
@@ -528,12 +529,17 @@ When you change something in <code>John</code>, <code>Jane</code> also changes. 
 <div class="paragraph">
 <p>In C#, you can&#8217;t. This decision is already made for you in the type itself. An <code>int</code> will always be a value type. A <code>StringBuilder</code> will always be a reference type.</p>
 </div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>⚠️ There are ways to 'box' a value type so it becomes a reference type, like with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</a>. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn&#8217;t change.</p>
-</div>
-</blockquote>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+There are ways to 'box' a value type so it becomes a reference type, like with <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/nullable-value-types">nullable value types</a>. But this does not change the underlying type. Putting a shirt in a suitcase makes it easier to carry around, but the shirt doesn&#8217;t change.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>As a rough guide, the following things are value types:</p>
@@ -595,7 +601,7 @@ When you change something in <code>John</code>, <code>Jane</code> also changes. 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public void ClampAge(User user)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public void ClampAge(User user)
 {
     if (user.Age &lt; 0)
     {
@@ -620,7 +626,7 @@ public void CreateUser(int age, string name)
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-csharp" data-lang="csharp">public User ClampAge(User user)
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public User ClampAge(User user)
 {
     if (user.Age &lt; 0)
     {
@@ -693,8 +699,15 @@ public void CreateUser(int age, string name)
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 10:00:52 +0100
+Last updated 2021-07-16 10:24:43 +0100
 </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
 </body>
 </html>
