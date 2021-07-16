@@ -1,14 +1,10 @@
 // title: Reference types and value types
 = Reference types and value types - xref:../index.adoc[Home]
+Jack Kendall <jkendall3096@gmail.com>
+:description: Explaining the difference between reference types and value types in .NET.
+:url-repo: https://github.com/jkendall327/dotnet-explanations
+:toc: auto
 :pp: {plus}{plus}
-
-* <<reference-types-and-value-types---home,Reference types and value types - Home>>
- ** <<in-a-nutshell,In a nutshell>>
- ** <<the-basics,The basics>>
- ** <<in-net-reference-and-value-types-are-pre-determined,In .NET, reference and value types are pre-determined>>
- ** <<why-do-reference-types-exist,Why do reference types exist?>>
- ** <<the-ref-and-out-keywords,The `ref` and `out` keywords>>
- ** <<the-stack-and-the-heap,The stack and the heap>>
 
 == In a nutshell
 

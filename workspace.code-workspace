@@ -5,6 +5,10 @@
         }
     ],
     "settings": {
-        "markdown.extension.print.onFileSave": true
+        "markdown.extension.print.onFileSave": true,
+        "cSpell.words": [
+            "adoc",
+            "xref"
+        ]
     }
 }
