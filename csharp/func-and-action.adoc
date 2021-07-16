@@ -1,25 +1,26 @@
-<!-- title: Func<> and Action<> -->
-# Func<> and Action<> - [Home](../index.md)
+// title: Func<> and Action<>
+= Func<> and Action<> - xref:../index.adoc[Home]
 
-- [Func<> and Action<> - Home](#func-and-action---home)
-  - [In a nutshell](#in-a-nutshell)
-  - [The problem that `Func<>` and `Action<>` solve](#the-problem-that-func-and-action-solve)
-  - [Action<>](#action)
-  - [Func<>](#func)
-  - [Predicate<>](#predicate)
+* <<func-and-action---home,Func<> and Action<> - Home>>
+ ** <<in-a-nutshell,In a nutshell>>
+ ** <<the-problem-that-func-and-action-solve,The problem that `Func<>` and `Action<>` solve>>
+ ** <<action,Action<>>>
+ ** <<func,Func<>>>
+ ** <<predicate,Predicate<>>>
 
-## In a nutshell
+== In a nutshell
 
-`Func<>` and `Action<>` are convenient shortcuts for common [delegates](delegates.md) use-cases.
+`Func<>` and `Action<>` are convenient shortcuts for common xref:delegates.adoc[delegates] use-cases.
 `Func<>` is for methods that return a value. `Action<>` is for methods that return void.
 
-## The problem that `Func<>` and `Action<>` solve
+== The problem that `Func<>` and `Action<>` solve
 
 Delegates are a very powerful tool that let us put methods into variables and pass them to other methods as arguments.
 
 The issue is that the syntax for delegates is quite heavy:
 
-```csharp
+[source,csharp]
+----
 delegate void MyDelegate(string message);
 
 public class MyClass
@@ -35,23 +36,24 @@ public class MyClass
       Console.WriteLine(message);
    }
 }
-```
+----
 
 For this very simple example, we have to
 
-- Define the method signatures the delegate accepts. (The `delegate void MyDelegate...` line)
-- Create an instance of the delegate.
-- Assign a method to the delegate.
-- Invoke the delegate.
+* Define the method signatures the delegate accepts. (The `+delegate void MyDelegate...+` line)
+* Create an instance of the delegate.
+* Assign a method to the delegate.
+* Invoke the delegate.
 
 `Func<>` and `Action<>` remove the first step by pre-defining a method signature for us.
 
-## Action<>
+== Action<>
 
 `Action<string>` is the same as `delegate void DelegateName(string argumentName)`.
 Because `WriteMessage` returns `void`, we use `Action<>` rather than `Func<>`.
 
-```csharp
+[source,csharp]
+----
 public class MyClass
 {
    public void UseADelegate()
@@ -65,11 +67,12 @@ public class MyClass
       Console.WriteLine(message);
    }
 }
-```
+----
 
 If you need more than one parameter, you just write them between the angle brackets.
 
-```csharp
+[source,csharp]
+----
 public class MyClass
 {
    public void UseADelegate()
@@ -85,15 +88,16 @@ public class MyClass
       Console.WriteLine(message);
    }
 }
-```
+----
 
-You can [go up to sixteen arguments](https://docs.microsoft.com/en-us/dotnet/api/system.action-16?view=net-5.0) this way. (But if you ever get that high, you should probably do things differently.)
+You can https://docs.microsoft.com/en-us/dotnet/api/system.action-16?view=net-5.0[go up to sixteen arguments] this way. (But if you ever get that high, you should probably do things differently.)
 
-## Func<>
+== Func<>
 
 `Func<>` is like `Action<>` for methods that return a value. The final generic argument is the result.
 
-```csharp
+[source,csharp]
+----
 public class MyClass
 {
    public void UseADelegate()
@@ -112,11 +116,11 @@ public class MyClass
       return true;
    }
 }
-```
+----
 
-Again, you can [go up to sixteen arguments this way](https://docs.microsoft.com/en-us/dotnet/api/system.func-17?view=net-5.0), not counting the result.
+Again, you can https://docs.microsoft.com/en-us/dotnet/api/system.func-17?view=net-5.0[go up to sixteen arguments this way], not counting the result.
 
-## Predicate<>
+== Predicate<>
 
 There is also a `Predicate<>`, but I don't understand it well enough to explain it here :)
 It's mainly used in LINQ.

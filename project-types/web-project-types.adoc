@@ -1,0 +1,29 @@
+// title: Web project types
+= Web project types - xref:../index.adoc[Home]
+
+* <<web-project-types---home,Web project types - Home>>
+ ** <<in-a-nutshell,In a nutshell>>
+ ** <<what-should-i-learn,What should I learn?>>
+ ** <<webforms,Webforms>>
+ ** <<aspnet,ASP.NET>>
+
+== In a nutshell
+
+The different ways you can use it to make websites is one of the most confusing parts of .NET. Here are some terms you will hear:
+
+* Webforms, an outdated project type popular several years ago
+* ASP.NET, a very popular project type still in use today
+* ASP.NET Core, an updated version of ASP.NET that aligns with xref:../general-dotnet/dotnet-versions.adoc[.NET Core]
+* Razor, a part of ASP.NET Core that lets you build user interfaces
+* Blazor, another part of ASP.NET Core that lets you build user interfaces
+* SignalR, a part of ASP.NET Core made for real-time web apps
+
+== What should I learn?
+
+You should probably start off by learning ASP.NET Core.
+
+== Webforms
+
+== ASP.NET
+
+In case you were wondering, it stands for 'active server pages'.

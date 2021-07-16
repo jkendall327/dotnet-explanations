@@ -1,21 +1,21 @@
-<!-- title: Events -->
-# Events - [Home](../index.md)
+// title: Events
+= Events - xref:../index.adoc[Home]
 
-- [Events - Home](#events---home)
-  - [In a nutshell](#in-a-nutshell)
-  - [The observer design pattern](#the-observer-design-pattern)
-  - [Why delegates are bad for the observer design pattern](#why-delegates-are-bad-for-the-observer-design-pattern)
-  - [What events change](#what-events-change)
-  - [EventHandler and EventArgs](#eventhandler-and-eventargs)
-  - [Passing along our own data](#passing-along-our-own-data)
-    - [Generic EventHandler](#generic-eventhandler)
-    - [Defining your own EventArgs](#defining-your-own-eventargs)
+* <<events---home,Events - Home>>
+ ** <<in-a-nutshell,In a nutshell>>
+ ** <<the-observer-design-pattern,The observer design pattern>>
+ ** <<why-delegates-are-bad-for-the-observer-design-pattern,Why delegates are bad for the observer design pattern>>
+ ** <<what-events-change,What events change>>
+ ** <<eventhandler-and-eventargs,EventHandler and EventArgs>>
+ ** <<passing-along-our-own-data,Passing along our own data>>
+  *** <<generic-eventhandler,Generic EventHandler>>
+  *** <<defining-your-own-eventargs,Defining your own EventArgs>>
 
-## In a nutshell
+== In a nutshell
 
-Events are [delegates](delegates.md) with a few extra safety features built-in. They are used to implement the 'observer' design pattern.
+Events are xref:delegates.adoc[delegates] with a few extra safety features built-in. They are used to implement the 'observer' design pattern.
 
-## The observer design pattern
+== The observer design pattern
 
 We often want one part of our program to respond to something happening elsewhere in our program.
 
@@ -25,7 +25,7 @@ We could simply add a line of code in the counter that checks if it's at ten, th
 But imagine we also want to save the current count to a file every time it's a prime number.
 And that we want to shut down the user's PC when the count hits one hundred.
 
-We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do — count.
+We could add all of this logic to the counter, but it would quickly get complicated and obscure what the counter is meant to do -- count.
 
 A better model would be if our counter could 'send out' messages describing what its current count was. Then other parts of the program could do whatever they liked with that information, and it wouldn't affect the counter. It wouldn't even have to know who's listening to its messages. Think of it like a radio-tower sending out music to radios.
 
@@ -33,11 +33,12 @@ This is called the observer pattern, or the publisher-subscriber pattern.
 
 You can implement this pattern with delegates. But they aren't the best choice for it in C#.
 
-## Why delegates are bad for the observer design pattern
+== Why delegates are bad for the observer design pattern
 
 With delegates it is easy to break encapsulation and crash your program.
 
-```csharp
+[source,csharp]
+----
         // define a delegate
         public delegate void MyDelegate();
 
@@ -78,7 +79,7 @@ With delegates it is easy to break encapsulation and crash your program.
                 Console.WriteLine("hello world");
             }
         }
-```
+----
 
 We should not be able to set the subscriber of another class to `null`. This doesn't just break things for `MyOtherClass`, but any part of the program that subscribed to `ListOfMethods`.
 Instead of setting it to `null`, we could also clear the list of methods, set it to an entirely new list, or any number of other dangerous actions.
@@ -86,17 +87,18 @@ We also shouldn't be able to invoke the delegate whenever we want, either.
 
 We need a special kind of delegate that can only be invoked or set in the class that created it. These are events.
 
-## What events change
+== What events change
 
 Events have the following restrictions.
 
-- You can only directly assign values to them in the class where they were declared.
-- Outside of the class where they were declared, you can only use the += and -= syntax to change their subscribers.
-- You can only invoke an event in the class it was declared.
+* You can only directly assign values to them in the class where they were declared.
+* Outside of the class where they were declared, you can only use the += and -= syntax to change their subscribers.
+* You can only invoke an event in the class it was declared.
 
 Here is the previous example rewritten to use events.
 
-```csharp
+[source,csharp]
+----
         // we still declare a method signature through a delegate
         public delegate void MyDelegate();
 
@@ -125,19 +127,20 @@ Here is the previous example rewritten to use events.
                 Console.WriteLine("hello world");
             }
         }
-```
+----
 
 Our program is now a lot safer. We can't break everything by accidentally setting a delegate to `null`.
 
 However, it's still a bit ugly that we have to declare `MyDelegate`. Thankfully, there is a more convenient way to do things.
 
-## EventHandler and EventArgs
+== EventHandler and EventArgs
 
-In C# there is a very clearly-defined pattern for writing events. Much like how [Func<> and Action<>](func-and-action.md) were made as shorthand for common delegate use-cases, `EventHandler` and `EventArgs` were created for common event use-cases.
+In C# there is a very clearly-defined pattern for writing events. Much like how xref:func-and-action.adoc[Func<> and Action<>] were made as shorthand for common delegate use-cases, `EventHandler` and `EventArgs` were created for common event use-cases.
 
 Here is the previous example re-written with these useful constructs.
 
-```csharp
+[source,csharp]
+----
         public class MyClass
         {
             // declares the event and its method signature in one line
@@ -159,7 +162,7 @@ Here is the previous example re-written with these useful constructs.
                 Console.WriteLine("hello world");
             }
         }
-```
+----
 
 I've removed lines that wouldn't compile for simplicity.
 
@@ -172,7 +175,8 @@ Returning `void` is simple. It doesn't make much sense for an event to return an
 
 Here is what it would like like if `MyClass` wanted to invoke `MyEvent`.
 
-```csharp
+[source,csharp]
+----
         public class MyClass
         {
             public event EventHandler MyEvent;
@@ -182,20 +186,21 @@ Here is what it would like like if `MyClass` wanted to invoke `MyEvent`.
                 MyEvent(this, EventArgs.Empty);
             }
         }
-```
+----
 
 The `this` keyword passes in the current instance of `MyClass`. Because `EventHandler` asks for an `object`, you could, of course, send anything that you wanted.
 
-## Passing along our own data
+== Passing along our own data
 
 There are two ways for an event to carry along data to its subscribers. One, using a generic EventHandler, is simple but limited. The other, defining your EventArgs, is more involved but also more powerful.
 
-### Generic EventHandler
+=== Generic EventHandler
 
 The `EventHandler` class is generic, so we can have an `EventHandler<>` of any type. This lets us pass along a single value when our event is invoked.
 `EventHandler` will always ask for an `object sender` along with the generic type.
 
-```csharp
+[source,csharp]
+----
         public class MyClass
         {
             // EventHandler now wants a string as well as an object
@@ -224,15 +229,16 @@ The `EventHandler` class is generic, so we can have an `EventHandler<>` of any t
                 Console.WriteLine(text);
             }
         }
-```
+----
 
 This approach is good when you only want to send out simple information, like a number or a name. But if you want to send out more than one value, you need to define your own EventArgs.
 
-### Defining your own EventArgs
+=== Defining your own EventArgs
 
 To define your own event arguments, inherit from `EventArgs`.
 
-```csharp
+[source,csharp]
+----
         public class PersonEventArgs : EventArgs
         {
             string Name;
@@ -246,21 +252,23 @@ To define your own event arguments, inherit from `EventArgs`.
                 IsAProgrammer = isAProgrammer;
             }
         }
-```
+----
 
-It's convention to have *EventArgs* at the end of the name of your new class.
+It's convention to have _EventArgs_ at the end of the name of your new class.
 You typically define a constructor to make it easier to get information into the class when you're invoking your event:
 
-```csharp
+[source,csharp]
+----
             public void InvokeTheEvent()
             {
                 MyEvent(this, new PersonEventArgs("Jack", 24, true));
             }
-```
+----
 
 Subscribers can now access this information.
 
-```csharp
+[source,csharp]
+----
             private void WriteMessage(object sender, PersonEventArgs e)
             {
                 // subscribers can now access information from the event
@@ -269,4 +277,4 @@ Subscribers can now access this information.
                 Console.WriteLine("Are they a programmer? " + e.IsAProgrammer);
 
             }
-```
+----

@@ -1,0 +1,48 @@
+= Simple explanations for .NET concepts
+
+This site is a place for me to record my understanding of .NET, C# and related technologies. My hope is that it will also serve as a useful learning resources for anyone who was in the same position as me -- interested in .NET as a general concept but confused by unfamiliar names, project types and terminology.
+
+My goal is to give you the 'eureka moment' needed to appreciate more detailed resources, like the https://docs.microsoft.com/en-us/dotnet/[MSDN] or a https://www.manning.com/[Manning Press] book. I try to write as directly and clearly as possible. If you read a page and think 'well, that's pretty simple, why did he feel the need to explain that?' -- I'm happy.
+
+This page isn't a programming tutorial, so I won't explain fundamental concepts like variables or for-loops.
+
+== Topics
+
+* C#
+ ** xref:csharp/interfaces.adoc[Interfaces]
+ ** xref:csharp/generics.adoc[Generics] [incomplete]
+ ** xref:csharp/static.adoc[The 'static' keyword] [99% complete]
+ ** xref:csharp/delegates.adoc[Delegates]
+ ** xref:csharp/func-and-action.adoc[Func<> and Action<>]
+ ** Lambdas
+ ** xref:csharp/events.adoc[Events]
+ ** xref:csharp/async-await.adoc[Async/await] [99% complete]
+ ** xref:csharp/properties.adoc[Properties]
+ ** xref:csharp/linq.adoc[LINQ]
+* .NET project types
+ ** xref:project-types/desktop-project-types.adoc[Desktop] [incomplete]
+ ** xref:project-types/web-project-types.adoc[Web] [incomplete]
+* The .NET runtime
+ ** xref:dotnet-runtime/source-to-execution.adoc[How your source code turns into a program] [incomplete]
+ ** xref:dotnet-runtime/reference-types-and-value-types.adoc[Reference types and value types]
+ ** xref:dotnet-runtime/garbage-collector.adoc[The garbage collector]
+* The developer experience
+ ** MSBuild
+ ** xref:developer-experience/vs-tour.adoc[A tour of Visual Studio] [incomplete]
+* .NET as a concept
+ ** xref:general-dotnet/dotnet-versions.adoc[The difference between .NET Framework, .NET Core, .NET 5/6] [incomplete]
+ ** The history of .NET
+* Common .NET programming patterns
+ ** xref:common-patterns/logging.adoc[Logging]
+ ** xref:common-patterns/unit-testing.adoc[Unit testing]
+ ** xref:common-patterns/dependency-injection.adoc[Dependency injection]
+
+== Who is responsible for this?
+
+My name is Jack Kendall. You can contact me through https://github.com/jkendall327/dotnet-explanations[the GitHub page for this site]. Feel free to make pull requests for any improvements (especially factual errors!).
+
+== Credits and thanks
+
+* Yu Zhang for the lovely https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one[Markdown All in One extension] that makes writing these pages easy and fun.
+* Github Pages for hosting this site.
+* Microsoft for developing .NET.

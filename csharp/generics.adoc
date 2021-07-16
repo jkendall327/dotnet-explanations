@@ -1,20 +1,21 @@
-<!-- title: Generics -->
-# Generics - [Home](../index.md)
+// title: Generics
+= Generics - xref:../index.adoc[Home]
 
-- [Generics - Home](#generics---home)
-  - [In a nutshell](#in-a-nutshell)
-  - [Why care about generics?](#why-care-about-generics)
+* <<generics---home,Generics - Home>>
+ ** <<in-a-nutshell,In a nutshell>>
+ ** <<why-care-about-generics,Why care about generics?>>
 
-## In a nutshell
+== In a nutshell
 
 Generics let you write a function that doesn't care about the type of its arguments.
 You can also use generics to make classes that 'wrap' other classes, like `List<>`.
 
-## Why care about generics?
+== Why care about generics?
 
 Generics mostly exist so you don't have to write duplicate code. Imagine seeing these functions in a file:
 
-```csharp
+[source,csharp]
+----
 public int Add(int x, int y)
 {
     return x + y;
@@ -29,20 +30,21 @@ public float Add(float x, float y)
 {
     return x + y;
 }
-```
+----
 
 Something is clearly wrong here. The actual logic of these functions is all the same. The only difference is the type of their arguments.
 
 We can write a generic function to simplify this:
 
-```csharp
+[source,csharp]
+----
 public T Add<T>(T x, T y)
 {
     return x + y;
 }
-```
+----
 
-We can now use this one function for `int`s, `double`s, `float`s, and many other types as well.
+We can now use this one function for ``int``s, ``double``s, ``float``s, and many other types as well.
 
 The part that makes this function generic is the angle-brackets after its name (the '<' and '>').
 

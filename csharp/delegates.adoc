@@ -1,33 +1,34 @@
-<!-- title: Delegates -->
-# Delegates - [Home](../index.md)
+// title: Delegates
+= Delegates - xref:../index.adoc[Home]
 
-- [Delegates - Home](#delegates---home)
-  - [In a nutshell](#in-a-nutshell)
-  - [Explanation](#explanation)
-  - [Method signatures](#method-signatures)
-  - [Using delegates](#using-delegates)
-  - [Actually using a delegate](#actually-using-a-delegate)
-  - [Treating methods like variables](#treating-methods-like-variables)
-  - [Other syntax that you might see](#other-syntax-that-you-might-see)
-  - [Multicast delegates](#multicast-delegates)
-  - [Why care about delegates?](#why-care-about-delegates)
-  - [Further learning](#further-learning)
+* <<delegates---home,Delegates - Home>>
+ ** <<in-a-nutshell,In a nutshell>>
+ ** <<explanation,Explanation>>
+ ** <<method-signatures,Method signatures>>
+ ** <<using-delegates,Using delegates>>
+ ** <<actually-using-a-delegate,Actually using a delegate>>
+ ** <<treating-methods-like-variables,Treating methods like variables>>
+ ** <<other-syntax-that-you-might-see,Other syntax that you might see>>
+ ** <<multicast-delegates,Multicast delegates>>
+ ** <<why-care-about-delegates,Why care about delegates?>>
+ ** <<further-learning,Further learning>>
 
-## In a nutshell
+== In a nutshell
 
 A delegate is like a `List<>` for methods.
 
-## Explanation
+== Explanation
 
 Think about a `List<int>`:
 
-```csharp
+[source,csharp]
+----
 var myList = new List<int>() {4, 6, 1, 10, 11};
-```
+----
 
-Using a `List<>` lets you group several values together into one variable. This lets you do things to all of them at once — with a `List<int>`, you can `Sum()` the list with a single command.
+Using a `List<>` lets you group several values together into one variable. This lets you do things to all of them at once -- with a `List<int>`, you can `Sum()` the list with a single command.
 
-An important thing about a `List<int>` is that you can only put `int`s in it. If you put in a `double` or a `string`, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.
+An important thing about a `List<int>` is that you can only put ``int``s in it. If you put in a `double` or a `string`, the C# compiler will tell you that you've made a mistake right away. This is type-safety, and stops you from making silly mistakes.
 
 A delegate is like a `List<>` for methods.
 
@@ -37,19 +38,20 @@ A delegate is type-safe, like a `List<>`. When you make a delegate, you have to 
 
 But how do you decide what 'kind' of methods this list should contain? To understand that, we need to understand method signatures.
 
-## Method signatures
+== Method signatures
 
 Consider the following method.
 
-```csharp
+[source,csharp]
+----
 public int AddThenSquare(int x, int y)
 {
     var sum = x + y;
     return sum * sum;
 }
-```
+----
 
-When you're learning C#, you focus on what's between the curly braces. This is the *body* of the method.
+When you're learning C#, you focus on what's between the curly braces. This is the _body_ of the method.
 
 But for delegates, we care about the signature, which is the bit at the top.
 
@@ -57,36 +59,40 @@ But for delegates, we care about the signature, which is the bit at the top.
 
 Only two parts of the signature matter for delegates:
 
-- The arguments.
-- The return type.
+* The arguments.
+* The return type.
 
 For two methods to go in the same delegate, they need to have the same arguments and return type.
 The name of the method and its visibility (whether it's `public` or `private`) aren't important.
 
-The *arguments* are the variables the method asks for. More specifically, we only care about the types of the arguments. It doesn't matter that `AddThenSquare` names one argument 'x' and the other 'y'. All that matters is that they are both `int`s.
+The _arguments_ are the variables the method asks for. More specifically, we only care about the types of the arguments. It doesn't matter that `AddThenSquare` names one argument 'x' and the other 'y'. All that matters is that they are both ``int``s.
 
 The return type is what the method gives back. In this case, it's also an `int`. But it could be `void`, or anything else.
 
-> 💡 The [CLR](../dotnet-runtime/source-to-execution.md) can differentiate methods based on just their return type, but C# chooses not to support this.
+____
+💡 The xref:../dotnet-runtime/source-to-execution.adoc[CLR] can differentiate methods based on just their return type, but C# chooses not to support this.
+____
 
-If we want to add `AddThenSquare` to a delegate, we need a delegate that says 'I will take in any method that accepts two `int`s and gives back one `int`'.
+If we want to add `AddThenSquare` to a delegate, we need a delegate that says 'I will take in any method that accepts two ``int``s and gives back one ``int``'.
 
-## Using delegates
+== Using delegates
 
 We have to define the methods our delegate accepts before we can use it.
 
-```csharp
+[source,csharp]
+----
     delegate int ExampleDelegate(int x, int y);
-```
+----
 
 This looks very similar to defining a method. There are two differences:
 
-- We use the `delegate` keyword at the start.
-- Instead of adding a method body, we put a `;` after the arguments.
+* We use the `delegate` keyword at the start.
+* Instead of adding a method body, we put a `;` after the arguments.
 
 We can now add methods to our delegate.
 
-```csharp
+[source,csharp]
+----
 class MyExampleClass
 {
     public int AddThenSquare(int x, int y)
@@ -102,19 +108,22 @@ class MyExampleClass
         var myDelegate = new ExampleDelegate(AddThenSquare);
     }
 }
-```
+----
 
 This class has a method, a delegate, and another method which uses them both.
 
-`delegate int ExampleDelegate(int x, int y);` defines a *kind* of delegate.
+`delegate int ExampleDelegate(int x, int y);` defines a _kind_ of delegate.
 
-`var myDelegate = new ExampleDelegate(AddThenSquare);` creates an *instance* of the delegate we defined.
+`var myDelegate = new ExampleDelegate(AddThenSquare);` creates an _instance_ of the delegate we defined.
 
-> ⚠️ We could actually define our delegate outside of `MyExampleClass`. This is because behind the scenes, all delegates are actually classes.
+____
+⚠️ We could actually define our delegate outside of `MyExampleClass`. This is because behind the scenes, all delegates are actually classes.
+____
 
-`myDelegate` now contains `AddThenSquare`. Because delegates are like `List<>`s, we can add multiple methods to it.
+`myDelegate` now contains `AddThenSquare`. Because delegates are like ``List<>``s, we can add multiple methods to it.
 
-```csharp
+[source,csharp]
+----
 class MyExampleClass
 {
     public int AddThenSquare(int x, int y)
@@ -137,28 +146,31 @@ class MyExampleClass
         myDelegate += SubtractThenSquare;
     }
 }
-```
+----
 
 `myDelegate` now contains both methods. You can remove a method from a delegate by using `-=`.
 
-> 💡 The `+=` syntax is shorthand for the [Delegate.Combine](https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0) method.
+____
+💡 The `+=` syntax is shorthand for the https://docs.microsoft.com/en-us/dotnet/api/system.delegate.combine?view=net-5.0[Delegate.Combine] method.
+____
 
-## Actually using a delegate
+== Actually using a delegate
 
 Nothing happens when you just add methods to a delegate, in the same way nothing happens when you add numbers to a `List<int>`.
 
 To make our delegate do something, we use the delegate's `Invoke` method.
-We defined our delegate as taking two `int`s, so we have to give it two `int`s to invoke it. It will also give us one `int` back, since that's how we defined it.
+We defined our delegate as taking two ``int``s, so we have to give it two ``int``s to invoke it. It will also give us one `int` back, since that's how we defined it.
 
-```myDelegate.Invoke(4, 5);```
+`myDelegate.Invoke(4, 5);`
 
 This will run through every method in `myDelegate`, giving them each the arguments 4 and 5. We're not doing anything with the return values (81 and 1, in this example), but we could if we wanted.
 
-## Treating methods like variables
+== Treating methods like variables
 
 People care about delegates because they let us treat methods like variables. More specifically, we can pass a method into another method.
 
-```csharp
+[source,csharp]
+----
     delegate void ExampleDelegate(int x);
 
     public void DoTheMethodTwice(ExampleDelegate method, int argument)
@@ -166,19 +178,22 @@ People care about delegates because they let us treat methods like variables. Mo
         method.Invoke(argument);
         method.Invoke(argument);
     }
-```
+----
 
 This method does something with a delegate, without any knowledge of what methods the delegate actually contains.
 
-> ⚠️ In fact, the delegate might be `null` and not contain any methods at all. If so, calling `Invoke` will crash the program.
+____
+⚠️ In fact, the delegate might be `null` and not contain any methods at all. If so, calling `Invoke` will crash the program.
+____
 
-Delegates let us write *methods about methods*.
+Delegates let us write _methods about methods_.
 
-## Other syntax that you might see
+== Other syntax that you might see
 
 Writing `.Invoke()` all the time is annoying, so C# has a shorthand.
 
-```csharp
+[source,csharp]
+----
     delegate void ExampleDelegate(int x);
 
     public void DoTheMethodTwice(ExampleDelegate method, int argument)
@@ -186,7 +201,7 @@ Writing `.Invoke()` all the time is annoying, so C# has a shorthand.
         method(argument);
         method(argument);
     }
-```
+----
 
 I don't use this syntax. It looks identical to calling a normal method, and delegates should be treated differently than methods.
 You are welcome to use this syntax, just be careful with it.
@@ -195,17 +210,17 @@ You will also see something like this.
 
 `method?.Invoke(argument);`
 
-The question mark is the [null-conditional operator](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-). Basically, it stops your program crashing if you use an empty delegate. You have to use `.Invoke` if you use the null-conditional operator.
+The question mark is the https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-[null-conditional operator]. Basically, it stops your program crashing if you use an empty delegate. You have to use `.Invoke` if you use the null-conditional operator.
 
-## Multicast delegates
+== Multicast delegates
 
-I've used the metaphor of a `List` throughout this page. But there's a difference between a [`System.Delegate`](https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=net-5.0) and a [`System.Delegate.MulticastDelegate`](https://docs.microsoft.com/en-us/dotnet/api/system.multicastdelegate?view=net-5.0).
+I've used the metaphor of a `List` throughout this page. But there's a difference between a https://docs.microsoft.com/en-us/dotnet/api/system.delegate?view=net-5.0[`System.Delegate`] and a https://docs.microsoft.com/en-us/dotnet/api/system.multicastdelegate?view=net-5.0[`System.Delegate.MulticastDelegate`].
 
 `System.Delegate` can only hold one method at a time. Only the `MulticastDelegate` can contain multiple methods.
 The reason it's called 'multicast' is because when you add a delegate to one, it technically creates a new copy
 The reason for this split is historical. When you use the `delegate` keyword, it will always be the `MulticastDelegate`.
 
-## Why care about delegates?
+== Why care about delegates?
 
 When you first learn about them, it's hard to imagine where delegates would be useful.
 
@@ -213,6 +228,6 @@ You won't create many delegates yourself. Microsoft has created convenient short
 
 More broadly, delegates are the basis of functional programming in C#. This page isn't the place to explain functional programming, but just know that it's an important topic.
 
-## Further learning
+== Further learning
 
-The best explanation of delegates is [Jamie King's YouTube playlist](https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54). You should watch this entire playlist.
+The best explanation of delegates is https://www.youtube.com/playlist?list=PLAE7FECFFFCBE1A54[Jamie King's YouTube playlist]. You should watch this entire playlist.
