@@ -448,10 +448,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_so_what">So what?</a></li>
-<li><a href="#_using_interfaces_with_dependency_injection">Using interfaces with dependency injection</a></li>
-<li><a href="#_dependency_injection_all_the_way_up">Dependency injection all the way up</a></li>
-<li><a href="#_di_containers">DI containers</a></li>
-<li><a href="#_the_end_goal_of_dependency_injection">The end-goal of dependency injection</a></li>
+<li><a href="#_dependency_injection_does_not_reduce_complexity_it_just_moves_it_around">Dependency injection does not reduce complexity. It just moves it around</a></li>
+<li><a href="#_containers">Containers</a></li>
+<li><a href="#_a_more_interesting_example">A more interesting example</a></li>
+<li><a href="#_interfaces">Interfaces</a></li>
+<li><a href="#_the_end_goal">The end-goal</a></li>
+<li><a href="#_further_reading">Further reading</a></li>
 </ul>
 </div>
 </div>
@@ -462,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p><a href="../index.html">Home</a></p>
 </div>
 <div class="paragraph">
-<p>Dependency injection is when you ask for something in a class&#8217;s constructor rather than creating it in the class itself.</p>
+<p>Dependency injection is when you get something through a class&#8217;s constructor rather than creating it in the class itself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -472,21 +474,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 
  public MyClass(HttpClient client)
  {
-  _client = client;
+    _client = client;
  }
 
- public void MyFunction()
+ public void DownloadExample()
  {
-  _client.DownloadAsync("www.example.com");
+    _client.DownloadAsync("www.example.com");
  }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This is dependency injection. Rather than creating a HttpClient with the 'new' keyword, one is passed in through the constructor.</p>
+<p>This is dependency injection.</p>
 </div>
 <div class="paragraph">
-<p>If dependency injection ever feels complicated, remember that this is all it really is. Lots of tools and patterns have been created to make it powerful, but everything relies on just asking for something in a class&#8217;s constructor.</p>
+<p>Rather than creating a <code>HttpClient</code> with the 'new' keyword, you get one through the constructor.</p>
+</div>
+<div class="paragraph">
+<p>Lots of tools and patterns have been created to make dependency injection more powerful, but it all comes down to getting stuff through a constructor.</p>
 </div>
 </div>
 </div>
@@ -494,160 +499,87 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_so_what">So what?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There are several reasons why dependency injection is useful.</p>
+<p>There are several reasons why this pattern is useful.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>MyClass isn&#8217;t cluttered with code for creating the HttpClient.</p>
+<p><code>MyClass</code> isn&#8217;t cluttered with code for creating the <code>HttpClient</code>.</p>
 </li>
 <li>
-<p>MyClass doesn&#8217;t know where the HttpClient has come from. This is good, because it <em>shouldn&#8217;t</em> know&#8201;&#8212;&#8201;all MyClass should care about is that it has one.</p>
+<p>We can see everything the class needs (its 'dependencies') just by looking at its constructor.</p>
 </li>
 <li>
-<p>You can see that MyClass requires an HttpClient by looking at its constructor. You won&#8217;t be surprised by a sudden reference to one halfway through the file.</p>
-</li>
-<li>
-<p>It&#8217;s impossible to create an instance of <code>MyClass</code> without giving it a <code>HttpClient</code>. If MyClass created the client, it could do it wrong. If this wasn&#8217;t in the constructor, you could forget to call it.</p>
+<p>You can&#8217;t create an instance of <code>MyClass</code> without giving it a <code>HttpClient</code>. If you did this in a separate method, outside of the constructor, you could forget to call it.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>When a class asks for everything it needs to work (its 'dependencies') in the constructor, our code is simpler and more predictable.</p>
+<p>You now understand dependency injection.</p>
 </div>
 <div class="paragraph">
-<p>You know understand dependency injection. You can stop reading here if you like. The rest of the page explains ways to build on this pattern.</p>
+<p>The rest of the page explains ways to make this pattern more powerful.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_using_interfaces_with_dependency_injection">Using interfaces with dependency injection</h2>
+<h2 id="_dependency_injection_does_not_reduce_complexity_it_just_moves_it_around">Dependency injection does not reduce complexity. It just moves it around</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Interfaces are not part of dependency injection. But they are two useful ideas that work well together, so it&#8217;s very common to ask for an interface in a class&#8217;s constructor, rather than a concrete class.</p>
+<p>In the example above, <code>MyClass</code> asked for a <code>HttpClient</code> in its constructor.</p>
 </div>
 <div class="paragraph">
-<p>This makes your code more flexible. When you use dependency injection, MyClass doesn&#8217;t know where its HttpClient comes from. If we asked for an interface instead of a concrete class, MyClass also wouldn&#8217;t know what specific class it was using.</p>
-</div>
-<div class="paragraph">
-<p>We could then swap out what we give MyClass with anything else that implements the interface. MyClass wouldn&#8217;t know the difference.</p>
-</div>
-<div class="quoteblock">
-<blockquote>
-<div class="paragraph">
-<p>💡 This is especially common when you are doing unit tests, because it lets you easily 'mock' dependencies.</p>
-</div>
-</blockquote>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_dependency_injection_all_the_way_up">Dependency injection all the way up</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>MyClass asks for something in its constructor. When we want to create an instance of MyClass, it will look like this.</p>
+<p>When we create an instance of MyClass, it will look like this.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
 {
- public void MyMethod()
+ public static void Main(string[] args)
  {
   // create what we need
   var client = new HttpClient();
+
+  // pass it in
   var myClass = new MyClass(client);
 
   // actually do something
-  myClass.MyFunction();
+  myClass.DownloadExample();
  }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>We have moved things up one level. MyClass doesn&#8217;t create its HttpClient, but whatever bit of code that creates a MyClass has to create one instead.</p>
+<p>MyClass is simpler, but now another part of our code is more complicated.</p>
 </div>
 <div class="paragraph">
-<p>This might seem pointless. We have made MyClass easier to understand, at the cost of making the rest of our code busier.</p>
+<p>We have to create everything somewhere, no matter how cleverly we hide it.</p>
 </div>
 <div class="paragraph">
-<p>It would be nice if we could take <em>all</em> the code where we create dependencies (like our HttpClient) and put it in one place. That way, it would at least be easier to think about.</p>
+<p>It would be nice if we could create <em>everything</em> our program needs all in one place.</p>
 </div>
 <div class="paragraph">
-<p>We can do this by repeating the process of dependency injection.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
-{
- private HttpClient _client;
-
- public MyOtherClass(HttpClient client)
- {
-  _client = client;
- }
-
- public void MyMethod()
- {
-  var myClass = new MyClass(_client);
- }
-}</code></pre>
-</div>
+<p>That way, we could stuff it all into a method or a class and not worry about it.</p>
 </div>
 <div class="paragraph">
-<p>We have moved things up one more level. Now whatever creates an instance of <code>MyOtherClass</code> can deal with creating the <code>HttpClient</code>.</p>
-</div>
-<div class="paragraph">
-<p>We can repeat this process over and over, until eventually we reach the highest level of our program (which is called the 'entry-point'). This is usually in your program&#8217;s <code>Main()</code> method, or close to it.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class Program
-{
- public static void Main(string[] args)
- {
-  var client = new HttpClient();
-  var myOtherClass = new MyOtherClass(client);
- }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now all of our code for creating dependencies is in one place.</p>
-</div>
-<div class="paragraph">
-<p>Once you start thinking this way, you can make your classes a lot simpler. <code>MyOtherClass</code>, for instance, doesn&#8217;t need to know about <code>HttpClient</code> at all.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">class MyOtherClass
-{
- private MyClass _service;
-
- public MyOtherClass(MyClass service)
- {
-  _service = service;
- }
-
- public void MyMethod()
- {
-  _service.MyFunction();
- }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>Main()</code> can create the instance of <code>MyClass</code>, get it ready, and then feed it into <code>MyOtherClass</code> whenever it likes.</p>
+<p>We do this with a 'container'.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_di_containers">DI containers</h2>
+<h2 id="_containers">Containers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>People have created tools to automate this process, called <em>DI containers</em>.</p>
+<p>A dependency injection container automates creating classes and passing them to other classes.</p>
 </div>
 <div class="paragraph">
-<p>A DI container sits at the start of your program, usually in <code>Main()</code>. You 'register' classes with the container, and it will automatically figure out which classes depend on each other. You then 'resolve' these dependencies to start using your classes and get the program running.</p>
+<p>A container sits at the start of your program, usually in <code>Main</code>.</p>
+</div>
+<div class="paragraph">
+<p>You 'register' classes with the container, and it will automatically figure out which classes depend on each other.</p>
+</div>
+<div class="paragraph">
+<p>You then 'resolve' these dependencies to start using your classes and get the program running.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -655,46 +587,267 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 {
  public static void Main(string[] args)
  {
-  // create a container
+  // Create a container.
   var container = new ExampleDIContainer();
 
-  // register our classes with it
-  container.Register&lt;MyOtherClass&gt;();
+  // Register our classes.
   container.Register&lt;MyClass&gt;();
+  container.Register&lt;HttpClient&gt;();
 
-  // usually you can specify specific variables as things you want to be passed into classes that ask for things of that type
-  var client = new HttpClient();
-  container.Instance&lt;HttpClient&gt;(client);
+  // The container knows that MyClass needs a HttpClient.
+  // Because we registered the HttpClient class, our container can create one.
+  // The container creates a HttpClient and uses it to make a MyClass.
+  var myClass = container.Resolve&lt;MyClass&gt;();
 
-  // the container will now work out the dependencies between MyClass, MyOtherClass and the HttpClient instance
-  var otherClass = container.Resolve&lt;MyOtherClass&gt;();
-
-  // we can now use our classes as we like
-  otherClass.MyMethod();
+  // Use our classes however we like.
+  myClass.DownloadExample();
  }
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The code here is just an example. Actual DI containers all do things in slightly different ways. But they all work off of the same principles.</p>
+<p>This is obviously a very simple example.</p>
+</div>
+<div class="paragraph">
+<p>Imagine you had fifty classes that all depended on each other. It would be painful figuring out which to instantiate first.</p>
+</div>
+<div class="paragraph">
+<p>A container does all of that for you. They&#8217;re very good at helping programs scale without becoming difficult to work with.</p>
+</div>
+<div class="paragraph">
+<p>DI containers all work differently, but the concept of 'registering' and 'resolving' classes is universal.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_the_end_goal_of_dependency_injection">The end-goal of dependency injection</h2>
+<h2 id="_a_more_interesting_example">A more interesting example</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The end-goal of dependency injection is to have a program where all of your classes ask for their dependencies in their constructor, and where all dependencies are created in one place at the start of the program.</p>
+<p>Here is an extract from a real project I wrote using DI.</p>
 </div>
 <div class="paragraph">
-<p>You no longer have a complicated web of classes that all depend on each other in confusing ways. Now your classes are more modular and lightweight.</p>
+<p>It shows how you can set up lots of classes in more complicated programs.</p>
+</div>
+<div class="paragraph">
+<p>You can <a href="https://github.com/jkendall327/QuietTime/blob/main/QuietTime/Other/DIContainerProvider.cs">find the full code here</a>.</p>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t worry if you don&#8217;t understand parts of this.</p>
+</div>
+<div class="paragraph">
+<p>When you see methods like <code>AddSingleton</code> or <code>AddTransient</code>, those really just mean 'register this class for me'.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">        // This method returns a complete DI container.
+        // You can pass containers around like any other variable.
+        public async Task&lt;ServiceProvider&gt; GetContainer()
+        {
+            var services = new ServiceCollection();
+
+            // Omitted for brevity.
+            // RegisterHostServices(services);
+            // RegisterPages(services);
+
+            return await RegisterServices(services);
+        }
+
+        private async Task&lt;ServiceProvider&gt; RegisterServices(ServiceCollection services)
+        {
+            // scheduling
+            StdSchedulerFactory schedulerFactory = new();
+            IScheduler scheduler = await schedulerFactory.GetScheduler();
+
+            services.AddSingleton&lt;ScheduleJobFactory&gt;();
+            services.AddSingleton&lt;IScheduler&gt;(scheduler);
+            services.AddTransient&lt;ISchedulingService, Scheduler&gt;();
+
+            // notifications
+            services.AddSingleton&lt;TaskbarIcon&gt;();
+            services.AddSingleton&lt;Dispatcher&gt;(Application.Current.Dispatcher);
+
+            services.AddSingleton&lt;INotifier, Notifier&gt;();
+
+            // audio
+            services.AddTransient&lt;MMDeviceEnumerator&gt;();
+            services.AddSingleton&lt;IAudioLocker, AudioLocker&gt;();
+
+            // serialization
+            services.AddTransient&lt;ISerializer, Serializer&gt;();
+
+            // autostart
+            services.AddTransient&lt;Autostarter&gt;();
+
+            // create service provider
+            return services.BuildServiceProvider();
+        }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The process here is the same as in the basic example.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a DI container. (<code>var services = new ServiceCollection();</code>)</p>
+</li>
+<li>
+<p>Register services.</p>
+</li>
+<li>
+<p>Tell the container to figure out how the classes relate to each other. (<code>services.BuildServiceProvider()</code>)</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interfaces">Interfaces</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Feel free to skip this section if you don&#8217;t understand interfaces.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="../csharp/interfaces.html">Interfaces</a> are not part of dependency injection. But they work well together, so it&#8217;s common to ask for an interface in a constructor.</p>
+</div>
+<div class="paragraph">
+<p>This makes your code more flexible. In the example above, <code>MyClass</code> doesn&#8217;t know where its <code>HttpClient</code> comes from. If we asked for an interface instead of a concrete class, MyClass also wouldn&#8217;t know what specific class it was using.</p>
+</div>
+<div class="paragraph">
+<p>We could give MyClass anything that implemented the interface and MyClass wouldn&#8217;t know the difference.</p>
+</div>
+<div class="paragraph">
+<p>We can use this to easily change how our code works.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">// An interface defines some action, like sending a notification, but not how it's done.
+// This is often called a 'service', because it does something useful for other bits of code.
+interface INotifier
+{
+    void NotifyUser(string message);
+}
+
+// 'Concrete' classes implement the interface and 'do the work' of sending notifications.
+class MessageBoxNotifier : INotifier
+{
+    public void NotifyUser(string message)
+    {
+        MessageBox.Show(message);
+    }
+}
+
+// You can have multiple classes that implement the interface.
+// Dependency injection lets us swap between our implementations easily.
+class EmailNotifier : INotifier
+{
+    public void NotifyUser(string message)
+    {
+        EmailClient.SendEmail(message);
+    }
+}
+
+// If a class wants to send notifications, it asks for an interface.
+// Classes that ask for services are often called 'clients'.
+public class MainWindow
+{
+    INotifier _notificationService;
+
+    // Ask for an interface instead of a concrete class.
+    public MainWindow(INotifier notifier)
+    {
+        // Set it to a field so other methods can use it.
+        _notificationService = notifier;
+    }
+
+    // Imagine this being called when the user clicks a button to sign up for an account.
+    public void UserRegistrationButton_OnClick(object sender, EventArgs e)
+    {
+        // MainWindow doesn't know if this will open a messagebox or send an email.
+        _notificationService.NotifyUser("Your account has been created successfully.");
+    }
+}
+
+// Somewhere else, we decide what implementation to actually give to MainWindow.
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        // If we want to send emails instead, we can
+        // change how our program functions by changing
+        // this single line of code.
+        INotifier notifier = new MessageBoxNotifier();
+
+        // Give the client its implementation.
+        var mainWindow = new MainWindow(notifier);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is an extremely common and extremely powerful design pattern.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also very common in <a href="unit-testing.html">unit testing</a>, because it lets you 'mock' services easily.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_end_goal">The end-goal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All your classes should get their dependencies through their constructor, and all dependencies should be created in one place at the start of the program.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You can actually use DI with <a href="../csharp/properties.html">properties</a> instead of constructors. This is much less common.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You no longer have a complicated web of classes that depend on each other in confusing ways. Now your classes are more modular and lightweight.</p>
+</div>
+<div class="paragraph">
+<p>You don&#8217;t need a container, but they are convenient.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_reading">Further reading</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The best way to get confident with DI is to use it in your own projects.</p>
+</div>
+<div class="paragraph">
+<p>Popular DI containers for .NET include <a href="https://autofac.org/">Autofac</a> and <a href="https://www.castleproject.org/projects/windsor/">Castle Windsor</a>.</p>
+</div>
+<div class="paragraph">
+<p>Microsoft also has an official container for .NET Core. You need the <code>Microsoft.Extensions.DependencyInjection</code> NuGet package to use it.</p>
+</div>
+<div class="paragraph">
+<p>ASP.NET Core uses dependency injection by default.</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-07-16 10:26:58 +0100
+Last updated 2021-07-16 13:57:39 +0100
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
